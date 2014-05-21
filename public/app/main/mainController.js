@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-﻿app.controller('MainController', function($scope, $rootScope, $location, FacebookService){
+app.controller('MainController', function($scope, $rootScope, $location, FacebookService){
     $scope.loggedIn = false;
     $scope.login = function(){
         FacebookService.login()
@@ -13,11 +12,7 @@
 					$location.path('/home');
 				})
          });
-=======
-﻿app.controller('MainController', function($scope, FacebookService){
-    $scope.login = function(){
-        FacebookService.login();
->>>>>>> 8de91721663b5603f245e74092552b8706fabc69
-    };
 
-});
+     }
+
+ });
