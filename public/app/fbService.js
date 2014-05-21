@@ -13,8 +13,7 @@
             var deferred = $q.defer();
 
             FB.getLoginStatus(function (response) {
-                console.log(FB.getUserID());
-                console.log(response);
+
                 if (response.status === 'connected') {
                     console.log('Logged in.');
                 }
@@ -33,8 +32,7 @@
             FB.api(
                 "/"+FB.getUserID()+"/likes",
                 function ( response ) {
-                    console.log("Response pages");
-                    console.log(response);
+
                     if ( response && !response.error ) {
                         deferred.resolve(response);
                     }
@@ -68,7 +66,7 @@
             FB.api(
                 "/me/home",
                 function ( response ) {
-                    console.log(response);
+
                     if ( response && !response.error ) {
                         var pages = [];
                         for(var i =0;i<response.data.length; i++){
@@ -81,6 +79,34 @@
                 }
             );
             return deferred.promise;
+        },
+        getStatuses: function() {
+            var deferred = $q.defer();
+            FB.api(
+                "/me/statuses",
+                function ( response ) {
+                    if ( response && !response.error ) {
+
+                        var statuses = response.data;
+                        deferred.resolve(statuses);
+                    }
+                }
+            );
+            return deferred.promise;  
+        },
+        getPosts: function() {
+            var deferred = $q.defer();
+            FB.api(
+                "/me/posts",
+                function ( response ) {
+                    if ( response && !response.error ) {
+
+                        var posts = response.data;
+                        deferred.resolve(posts);
+                    }
+                }
+            );
+            return deferred.promise;  
         }
     }
 })

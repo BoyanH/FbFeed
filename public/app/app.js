@@ -22,5 +22,13 @@ app.config(function($routeProvider){
         .when('/pages', {
             templateUrl: '/partials/pages/pages',
             controller: 'PagesController'
+        })
+        .when('/statuses', {
+            templateUrl: '/partials/statuses/statuses',
+            controller: 'StatusController'
+        })
+        .when('/posts', {
+            templateUrl: '/partials/posts/posts',
+            controller: 'PostsController'
         });
 });

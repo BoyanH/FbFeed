@@ -6,8 +6,8 @@
     	});
 
 	FacebookService.getAuthData()
-			.then(function (data) {
-				$rootScope.user = data;
-			})
+		.then(function (data) {
+			$rootScope.user = data;
+		})
 
 });
