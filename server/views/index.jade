@@ -1,2 +1,16 @@
 ﻿extends includes/layout
 block main-content
+    div.navbar.navbar-default.navbar-fixed-top
+        .container
+            .navbar-header
+                a.navbar-brand(href="/") Facebook Feed
+            .navbar-collapse.collapse(id="navbar-main")
+                ul.nav.navbar-nav
+                    li
+                        a(href="#") news feed
+                        a(href="#") video
+                        a(href="#") statuses
+                        a(href="#") pages
+    
+    div(id="fb-root" class="fb_reset")
+        div(ng-view)

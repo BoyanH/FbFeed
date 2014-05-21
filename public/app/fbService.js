@@ -9,6 +9,7 @@
     return {
         login: function () {
             FB.getLoginStatus(function (response) {
+                console.log(FB.getUserID());
                 console.log(response);
                 if (response.status === 'connected') {
                     console.log('Logged in.');

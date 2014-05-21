@@ -18,6 +18,5 @@ app.config(function($routeProvider){
         .when('/home', {
             templateUrl: '/partials/feed/feed',
             controller: 'FeedController',
-            resolve: checkConnected.connect
         });
 });
