@@ -1,12 +1,16 @@
 ﻿app.factory("FacebookService", function ($location, $q) {
     FB.init({
-        appId: '734082519946616',
+        appId: '1480652358834115',
+        version: 'v2.0',
         status: true, // check login status
         cookie: true, // enable cookies to allow the server to access the session
         xfbml: true, // parse XFBML
         read_stream: true
     });
     console.log('FB initialized...');
+
+    var uid,
+        accessToken;
     
     return {
         login: function () {
@@ -16,6 +20,10 @@
 
                 if (response.status === 'connected') {
                     console.log('Logged in.');
+                    console.log(response);
+
+                    uid = response.authResponse.userID;
+                    accessToken =  response.authResponse.accessToken;
                 }
                 else {
                     FB.login(function(response){},
@@ -25,19 +33,6 @@
                 deferred.resolve();
             });
 
-            return deferred.promise;
-        },
-        getPages: function(){
-            var deferred = $q.defer();
-            FB.api(
-                "/"+FB.getUserID()+"/likes",
-                function ( response ) {
-
-                    if ( response && !response.error ) {
-                        deferred.resolve(response);
-                    }
-                }
-            );
             return deferred.promise;
         },
         checkStatus: function () {
@@ -82,9 +77,11 @@
         },
         getStatuses: function() {
             var deferred = $q.defer();
+            console.log(uid);
             FB.api(
-                "/me/statuses",
+                '/me/feed',
                 function ( response ) {
+                    console.log(response);
                     if ( response && !response.error ) {
 
                         var statuses = response.data;
@@ -97,12 +94,36 @@
         getPosts: function() {
             var deferred = $q.defer();
             FB.api(
-                "/me/posts",
+                "/me/home",
                 function ( response ) {
                     if ( response && !response.error ) {
 
-                        var posts = response.data;
+                        var posts = [];
+                        for(var i = 0; i < response.data.length; i++) {
+                            posts.push(response.data[i]);
+                        }
                         deferred.resolve(posts);
+                    }
+                }
+            );
+            return deferred.promise;  
+        },
+        getVideos: function() {
+            var deferred = $q.defer();
+            FB.api(
+                "/me/home",
+                function ( response ) {
+                    if ( response && !response.error ) {
+
+                        var videos = [];
+
+                        for(var i = 0; i < response.data.length; i++) {
+
+                            if(response.data[i].name == 'Video') {
+                                videos.push(response.data[i]);
+                            }
+                        }
+                        deferred.resolve(videos);
                     }
                 }
             );
