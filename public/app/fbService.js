@@ -9,6 +9,9 @@
     console.log('FB initialized...');
     return {
         login: function () {
+            /*FB.login(function(response){},
+                        {scope:'user_status,read_stream,publish_stream,user_likes,publish_actions,read_friendlists,rsvp_event'});
+                    console.log('Now logged in.');*/
             FB.getLoginStatus(function (response) {
                 console.log(FB.getUserID());
                 console.log(response);
@@ -35,8 +38,13 @@
                 function ( response ) {
                     console.log(response);
                     if ( response && !response.error ) {
-                        console.log(response);
-                        deferred.resolve(response);
+                        var pages = [];
+                        for(var i =0;i<response.data.length; i++){
+                            if(response.data[i].from.category){
+                                pages.push(response.data[i]);
+                            }
+                        }
+                        deferred.resolve(pages);
                     }
                 }
             );
