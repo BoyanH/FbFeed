@@ -1,0 +1,20 @@
+﻿doctype
+html
+    head
+        title facebook feed
+        link(rel="stylesheet" href="/css/site.css")
+        link(rel="stylesheet" href="/css/bootstrap.min.css")
+    body(ng-app="app" id="fb-root" class="fb_reset")
+        div(ng-view)
+            .navbar.navbar-default.navbar-fixed-top
+                .container
+                    .navbar-collapse.collapse(id="navbar-main" ng-show="{{loggedIn}}")
+                        ul.nav.navbar-nav
+                            li
+                                a(href="#") news feed
+                                a(href="#") video
+                                a(href="#") statuses
+                                a(href="#") pages
+            block main-content
+
+        include scripts

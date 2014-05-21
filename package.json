@@ -1,0 +1,17 @@
+{
+  "name": "FbFeed",
+  "version": "0.0.0",
+  "description": "FbFeed",
+  "main": "server.js",
+  "author": {
+    "name": "Alex",
+    "email": ""
+  },
+  "dependencies": {
+    "express": "^4.2.0",
+    "jade": "^1.3.1",
+    "body-parser": "^1.2.0",
+    "express-session": "^1.2.0",
+    "cookie-parser": "^1.1.0"
+  }
+}
