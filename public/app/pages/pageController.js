@@ -22,7 +22,6 @@
         }
 
         var k = 0;
-        $scope.appID = FacebookService.getAppID();
         function profileImageLoop() {
             FacebookService.getPictureByID(data[k].from.id)
                 .then(function (url) {

@@ -8,7 +8,7 @@ body{
     margin:0 auto;
     max-width:750px;
 }
-.middle-page .row{
+.middle-page .row, .middle-page .well{
     max-width:750px;
 }
 .image-link-container img{
