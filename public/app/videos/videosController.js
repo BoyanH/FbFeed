@@ -1,4 +1,4 @@
-app.controller('VideosController', function($scope, FacebookService, EmbedService){
+app.controller('VideosController', function($scope, $sce, FacebookService, EmbedService){
     
     FacebookService.getVideos().then(function(data){
         
@@ -9,8 +9,12 @@ app.controller('VideosController', function($scope, FacebookService, EmbedServic
 
         	$scope.allVideos[i] = EmbedService.normalizeLink(data[i]);
         }
-        
+
         $scope.videos = $scope.allVideos.splice(0, 10);
+
+        $scope.trustSrc = function(src) {
+            return $sce.trustAsResourceUrl(src);
+        }
     })
     .then(function () {
 
