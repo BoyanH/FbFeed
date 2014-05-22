@@ -142,7 +142,7 @@
         getAppID: function(){
             return id;
         },
-        getPageProfilePictureByID: function(id){
+        getPictureByID: function(id){
             var deferred = $q.defer();
             FB.api(
                 "/" + id +  "/picture",
