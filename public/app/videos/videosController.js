@@ -1,9 +1,15 @@
-app.controller('VideosController', function($scope, FacebookService){
+app.controller('VideosController', function($scope, FacebookService, EmbedService){
     
     FacebookService.getVideos().then(function(data){
         
+        $scope.allVideos = [];
         console.log(data);
-        $scope.allVideos = data;
+
+        for (var i = 0; i < data.length; i++) {
+
+        	$scope.allVideos[i] = EmbedService.normalizeLink(data[i]);
+        }
+        
         $scope.videos = $scope.allVideos.splice(0, 10);
     })
     .then(function () {
@@ -11,18 +17,10 @@ app.controller('VideosController', function($scope, FacebookService){
 
     	$scope.changePage = function (page) {
 
-	    	$scope.videos = $scope.allVideos.splice(0, page*10);
+	    	$scope.videos = $scope.allVideos.splice(page*10 - 10, page*10);
 	    }
 
-	    for (var j=0; j<$scope.videos.length; j++) {
 
-	    	var videolink = $scope.videos[j].link,
-	    		indexOfV = videolink.indexOf("v=");
-
-	    	$scope.videos[j].embedLink = 'http://www.facebook.com/v/' + videolink.substring(indexOfV + 2);
-	    }
-
-	    console.log($scope.videos);
     })
 
 });

@@ -120,8 +120,9 @@
                         for(var i = 0; i < response.data.length; i++) {
 
                             if(response.data[i].application) {
-                                    
-                                    if(response.data[i].application.name == 'Video') {
+
+                                    var type = response.data[i].application.name;
+                                    if(type == 'Video' || type == 'YouTube') {
 
                                         videos.push(response.data[i]);
                                     }
