@@ -5,7 +5,6 @@
         $scope.pages = data;
         var k = 0;
         $scope.appID = FacebookService.getAppID();
-        var i = data.length;
         function go() {
             FacebookService.getPageProfilePictureByID(data[k].from.id)
                 .then(function (url) {
