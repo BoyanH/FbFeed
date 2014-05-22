@@ -1,0 +1,12 @@
+.container
+	.jumbotron
+		h1 This is the videos route
+		div(data-ng-repeat="video in videos track by $index")
+			div.panel.panel-info
+				div.panel-heading
+					h3.panel-title {{video.from.name}}
+				div.panel-body
+					p {{video.updated_time}}
+					p {{video.message}}
+					div.well.well-lg
+						iframe(ng-src="{{video.embedLink}}")

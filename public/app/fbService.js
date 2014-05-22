@@ -1,7 +1,6 @@
 ﻿app.factory("FacebookService", function ($location, $q) {
     FB.init({
-        appId: '1480652358834115',
-        version: 'v2.0',
+        appId: '734082519946616',
         status: true, // check login status
         cookie: true, // enable cookies to allow the server to access the session
         xfbml: true, // parse XFBML
@@ -79,7 +78,7 @@
             var deferred = $q.defer();
             console.log(uid);
             FB.api(
-                '/me/feed',
+                '/me/home/',
                 function ( response ) {
                     console.log(response);
                     if ( response && !response.error ) {
@@ -109,18 +108,22 @@
             return deferred.promise;  
         },
         getVideos: function() {
-            var deferred = $q.defer();
+            var deferred = $q.defer(),
+                videos = []
             FB.api(
                 "/me/home",
                 function ( response ) {
-                    if ( response && !response.error ) {
 
-                        var videos = [];
+                    if ( response && !response.error ) {
 
                         for(var i = 0; i < response.data.length; i++) {
 
-                            if(response.data[i].name == 'Video') {
-                                videos.push(response.data[i]);
+                            if(response.data[i].application) {
+                                    
+                                    if(response.data[i].application.name == 'Video') {
+
+                                        videos.push(response.data[i]);
+                                    }
                             }
                         }
                         deferred.resolve(videos);
