@@ -1,6 +1,6 @@
 ﻿app.factory("FacebookService", function ($location, $q) {
     FB.init({
-        appId: '1480652358834115',
+        appId: '734082519946616',
         status: true, // check login status
         cookie: true, // enable cookies to allow the server to access the session
         xfbml: true, // parse XFBML
@@ -119,8 +119,9 @@
                         for(var i = 0; i < response.data.length; i++) {
 
                             if(response.data[i].application) {
-                                    
-                                    if(response.data[i].application.name == 'Video') {
+
+                                    var type = response.data[i].application.name;
+                                    if(type == 'Video' || type == 'YouTube') {
 
                                         videos.push(response.data[i]);
                                     }
