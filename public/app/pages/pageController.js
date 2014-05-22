@@ -1,4 +1,4 @@
-﻿app.controller('PagesController', function ($scope, FacebookService, PopupService, EmbedService) {
+﻿app.controller('PagesController', function ($scope, $sce, FacebookService, PopupService, EmbedService) {
     $scope.stillLoding = true;
     FacebookService.getPages().then(function (data) {
         $scope.pageImages = [];
@@ -6,16 +6,16 @@
 
         for(var z = 0; z < $scope.pages.length; z++) {
 
-            if(pages[z].application) {
+            if($scope.pages[z].application) {
 
-                    var type = pages[z].application.name;
+                    var type = $scope.pages[z].application.name;
                     if(type == 'Video' || type == 'YouTube') {
 
                         $scope.pages[z].embedLink = EmbedService.normalizeLink($scope.pages[z]);
                     }
             }
 
-            else if(pages[z].type == 'video') {
+            else if($scope.pages[z].type == 'video') {
 
                 $scope.pages[z].embedLink = EmbedService.normalizeLink($scope.pages[z]);
             }
