@@ -8,7 +8,6 @@
         function go() {
             FacebookService.getPageProfilePictureByID(data[k].from.id)
                 .then(function (url) {
-                    console.log(url);
                     $scope.pages[k++].profileImage = url;
                     if (k < data.length) {
                         setTimeout(go, 1);

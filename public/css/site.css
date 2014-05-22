@@ -11,3 +11,17 @@ body{
 .middle-page .row{
     max-width:750px;
 }
+.image-link-container img{
+    width:250px;
+    height:auto;
+}
+.content{
+    padding-left:20px;
+}
+.description{
+    font-size:1.3em;
+    color:#2fa4e7;
+}
+.message{
+    line-height:20px;
+}
