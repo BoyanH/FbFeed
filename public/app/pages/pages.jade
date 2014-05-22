@@ -33,5 +33,17 @@
                                     .col-md-6
                                         p.message.description
                                             |{{page.message}}
+                                .row.content(ng-show="page.type=='video'" style="margin-top:20px;")
+                                    | to do show video
                                             
                             .col-md-2
+                                .well
+                                    .row.fb-action-row.text-center(ng-click="")
+                                        img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")
+                                        span.fb-action Like
+                                    .row.fb-action-row.text-center(ng-click="")
+                                        img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/comment.png" width="30" height="30")
+                                        span.fb-action Comment
+                                    .row.fb-action-row.text-center(ng-click="")
+                                        img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/share.jpg" width="30" height="30")
+                                        span.fb-action Share

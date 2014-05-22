@@ -28,3 +28,10 @@ body{
 iframe{
     width:480px;
 }
+.fb-action-row{
+    margin:10px 2px;
+    cursor:pointer;
+}
+.fb-action{
+    margin-left:5px;
+}

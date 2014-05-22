@@ -3,7 +3,7 @@
 		h1 This is the statuses route
 		div(data-ng-repeat="status in statuses track by $index")
 			div.panel.panel-info
-				div.panel-heading
+				div.well
 					h3.panel-title {{status.from.name}}
 				div.panel-body
 					p {{status.updated_time}}
