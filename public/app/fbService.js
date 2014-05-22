@@ -1,6 +1,7 @@
 ﻿app.factory("FacebookService", function ($location, $q) {
+    var id = "1480652358834115"
     FB.init({
-        appId: '1480652358834115',
+        appId: id,
         status: true, // check login status
         cookie: true, // enable cookies to allow the server to access the session
         xfbml: true, // parse XFBML
@@ -131,6 +132,21 @@
                 }
             );
             return deferred.promise;  
+        },
+        getAppID: function(){
+            return id;
+        },
+        getPageProfilePictureByID: function(id){
+            var deferred = $q.defer();
+            FB.api(
+                "/" + id +  "/picture",
+                function (response) {
+                    if (response && !response.error) {
+                        deferred.resolve(response.data.url);
+                    }
+                }  
+            );
+            return deferred.promise;
         }
     }
 })

@@ -7,4 +7,9 @@
             .container
                 .row
                     .well(ng-repeat="page in pages")
-                        | {{page.from.category}}
+                        .row
+                            .col-md-3
+                                img(ng-src="{{page.profileImage}}" src="")
+                            .col-md-6.pull-left
+                                h5 {{page.from.name}}
+                            .col-md-3
