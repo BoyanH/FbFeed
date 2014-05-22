@@ -7,8 +7,8 @@ app.factory("EmbedService", function ($location, $q) {
 
             if(video.application.name === 'YouTube') {
 
-                var videoLink = video.link;
-                indexOfV = videoLink.indexOf('/v/');
+                var videoLink = video.source,
+                    indexOfV = videoLink.indexOf('/v/');
 
                 video.embedLink = '//www.youtube.com/embed/' + videoLink.substring(indexOfV + 3, indexOfV + 14);
 
@@ -18,7 +18,7 @@ app.factory("EmbedService", function ($location, $q) {
             else if(video.application.name === 'Video') {
 
                 var videoLink = video.link,
-                indexOfV = videoLink.indexOf('v=');
+                    indexOfV = videoLink.indexOf('v=');
 
                 video.embedLink = 'http://www.facebook.com/v/' + videoLink.substring(indexOfV + 2);
 

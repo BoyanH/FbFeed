@@ -9,4 +9,4 @@
 					p {{video.updated_time}}
 					p {{video.message}}
 					div.well.well-lg
-						iframe(ng-src='"{{video.embedLink}}"')
+						iframe(ng-src="{{trustSrc(video.embedLink)}}", src="")

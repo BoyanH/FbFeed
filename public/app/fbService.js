@@ -1,5 +1,8 @@
 ﻿app.factory("FacebookService", function ($location, $q) {
-    var id = "1480652358834115"
+    var id = "734082519946616",
+        uid,
+        accessToken;
+
     FB.init({
         appId: id,
         status: true, // check login status
@@ -8,9 +11,6 @@
         read_stream: true
     });
     console.log('FB initialized...');
-
-    var uid,
-        accessToken;
     
     return {
         login: function () {
