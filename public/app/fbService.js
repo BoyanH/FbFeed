@@ -127,6 +127,11 @@
                                         videos.push(response.data[i]);
                                     }
                             }
+
+                            else if(response.data[i].type == 'video') {
+
+                                videos.push(response.data[i]);
+                            }
                         }
                         deferred.resolve(videos);
                     }
