@@ -1,5 +1,5 @@
 ﻿app.factory("FacebookService", function ($location, $q) {
-    var id = "1480652358834115",
+    var id = "734082519946616",
         uid,
         accessToken;
 
@@ -81,10 +81,24 @@
             FB.api(
                 '/me/home/',
                 function ( response ) {
-                    console.log(response);
+
                     if ( response && !response.error ) {
 
-                        var statuses = response.data;
+                        var statuses = [];
+
+                        for (var i = 0; i < response.data.length; i++) {
+
+                            if(response.data[i].comments) {
+
+                                if (response.data[i].comments.data[0].can_remove !== undefined) {
+                                    statuses.push(response.data[i]);
+                                }
+                            }
+                            else if(response.data[i].place) {
+                                statuses.push(response.data[i]);
+                            }
+                        }
+                        
                         deferred.resolve(statuses);
                     }
                 }
@@ -100,7 +114,11 @@
 
                         var posts = [];
                         for(var i = 0; i < response.data.length; i++) {
-                            posts.push(response.data[i]);
+
+                            if (response.data[i].story || response.data[i].status_type == 'shared_story') {
+
+                                posts.push(response.data[i]);
+                            }
                         }
                         deferred.resolve(posts);
                     }

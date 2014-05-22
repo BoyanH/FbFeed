@@ -1,4 +1,4 @@
-app.controller('VideosController', function($scope, $sce, FacebookService, EmbedService){
+app.controller('VideosController', function($scope, $sce, FacebookService, EmbedService, DateService){
     
     $scope.stillLoding = true;
 
@@ -13,6 +13,7 @@ app.controller('VideosController', function($scope, $sce, FacebookService, Embed
         for (var i = 0; i < data.length; i++) {
 
         	$scope.allVideos[i] = EmbedService.normalizeLink(data[i]);
+            $scope.allVideos[i].updated_time = DateService.normalizeDate(data[i].updated_time)
         }
 
         $scope.videos = $scope.allVideos.splice(0, 10);
@@ -34,7 +35,7 @@ app.controller('VideosController', function($scope, $sce, FacebookService, Embed
         if (data.length) {
             go();
         }
-        
+
         $scope.stillLoding = false;
     })
     .then(function (data) {
