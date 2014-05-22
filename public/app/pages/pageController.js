@@ -11,13 +11,13 @@
                     var type = $scope.pages[z].application.name;
                     if(type == 'Video' || type == 'YouTube') {
 
-                        $scope.pages[z].embedLink = EmbedService.normalizeLink($scope.pages[z]);
+                        $scope.pages[z] = EmbedService.normalizeLink($scope.pages[z]);
                     }
             }
 
             else if($scope.pages[z].type == 'video') {
 
-                $scope.pages[z].embedLink = EmbedService.normalizeLink($scope.pages[z]);
+                $scope.pages[z] = EmbedService.normalizeLink($scope.pages[z]);
             }
         }
 
