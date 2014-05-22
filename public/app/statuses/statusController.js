@@ -4,18 +4,21 @@ app.controller('StatusController', function($scope, FacebookService){
         
         console.log(data);
         $scope.allStatuses = data;
-        $scope.statuses = $scope.allStatuses.splice(0, 10);
+        
         var k = 0;
         function profileImageLoop() {
-            FacebookService.getPictureByID(data[k].from.id)
+            FacebookService.getPictureByID($scope.allStatuses[k].from.id)
                 .then(function (url) {
-                    $scope.statuses[k++].profileImage = url;
-                    if (k < data.length) {
+                    $scope.allStatuses[k].profileImage = url;
+                    k++;
+                    if (k < $scope.allStatuses.length) {
                         setTimeout(profileImageLoop, 1);
                     }
                 });
         }
         profileImageLoop();
+
+        $scope.statuses = $scope.allStatuses.splice(0, 10);
         $scope.stillLoding = false;
     });
 

@@ -108,14 +108,19 @@
                             if(response.data[i].comments) {
 
                                 if (response.data[i].comments.data[0].can_remove !== undefined) {
-                                    statuses.push(response.data[i]);
+
+                                    if (!response.data[i].from.category) {
+                                        statuses.push(response.data[i]);
+                                    }
                                 }
                             }
                             else if(response.data[i].place) {
-                                statuses.push(response.data[i]);
+                                
+                                if (!response.data[i].from.category) {
+                                    statuses.push(response.data[i]);
+                                }
                             }
                         }
-                        
                         deferred.resolve(statuses);
                     }
                 }
