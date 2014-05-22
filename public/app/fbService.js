@@ -75,6 +75,23 @@
             );
             return deferred.promise;
         },
+        getFeed: function () {
+
+            var deferred = $q.defer();
+
+            FB.api(
+                '/me/home',
+                function (response) {
+                    if (response && !response.error) {
+
+                        deferred.resolve(response);
+                    }
+
+                }
+
+            );
+            return deferred.promise;
+        },
         getStatuses: function() {
             var deferred = $q.defer();
             console.log(uid);
