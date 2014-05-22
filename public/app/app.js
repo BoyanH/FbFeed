@@ -30,5 +30,9 @@ app.config(function($routeProvider){
         .when('/posts', {
             templateUrl: '/partials/posts/posts',
             controller: 'PostsController'
+        })
+        .when('/videos', {
+            templateUrl: '/partials/videos/videos',
+            controller: 'VideosController'
         });
 });
