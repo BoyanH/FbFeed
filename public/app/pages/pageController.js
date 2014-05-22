@@ -45,4 +45,9 @@
             return $sce.trustAsResourceUrl(src);
         }
     });
+
+    $scope.share = function (item) {
+
+        PopupService.share(item);
+    }
 });
