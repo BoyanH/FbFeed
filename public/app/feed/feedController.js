@@ -10,4 +10,11 @@
 			$rootScope.user = data;
 		})
 
+	FacebookService.getFeed()
+		.then(function (data) {
+
+			$scope.feed = data;
+			console.log(data);
+		})
+
 });
