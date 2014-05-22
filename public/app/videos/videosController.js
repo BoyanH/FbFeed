@@ -23,7 +23,7 @@ app.controller('VideosController', function($scope, $sce, FacebookService, Embed
         }
 
         function go() {
-            FacebookService.getPageProfilePictureByID(data[k].from.id)
+            FacebookService.getPictureByID(data[k].from.id)
                 .then(function (url) {
 
                     $scope.videos[k++].profileImage = url;
