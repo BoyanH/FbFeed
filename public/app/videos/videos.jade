@@ -1,12 +1,19 @@
 .container
-	.jumbotron
-		h1 This is the videos route
-		div(data-ng-repeat="video in videos track by $index")
-			div.panel.panel-info
-				div.panel-heading
-					h3.panel-title {{video.from.name}}
-				div.panel-body
-					p {{video.updated_time}}
-					p {{video.message}}
-					div.well.well-lg
-						iframe(ng-src="{{trustSrc(video.embedLink)}}", src="")
+	.row
+		.middle-page
+			.well(ng-show="stillLoding")
+				.progress.progress-striped.active
+					.progress-bar(style="width: 100%")
+			.container
+				.row
+					.well(ng-repeat="video in videos")
+						.row
+							.col-md-3
+								img(ng-src="{{video.profileImage}}" src="")
+							.col-md-6.pull-left
+								h5 {{video.from.name}}
+								p {{video.updated_time}}
+								p {{video.message}}
+								div.well.well-lg
+									iframe(ng-src="{{trustSrc(video.embedLink)}}", src="", widht="560", height="315", frameborder="0", allowfullscreen, target="_top", type="application/x-shockwave-flash")
+							.col-md-3
