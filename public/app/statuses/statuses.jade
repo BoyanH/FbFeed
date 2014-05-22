@@ -1,10 +1,28 @@
 .container
-	.jumbotron
-		h1 This is the statuses route
-		div(data-ng-repeat="status in statuses track by $index")
-			div.panel.panel-info
-				div.well
-					h3.panel-title {{status.from.name}}
-				div.panel-body
-					p {{status.updated_time}}
-					p {{status.message}}
+    .row
+        .middle-page
+            .well(ng-show="stillLoding").text-center
+                .progress.progress-striped.active(style="width:300px;margin:0 auto;")
+                    .progress-bar(style="width: 100%")
+            div.well(data-ng-repeat="status in statuses track by $index")
+                .row.content
+                    .col-md-1
+                        img(ng-src="{{status.profileImage}}" src="")
+                    .col-md-9
+                        h5 {{status.from.name}}
+                        .row
+                            .col-md-12
+                                p {{status.updated_time}}
+                                p {{status.message}}
+                    .col-md-2
+                        .well
+                            .row.fb-action-row.text-center(ng-click="")
+                                img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")
+                                span.fb-action Like
+                            .row.fb-action-row.text-center(ng-click="")
+                                img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/comment.png" width="30" height="30")
+                                span.fb-action Comment
+                            .row.fb-action-row.text-center(ng-click="")
+                                div(data-href="{{page.link}}" data-type="box_count")
+                                    img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/share.jpg" width="30" height="30")
+                                span.fb-action Share
