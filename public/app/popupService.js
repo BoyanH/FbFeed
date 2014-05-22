@@ -3,45 +3,27 @@
     return {
         share: function (item) {
 
-        	if(item.link.substring(0, 25) == 'https://www.facebook.com/') {
+        	if(item.link.substring(0, 25) == 'https://www.facebook.com/' && item.type == 'photo') {
 
         		item.picture = 'https://images.weserv.nl/?url=' + item.postPhoto.substring(8);
-        		item.link = item.postPhoto;
-
-        		FB.ui(
-					  {
-					    method: 'share',
-					    href: item.link,
-					    picture: item.picture
-					  },
-					  function(response) {
-					    if (response && !response.error_code) {
-					      alert('Posting completed.');
-					    } else {
-					      alert('Error while posting.');
-					    }
-					  }
-					);
+        		item.link = item.picture;
         	}
-	        	else {
 
-	        		console.log(item);
-		        	FB.ui(
-					  {
-					    method: 'share',
-					    href: item.link,
-					    picture: item.picture
-					  },
-					  function(response) {
-					    if (response && !response.error_code) {
-					      alert('Posting completed.');
-					    } else {
-					      alert('Error while posting.');
-					    }
-					  }
-					);
-
-	        	}
+    		console.log(item);
+        	FB.ui(
+			  {
+			    method: 'share',
+			    href: item.link,
+			    picture: item.picture
+			  },
+			  function(response) {
+			    if (response && !response.error_code) {
+			      alert('Posting completed.');
+			    } else {
+			      alert('Error while posting.');
+			    }
+			  }
+			);
 
         }
     }
