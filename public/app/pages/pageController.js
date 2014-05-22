@@ -5,14 +5,18 @@
         $scope.pages = data;
         var k = 0;
         $scope.appID = FacebookService.getAppID();
-        for (var i = 0; i < data.length; i++)
-        {
-            FacebookService.getPageProfilePictureByID(data[i].from.id)
+        var i = data.length;
+        function go() {
+            FacebookService.getPageProfilePictureByID(data[k].from.id)
                 .then(function (url) {
                     console.log(url);
                     $scope.pages[k++].profileImage = url;
+                    if (k < data.length) {
+                        setTimeout(go, 1);
+                    }
                 })
         }
+        go();
         $scope.stillLoding = false;
         console.log(data);
     });
