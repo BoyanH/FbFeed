@@ -4,3 +4,10 @@
 body{
     background-color:#E3F2F7;
 }
+.middle-page{
+    margin:0 auto;
+    max-width:750px;
+}
+.middle-page .row{
+    max-width:750px;
+}

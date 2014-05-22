@@ -1,6 +1,6 @@
 ﻿app.factory("FacebookService", function ($location, $q) {
     FB.init({
-        appId: '734082519946616',
+        appId: '1480652358834115',
         status: true, // check login status
         cookie: true, // enable cookies to allow the server to access the session
         xfbml: true, // parse XFBML

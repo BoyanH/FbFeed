@@ -1,3 +1,10 @@
 ﻿.container
-    .jumbotron
-        h1 This is the pages route
+    .row
+        .middle-page
+            .well(ng-show="stillLoding")
+                .progress.progress-striped.active
+                    .progress-bar(style="width: 100%")
+            .container
+                .row
+                    .well(ng-repeat="page in pages")
+                        | {{page.from.category}}
