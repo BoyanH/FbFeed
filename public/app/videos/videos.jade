@@ -12,8 +12,8 @@
 								img(ng-src="{{video.profileImage}}" src="")
 							.col-md-9
 								h5 {{video.from.name}}
-								p {{video.updated_time}}
+								p.pull-right {{video.updated_time}}
 								p.description {{video.message}}
-								div.well
+								div.well(style="margin-top:30px")
 									iframe(ng-src="{{trustSrc(video.embedLink)}}", src="", style="widht:560px;height:315px", frameborder="0", allowfullscreen, target="_top", type="application/x-shockwave-flash")
 							.col-md-2
