@@ -1,8 +1,8 @@
 ﻿app.factory("FacebookService", function ($location, $q) {
     var id = "1480652358834115",
         uid,
-        accessToken;
-
+        accessToken,
+        userProfilePicture;
     FB.init({
         appId: id,
         status: true, // check login status
@@ -32,6 +32,15 @@
                 }
                 deferred.resolve();
             });
+            FB.api(
+                "/me/picture",
+                function (response) {
+                    console.log(response.data);
+                    if (response && !response.error) {
+                        userProfilePicture=response.data.url;
+                    }
+                }  
+            );
 
             return deferred.promise;
         },
@@ -195,17 +204,7 @@
             return deferred.promise;
         },
         getUserProfilePicture: function(){
-            var deferred = $q.defer();
-            FB.api(
-                "/me/picture",
-                function (response) {
-                    console.log(response.data);
-                    if (response && !response.error) {
-                        deferred.resolve(response.data.url);
-                    }
-                }  
-            );
-            return deferred.promise;
+            return userProfilePicture;
         }
     }
 })

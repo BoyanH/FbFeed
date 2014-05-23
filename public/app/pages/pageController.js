@@ -116,7 +116,5 @@
             $('.comment-input').val('');
         }
     });
-    FacebookService.getUserProfilePicture().then( function ( picture ) {
-        $scope.profilePicture = picture;
-    });
+    $scope.profilePicture = FacebookService.getUserProfilePicture();
 });

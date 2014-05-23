@@ -11,7 +11,7 @@
                             .col-md-1
                                 img(ng-src="{{page.profileImage}}" src="")
                             .col-md-9.pull-left
-                                h5{{page.from.name}} - 
+                                h5 {{page.from.name}} - 
                                     span(ng-show="page.type=='link'") shared link
                                     span(ng-show="page.embedLink || page.type=='video'") added video
                                     span(ng-show="page.type=='photo'") added picture
