@@ -12,8 +12,9 @@ body{
     max-width:750px;
 }
 .image-link-container img{
-    width:250px;
+    width: 100%;
     height:auto;
+    margin-bottom: 20px;
 }
 .content{
     padding-left:20px;
@@ -37,4 +38,19 @@ iframe{
 }
 .comment-section{
     margin-top:10px;
+}
+
+.break-word {
+  word-wrap: break-word;
+}
+
+@media (max-width: 1000px) {
+  
+    .fb-box {
+        margin-left: 28%;
+    }
+
+    .fb-box div {
+        float: left;
+    }
 }
