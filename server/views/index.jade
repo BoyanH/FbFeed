@@ -1,0 +1,24 @@
+﻿extends includes/layout
+block main-content
+    div.navbar.navbar-default.navbar-fixed-top
+        .container
+            .navbar-header
+                a.navbar-brand(href="/") Facebook Feed
+            .navbar-collapse.collapse(id="navbar-main")
+                ul.nav.navbar-nav
+                    li
+                        a(href="#/home") news feed
+                    li
+                        a(href="#/posts") posts
+                    li
+                        a(href="#/videos") videos
+                    li
+                        a(href="#/statuses") statuses
+                    li
+                        a(href="#/pages") pages
+                ul.nav.navbar-nav.navbar-right
+                    li
+                        a(href="#")
+                            =user
+    div(id="fb-root" class="fb_reset")
+        div(ng-view)

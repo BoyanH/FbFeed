@@ -1,0 +1,19 @@
+.container
+	.row
+		.middle-page
+			.well(ng-show="stillLoding")
+				.progress.progress-striped.active(style="width:300px;margin:0 auto;")
+					.progress-bar(style="width: 100%")
+			.container
+				.row
+					.well(ng-repeat="video in videos")
+						.row
+							.col-md-1
+								img(ng-src="{{video.profileImage}}" src="")
+							.col-md-9
+								h5 {{video.from.name}}
+								p.pull-right {{video.updated_time}}
+								p.description {{video.message}}
+								div.well(style="margin-top:30px")
+									iframe(ng-src="{{trustSrc(video.embedLink)}}", src="", style="widht:560px;height:315px", frameborder="0", allowfullscreen, target="_top", type="application/x-shockwave-flash")
+							.col-md-2
