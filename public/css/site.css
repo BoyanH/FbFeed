@@ -47,10 +47,29 @@ iframe{
 @media (max-width: 1000px) {
   
     .fb-box {
-        margin-left: 28%;
+
+        width: 600px;
+        margin-left: 25%;
     }
 
     .fb-box div {
         float: left;
+        margin-right: 20px;
     }
+}
+
+@media (max-width: 500px) {
+  
+    .fb-box {
+
+        width: 400px;
+        margin-left: 0px;
+    }
+
+    .fb-box div {
+        float: left;
+        margin-right: 20px;
+        width: 400px;
+    }
+
 }
