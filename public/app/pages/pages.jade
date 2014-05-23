@@ -7,6 +7,7 @@
             .container
                 .row
                     .well(ng-repeat="page in pages")
+                    .well(ng-repeat="page in pages" ng-if="page!=undefined")
                         .row
                             .col-md-1
                                 img(ng-src="{{page.profileImage}}" src="")

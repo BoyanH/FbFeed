@@ -1,4 +1,5 @@
 ﻿app.factory("FacebookService", function ($location, $q) {
+
     var id = "734082519946616",
         uid,
         accessToken;

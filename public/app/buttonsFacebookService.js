@@ -55,6 +55,7 @@
 				      alert('Error while liking.');
 				    }
 	        	});
+        	
         }
     }
 });
