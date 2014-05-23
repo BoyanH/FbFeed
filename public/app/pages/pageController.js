@@ -98,5 +98,9 @@
         
         ButtonsFacebookService.like(item);
     }
+
+    $scope.comment = function(message){
+
+    }
 });
 });
