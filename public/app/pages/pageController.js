@@ -49,4 +49,9 @@
 
         ButtonsFacebookService.share(item);
     }
+
+    $scope.like = function (item) {
+        
+        ButtonsFacebookService.like(item);
+    }
 });
