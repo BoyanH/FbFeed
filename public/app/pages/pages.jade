@@ -33,6 +33,8 @@
                                     .col-md-6
                                         p.message.description
                                             |{{page.message}}
+                                            br
+                                            | {{page.caption}}
                                 .row.content(ng-show="page.embedLink || page.type=='video'", style="margin-top:20px;")
                                     iframe(ng-src="{{trustSrc(page.embedLink)}}", src="", style="widht:560px;height:315px", frameborder="0", allowfullscreen, target="_top", type="application/x-shockwave-flash")
                                             
