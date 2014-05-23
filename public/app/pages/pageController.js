@@ -1,4 +1,4 @@
-﻿app.controller('PagesController', function ($scope, $sce, FacebookService, PopupService, EmbedService) {
+﻿app.controller('PagesController', function ($scope, $sce, FacebookService, ButtonsFacebookService, EmbedService) {
     $scope.stillLoding = true;
     FacebookService.getPages().then(function (data) {
         $scope.pageImages = [];
@@ -47,6 +47,6 @@
 
     $scope.share = function (item) {
 
-        PopupService.share(item);
+        ButtonsFacebookService.share(item);
     }
 });
