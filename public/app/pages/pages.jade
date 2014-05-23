@@ -37,6 +37,26 @@
                                             | {{page.caption}}
                                 .row.content(ng-show="page.embedLink || page.type=='video'", style="margin-top:20px;")
                                     iframe(ng-src="{{trustSrc(page.embedLink)}}", src="", style="widht:560px;height:315px", frameborder="0", allowfullscreen, target="_top", type="application/x-shockwave-flash")
+                                .row.content(ng-show="page.type=='status'")
+                                    .col-md-12
+                                        p.pull-right {{page.updated_time | date:'h:mma MM/dd/yyyy'}}
+                                        p.description {{page.message}}
+                                        .well(ng-show="page.type=='video'" style="height:120px; margin-top:20px;")
+                                            a(href="{{page.link}}" target="_blank")
+                                                .col-md-4
+                                                    img(ng-src="{{page.picture}}" sr="")
+                                                .col-md-8
+                                                    p {{status.name}}
+                                        .well.content(ng-show="page.type=='link'", style="height:140px;margin-top:20px;")
+                                            .col-md-4
+                                                    div
+                                                        a(href="{{page.link}}" target="_blank")
+                                                        img(ng-src="{{page.picture}}" src="" style="width:100px;")
+                                            .col-md-8
+                                                p.description
+                                                    | {{page.name}}
+                                                p 
+                                                    a(href="{{page.caption}}" target="_blank") {{page.caption}}
                                             
                             .col-md-2.fb-box.col-sm-12.col-xs-12
                                 .well
