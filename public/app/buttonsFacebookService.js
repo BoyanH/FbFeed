@@ -49,9 +49,9 @@
         		message: item.userMessage
         	},  function (response) {
 	        		if (response && !response.error_code) {
-				      alert('Like completed.');
+				      alert('You posted comment.');
 				    } else {
-				      alert('Error while liking.');
+				      alert('Error while commenting.');
 				    }
 	        	});
         }

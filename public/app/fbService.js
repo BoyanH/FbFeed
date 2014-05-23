@@ -193,6 +193,19 @@
                 }  
             );
             return deferred.promise;
+        },
+        getUserProfilePicture: function(){
+            var deferred = $q.defer();
+            FB.api(
+                "/me/picture",
+                function (response) {
+                    console.log(response.data);
+                    if (response && !response.error) {
+                        deferred.resolve(response.data.url);
+                    }
+                }  
+            );
+            return deferred.promise;
         }
     }
 })
