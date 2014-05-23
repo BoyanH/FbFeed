@@ -38,6 +38,16 @@ app.factory("EmbedService", function ($location, $q) {
                 return video
             }
 
+            else if(video.source.substring(0, 25) == 'http://www.vbox7.com/') {
+
+                var videoLink = video.link,
+                    indexOfY = videoLink.indexOf('y:');
+
+                video.embedLink = 'http://vbox7.com/emb/external.php?vid=' + videoLink.substring(indexOfY + 2);
+
+                return video
+            }
+
             else if(video.link.substring(0, 20) == 'https://www.facebook') {
 
                 var videoLink = video.link,
@@ -47,6 +57,10 @@ app.factory("EmbedService", function ($location, $q) {
 
                 return video
             }
+                else {
+
+                    return video
+                }
         }
     }
 })
