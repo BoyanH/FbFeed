@@ -29,7 +29,31 @@
 			    }
 			  }
 			);
+        },
+        like: function (item) {
 
+        	FB.api( 'https://graph.facebook.com/' + item.id + '/likes',
+        			'post', null,
+	        	function (response) {
+	        		if (response && !response.error_code) {
+				      alert('Like completed.');
+				    } else {
+				      alert('Error while liking.');
+				    }
+	        	});
+        },
+        comment: function (item) {
+
+        	FB.api( 'https://graph.facebook.com/' + item.id + '/comments', 'post', 
+        	{
+        		message: item.userMessage
+        	},  function (response) {
+	        		if (response && !response.error_code) {
+				      alert('Like completed.');
+				    } else {
+				      alert('Error while liking.');
+				    }
+	        	});
         }
     }
 });
