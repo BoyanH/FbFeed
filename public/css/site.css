@@ -44,6 +44,31 @@ iframe{
   word-wrap: break-word;
 }
 
+.show-section {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.show-button {
+    float: left;
+    cursor: pointer;
+    margin-right: 20px;
+    color: #2fa4e7;
+}
+
+.likes-button {
+    cursor: pointer;
+    color: #2fa4e7;
+}
+
+.likes-button:hover {
+    color: black;
+}
+
+.show-button:hover {
+    color: black;
+}
+
 @media (max-width: 1000px) {
   
     .fb-box {
@@ -55,6 +80,10 @@ iframe{
     .fb-box div {
         float: left;
         margin-right: 20px;
+    }
+
+    .show-section {
+        margin-left: 25%;
     }
 }
 
@@ -70,6 +99,14 @@ iframe{
         float: left;
         margin-right: 20px;
         width: 400px;
+    }
+
+    .show-section {
+        margin-left: 12%;
+    }
+
+    .likes-section {
+        padding-top: 20px;
     }
 
 }

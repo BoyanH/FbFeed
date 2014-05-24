@@ -71,12 +71,37 @@
                                             span {{page.likes.data.length || 0}}
                                     .fb-action-row.text-center(ng-click="commentWindow(page)")
                                         img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/comment.png" width="30" height="30")
-                                        span.fb-action Comment 
+                                        span.fb-action Comments 
                                             span {{page.comments.data.length || 0}}
                                     .fb-action-row.text-center(ng-click="share(page)")
                                         img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/share.jpg" width="30" height="30")
                                         span.fb-action Shares 
                                             span {{page.shares.count || 0}}
+                        .row
+                            .container.show-section.text-center
+                                .col-md-12
+                                    .show-button Show Comments
+                                    .show-button Show Shares
+                        .row
+                            .container.likes-section
+                                .col-md-12
+                                    .like(ng-show="page.likes.data.length <= 4")
+                                        span(ng-repeat="like in page.likes.data |limitTo: pages.likes.data.length - 2") {{like.name}}, 
+                                        span(ng-show="pages.likes.data.length >= 2") {{page.likes.data[page.likes.data.length - 2].name}} and 
+                                        span(ng-show="pages.likes.data.length >= 1") {{page.likes.data[page.likes.data.length - 1].name}} like this 
+                                        span(ng-show="page.likes.data.length")
+                                            span(ng-show="page.type=='link'") link
+                                            span(ng-show="page.embedLink || page.type=='video'") video
+                                            span(ng-show="page.type=='photo'") picture
+                                    .like(ng-show="page.likes.data.length > 4")
+                                        span(ng-repeat="like in page.likes.data |limitTo: 2") {{like.name}}, 
+                                        span   {{page.likes.data[2].name}} and 
+                                        span.likes-button(ng-click="showLikes(page)")
+                                            {{page.likes.data.length - 3}} others 
+                                        span like this 
+                                        span(ng-show="page.type=='link'") link
+                                        span(ng-show="page.embedLink || page.type=='video'") video
+                                        span(ng-show="page.type=='photo'") picture
                         .row
                             .container.comment-section(ng-show="page.wantToComment")
                                 .row
