@@ -3,17 +3,20 @@
     return {
         share: function (item) {
 
-        	if(item.link.substring(0, 25) == 'https://www.facebook.com/' && item.type == 'photo') {
+        	if(item.link) {
 
-        		item.picture = 'https://images.weserv.nl/?url=' + item.postPhoto.substring(8);
-        		item.link = item.picture;
+        		if(item.link.substring(0, 25) == 'https://www.facebook.com/' && item.type == 'photo') {
+
+	        		item.picture = 'https://images.weserv.nl/?url=' + item.postPhoto.substring(8);
+	        		item.link = item.picture;
+	        	}
         	}
 
     		console.log(item);
         	FB.ui(
 			  {
 			    method: 'share',
-			    href: item.link,
+			    href: item.link || 'https://www.youtube.com/watch?v=Et58G1DR3YY&feature=player_detailpage',
 			    picture: item.picture,
 			    caption: item.caption,
 			    name: item.name,

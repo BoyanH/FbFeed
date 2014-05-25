@@ -190,5 +190,6 @@ button.md-close:hover {
 div.scroll {
 
     max-height: 250px;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }

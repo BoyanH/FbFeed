@@ -1,4 +1,4 @@
-app.controller('StatusController', function($scope, FacebookService){
+app.controller('StatusController', function ($scope, FacebookService, ButtonsFacebookService){
     $scope.stillLoding = true;
     var idComment;
     FacebookService.getStatuses().then(function(data){
@@ -36,7 +36,10 @@ app.controller('StatusController', function($scope, FacebookService){
         }
     });
     $scope.share = function ( item ) {
-        item.shares.count = item.shares.count + 1;
+
+        if(item.shares) {
+            item.shares.count = item.shares.count + 1;
+        }
         ButtonsFacebookService.share( item );
     }
 
