@@ -1,4 +1,4 @@
-﻿app.controller( 'PagesController', function ( $scope, $sce, FacebookService, ButtonsFacebookService, EmbedService ) {
+﻿app.controller( 'PagesController', function ( $scope, $sce, FacebookService, ButtonsFacebookService, EmbedService, PopupService ) {
 
     $scope.stillLoding = true;
     var idComment;
@@ -123,6 +123,8 @@
             ButtonsFacebookService.comment(itemToComment);
             $('.comment-input').val('');
         }
+
+        setTimeout(PopupService.init, 600);
     });
     $scope.profilePicture = FacebookService.getUserProfilePicture();
 });
