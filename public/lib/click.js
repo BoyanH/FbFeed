@@ -5,3 +5,5 @@ $('.navbar-collapse.collapse a').on('click', function(){
     	$('#navbar-main').removeClass('in');
     }
 });
+
+var polyfilter_scriptpath = '/';
