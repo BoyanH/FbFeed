@@ -1,7 +1,13 @@
-﻿app.controller( 'PagesController', function ( $scope, $sce, FacebookService, ButtonsFacebookService, EmbedService, PopupService ) {
+﻿app.controller( 'PagesController', function ( $scope, $rootScope, $sce, FacebookService, ButtonsFacebookService, EmbedService, PopupService ) {
 
     $scope.stillLoding = true;
     var idComment;
+
+    FacebookService.getAuthData()
+    .then(function (data) {
+        $rootScope.user = data;
+    })
+    
     FacebookService.getPages().then( function ( data ) {
         $scope.pageImages = [];
         $scope.pages = data;

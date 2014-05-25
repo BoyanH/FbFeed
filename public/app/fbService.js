@@ -59,7 +59,7 @@
             FB.getLoginStatus(function (response) {
                 FB.api('/me', function(data){
 
-                    deferred.resolve(data.first_name +' ' + data.last_name);
+                    deferred.resolve(data);
                 })
             });
             
