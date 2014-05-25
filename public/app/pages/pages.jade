@@ -97,7 +97,7 @@
                                         span(ng-repeat="like in page.likes.data |limitTo: 2") {{like.name}}, 
                                             span   {{page.likes.data[2].name}} 
                                             | and 
-                                        button.md-trigger.md-setperspective(data-modal="modal-{{$index}}")
+                                        span.likes-button.md-trigger.md-setperspective(data-modal="modal-{{$index}}")
                                             {{page.likes.data.length - 3}} others 
                                         span like this 
                                         span(ng-show="page.type=='link'") link
@@ -108,7 +108,8 @@
                                     .md-modal.md-effect-18(id="modal-{{$index}}")
                                         .md-content
                                             h3 Likes
-                                            div(ng-repeat="like in page.likes.data") {{like.from}}
+                                            .scroll
+                                                div(ng-repeat="like in page.likes.data") {{like.name}}
                                             button.md-close Close
                         .row
                             .container.comment-section(ng-show="page.wantToComment")

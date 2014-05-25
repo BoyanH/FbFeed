@@ -24,6 +24,7 @@ app.factory("PopupService", function ($location, $q) {
 
 				function removeModal( hasPerspective ) {
 					classie.remove( modal, 'md-show' );
+					overlay.style.visibility = 'hidden';
 
 					if( hasPerspective ) {
 						classie.remove( document.documentElement, 'md-perspective' );
@@ -35,11 +36,13 @@ app.factory("PopupService", function ($location, $q) {
 				}
 
 				el.addEventListener( 'click', function( ev ) {
+					
 					console.log('PopupService: click!');
+					
 					classie.add( modal, 'md-show' );
+					overlay.style.visibility = 'visible';
 					overlay.removeEventListener( 'click', removeModalHandler );
 					overlay.addEventListener( 'click', removeModalHandler );
-					console.log('here');
 
 					if( classie.has( el, 'md-setperspective' ) ) {
 						setTimeout( function() {

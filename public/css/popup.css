@@ -19,9 +19,10 @@
     top: 50%;
     left: 50%;
     width: 50%;
+    height: 50%;
     max-width: 630px;
     min-width: 320px;
-    height: auto;
+    max-height: 600px;
     z-index: 2000;
     visibility: hidden;
     -webkit-backface-visibility: hidden;
@@ -59,9 +60,10 @@
 
 /* Content styles */
 .md-content {
-    color: #fff;
-    background: #e74c3c;
+    color: #000;
+    background: #E3F2F7;
     position: relative;
+    border: 1px solid #29A1E6;
     border-radius: 3px;
     margin: 0 auto;
 }
@@ -74,27 +76,28 @@
     font-weight: 300;
     opacity: 0.8;
     background: rgba(0,0,0,0.1);
+    color: #000;
     border-radius: 3px 3px 0 0;
 }
 
-.md-content > div {
-    padding: 15px 40px 30px;
+.md-content > .scroll > div {
+    padding: 15px 40px 10px;
     margin: 0;
     font-weight: 300;
     font-size: 1.15em;
 }
 
-.md-content > div p {
+.md-content > .scroll > div p {
     margin: 0;
     padding: 10px 0;
 }
 
-.md-content > div ul {
+.md-content > .scroll > div ul {
     margin: 0;
     padding: 0 0 30px 20px;
 }
 
-.md-content > div ul li {
+.md-content > .scroll > div ul li {
     padding: 5px 0;
 }
 
@@ -161,4 +164,31 @@
     -webkit-transition: all 0.5s 0.1s;
     -moz-transition: all 0.5s 0.1s;
     transition: all 0.5s 0.1s;
+}
+
+button.md-close {
+    border: none;
+    padding: 0.6em 1.2em;
+    background: #1995dc;
+    color: #fff;
+    font-family: Calibri, Arial, sans-serif;
+    font-size: 1em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-block;
+    margin: 3px 2px;
+    border-radius: 2px;
+    margin-left: 45%;
+    margin-bottom: 5%;
+}
+
+button.md-close:hover {
+    background: #178ACC;
+}
+
+div.scroll {
+
+    max-height: 250px;
+    overflow: scroll;
 }
