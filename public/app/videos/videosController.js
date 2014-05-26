@@ -1,6 +1,11 @@
-app.controller('VideosController', function($scope, $sce, FacebookService, EmbedService, DateService){
+app.controller('VideosController', function($scope, $sce, $rootScope, FacebookService, EmbedService, DateService){
     
     $scope.stillLoding = true;
+
+    FacebookService.getAuthData()
+    .then(function (data) {
+        $rootScope.user = data;
+    })
 
     FacebookService.getVideos().then(function(data){
         
@@ -35,6 +40,9 @@ app.controller('VideosController', function($scope, $sce, FacebookService, Embed
         if (data.length) {
             go();
         }
+            else {
+                $scope.stillLoding = false;
+            }
 
         $scope.stillLoding = false;
     })

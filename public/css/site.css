@@ -69,6 +69,27 @@ iframe{
     color: black;
 }
 
+a.user-acc {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 9999999999;
+    margin-top: 10px;
+    margin-right: 50px;
+    font-size: 2em;
+    text-decoration: none;
+    color: #fff;
+}
+
+a.user-acc:hover {
+    color: #317EAC;
+}
+.img-modal{
+    margin: 0 auto;
+    width:auto;
+    max-width:550px;
+}
+
 @media (max-width: 1000px) {
   
     .fb-box {

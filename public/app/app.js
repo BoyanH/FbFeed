@@ -1,4 +1,4 @@
-﻿var app = angular.module('app', ['ngResource', 'ngRoute']).value('toastr', toastr);
+﻿var app = angular.module('app', ['ngResource', 'ngRoute', 'ui.bootstrap']).value('toastr', toastr);
 
 app.config(function($routeProvider){
 

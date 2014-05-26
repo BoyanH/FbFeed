@@ -1,1 +1,8 @@
-﻿img.thumbnail.img-responsive(ng-src="{{page.postPhoto}}" src="" ng-click="open(page)")
+﻿div.modal-dialog
+    div.modal-content
+    div.modal-header
+        button.close( type="button" ng-click="cancel()") &times
+    div.modal-body
+        img.img-modal(ng-src="{{url}}" src="")
+    div.modal-footer
+        button.btn.btn-default( type="button" ng-click="cancel()") Close

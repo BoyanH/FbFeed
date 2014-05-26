@@ -1,7 +1,12 @@
-﻿app.controller( 'PagesController', function ( $scope, $sce,$modal, FacebookService, ButtonsFacebookService, EmbedService, PopupService ) {
-
+﻿app.controller( 'PagesController', function ( $scope, $modal, $log, $rootScope, $sce, FacebookService, ButtonsFacebookService, EmbedService, PopupService ) {
     $scope.stillLoding = true;
     var idComment;
+
+    FacebookService.getAuthData()
+        .then( function ( data ) {
+            $rootScope.user = data;
+        })
+
     FacebookService.getPages().then( function ( data ) {
         $scope.pageImages = [];
         $scope.pages = data;
@@ -90,7 +95,7 @@
         }
         $scope.share = function ( item ) {
 
-            if(item.shares) {
+            if ( item.shares ) {
                 item.shares.count = item.shares.count + 1;
             }
             ButtonsFacebookService.share( item );
@@ -103,7 +108,7 @@
 
         $scope.showLikes = function ( item ) {
 
-            window.open('#/statuses','name','height=255,width=250, continued from previous line toolbar=no,directories=no,status=no,menubar=no, continued from previous line scrollbars=no,resizable=no');
+            window.open( '#/statuses', 'name', 'height=255,width=250, continued from previous line toolbar=no,directories=no,status=no,menubar=no, continued from previous line scrollbars=no,resizable=no' );
         }
 
         $scope.commentWindow = function ( page ) {
@@ -116,21 +121,38 @@
                 }
             }
         }
-        $scope.comment = function(commentInput){
+        $scope.comment = function ( commentInput ) {
             var itemToComment = {};
             itemToComment.id = idComment;
             itemToComment.userMessage = commentInput.message
-            ButtonsFacebookService.comment(itemToComment);
-            $('.comment-input').val('');
+            ButtonsFacebookService.comment( itemToComment );
+            $( '.comment-input' ).val( '' );
         }
+       $scope.items = ['item1', 'item2', 'item3'];
 
-        setTimeout(PopupService.init, 600);
+  $scope.open = function (page) {
+
+    var modalInstance = $modal.open({
+      templateUrl: 'partials/pages/ModalContent',
+      controller: ModalInstanceCtrl,
+      resolve: {
+        url: function () {
+          return page.postPhoto;
+        }
+      }
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
+        setTimeout( PopupService.init, 600 );
     });
     $scope.profilePicture = FacebookService.getUserProfilePicture();
     $scope.modalShown = false;
-    $scope.toggleModal = function() {
+    $scope.toggleModal = function () {
         $scope.modalShown = !$scope.modalShown;
     };
-
-
 });

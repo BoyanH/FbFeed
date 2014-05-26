@@ -1,6 +1,12 @@
-app.controller('StatusController', function ($scope, FacebookService, ButtonsFacebookService){
+app.controller('StatusController', function ($scope, $rootScope, FacebookService, ButtonsFacebookService){
     $scope.stillLoding = true;
     var idComment;
+
+    FacebookService.getAuthData()
+    .then(function (data) {
+        $rootScope.user = data;
+    })
+    
     FacebookService.getStatuses().then(function(data){
         
         console.log(data);
