@@ -17,11 +17,13 @@
                                     span(ng-show="page.type=='link'") shared link
                                     span(ng-show="page.embedLink || page.type=='video'") added video
                                     span(ng-show="page.type=='photo'") added picture
+                                    span(ng-show="page.type=='status'") added status
                                 .row.content(ng-show="page.type=='link'", style="margin-top:20px;")
                                     .col-md-6
                                         div.image-link-container
                                             a(href="{{page.link}}" target="_blank")
                                                 img(ng-src="{{page.picture}}" src="")
+                          
                                     .col-md-6.well
                                         p.description
                                             | {{page.name}}
@@ -31,7 +33,9 @@
                                 .row.content(ng-show="page.type=='photo'" style="margin-top:20px;")
                                     .col-md-6
                                         div.image-link-container(ng-hide="page.embedLink")
-                                            img(ng-src="{{page.postPhoto}}" src="")
+                                            a
+                                                img.thumbnail.img-responsive(ng-src="{{page.postPhoto}}" src="" ng-click="open(page)")
+                                            
                                     .col-md-6.well
                                         p.message.description.break-word
                                             |{{page.message}}
@@ -100,7 +104,7 @@
                                             span   {{page.likes.data[2].name}} 
                                             | and 
                                         span.likes-button.md-trigger.md-setperspective(data-modal="modal-{{$index}}")
-                                            {{page.likes.data.length - 3}} others 
+                                            | {{page.likes.data.length - 3}} others 
                                         span like this 
                                         span(ng-show="page.type=='link'") link
                                         span(ng-show="page.embedLink || page.type=='video'") video
@@ -125,5 +129,4 @@
                                                     input.form-control.comment-input(type="text" placeholder="Write your comment" ng-model="comment.message")
                                                 .col-md-2
                                                     button.btn.btn-primary(type="submit" ng-click="comment(comment)") Comment
-.md-overlay
-                                
+.md-overlay                

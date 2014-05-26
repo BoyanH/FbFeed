@@ -84,6 +84,11 @@ a.user-acc {
 a.user-acc:hover {
     color: #317EAC;
 }
+.img-modal{
+    margin: 0 auto;
+    width:auto;
+    max-width:550px;
+}
 
 @media (max-width: 1000px) {
   
