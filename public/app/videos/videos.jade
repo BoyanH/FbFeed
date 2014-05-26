@@ -7,7 +7,7 @@ div(user-directive user="user")
 					.progress-bar(style="width: 100%")
 			.container
 				.row
-					.well(ng-repeat="video in videos")
+					.well(ng-repeat="video in allVideos")
 						.row
 							.col-md-1
 								img(ng-src="{{video.profileImage}}" src="")
