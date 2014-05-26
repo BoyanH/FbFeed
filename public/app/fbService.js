@@ -58,7 +58,7 @@
             var deferred = $q.defer();
 
             FB.getLoginStatus(function (response) {
-                FB.api('/me/home/', {since:'yesterday','limit': limit},
+                FB.api('/me',
 
                 function(data){
 
