@@ -49,6 +49,10 @@
            var deferred = $q.defer();
             FB.getLoginStatus(
                 function ( response ) {
+
+                    uid = response.authResponse.userID;
+                    accessToken =  response.authResponse.accessToken;
+
                     deferred.resolve(response.status);
                 }
             );
@@ -58,6 +62,10 @@
             var deferred = $q.defer();
 
             FB.getLoginStatus(function (response) {
+
+                uid = response.authResponse.userID;
+                accessToken =  response.authResponse.accessToken;
+                
                 FB.api('/me',
 
                 function(data){
@@ -116,7 +124,6 @@
                         var statuses = [];
 
                         for (var i = 0; i < response.data.length; i++) {
-
                             if(response.data[i].comments) {
 
                                 if (response.data[i].comments.data[0].can_remove !== undefined) {
@@ -207,7 +214,15 @@
             return deferred.promise;
         },
         getUserProfilePicture: function(){
-            return userProfilePicture;
+            return userProfilePicture || FB.api(
+                "/me/picture",
+                function (response) {
+                    console.log(response.data);
+                    if (response && !response.error) {
+                        userProfilePicture=response.data.url;
+                    }
+                }  
+            );
         }
     }
 })
