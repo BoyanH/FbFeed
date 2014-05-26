@@ -85,9 +85,10 @@ a.user-acc:hover {
     color: #317EAC;
 }
 .img-modal{
+    display:block;
     margin: 0 auto;
-    width:auto;
     max-width:550px;
+    max-height:500px;
 }
 
 @media (max-width: 1000px) {
