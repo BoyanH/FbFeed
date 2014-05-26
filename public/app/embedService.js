@@ -28,32 +28,39 @@ app.factory("EmbedService", function ($location, $q) {
                 }
             }
 
-            else if(video.source.substring(0, 23) == 'http://www.youtube.com/') {
+            else if(video.source) {
 
-                var videoLink = video.source,
-                    indexOfV = videoLink.indexOf('/v/');
+                if(video.source.substring(0, 23) == 'http://www.youtube.com/') {
 
-                video.embedLink = '//www.youtube.com/embed/' + videoLink.substring(indexOfV + 3, indexOfV + 14);
+                    var videoLink = video.source,
+                        indexOfV = videoLink.indexOf('/v/');
 
-                return video
-            }
+                    video.embedLink = '//www.youtube.com/embed/' + videoLink.substring(indexOfV + 3, indexOfV + 14);
 
-            else if(video.source.substring(0, 25) == 'http://www.vbox7.com/') {
+                    return video
+                }
 
-                var videoLink = video.link,
+                else if(video.source.substring(0, 25) == 'http://www.vbox7.com/') {
+
+                    var videoLink = video.link,
                     indexOfY = videoLink.indexOf('y:');
 
-                video.embedLink = 'http://vbox7.com/emb/external.php?vid=' + videoLink.substring(indexOfY + 2);
+                    video.embedLink = 'http://vbox7.com/emb/external.php?vid=' + videoLink.substring(indexOfY + 2);
+
+                    return video
+                }
 
                 return video
             }
 
-            else if(video.link.substring(0, 20) == 'https://www.facebook') {
+            else if(video.link) {
+                if(video.link.substring(0, 20) == 'https://www.facebook') {
 
-                var videoLink = video.link,
+                    var videoLink = video.link,
                     indexOfV = videoLink.indexOf('v=');
 
-                video.embedLink = 'http://www.facebook.com/video/embed?video_id=' + videoLink.substring(indexOfV + 2);
+                    video.embedLink = 'http://www.facebook.com/video/embed?video_id=' + videoLink.substring(indexOfV + 2);
+                }
 
                 return video
             }
