@@ -1,4 +1,4 @@
-﻿app.controller( 'PagesController', function ( $scope, $sce, FacebookService, ButtonsFacebookService, EmbedService, PopupService ) {
+﻿app.controller( 'PagesController', function ( $scope, $sce,$modal, FacebookService, ButtonsFacebookService, EmbedService, PopupService ) {
 
     $scope.stillLoding = true;
     var idComment;
@@ -127,4 +127,10 @@
         setTimeout(PopupService.init, 600);
     });
     $scope.profilePicture = FacebookService.getUserProfilePicture();
+    $scope.modalShown = false;
+    $scope.toggleModal = function() {
+        $scope.modalShown = !$scope.modalShown;
+    };
+
+
 });
