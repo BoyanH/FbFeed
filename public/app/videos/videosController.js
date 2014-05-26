@@ -40,6 +40,9 @@ app.controller('VideosController', function($scope, $sce, $rootScope, FacebookSe
         if (data.length) {
             go();
         }
+            else {
+                $scope.stillLoding = false;
+            }
 
         $scope.stillLoding = false;
     })

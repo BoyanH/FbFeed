@@ -1,5 +1,6 @@
 ﻿app.factory("FacebookService", function ($location, $q) {
     var id = "734082519946616",
+        limit = '300',
         uid,
         accessToken,
         userProfilePicture;
@@ -57,7 +58,9 @@
             var deferred = $q.defer();
 
             FB.getLoginStatus(function (response) {
-                FB.api('/me', function(data){
+                FB.api('/me/home/', {since:'yesterday','limit': limit},
+
+                function(data){
 
                     deferred.resolve(data);
                 })
@@ -68,7 +71,7 @@
         getPages: function(){
             var deferred = $q.defer();
             FB.api(
-                "/me/home",
+                '/me/home/', {since:'yesterday','limit': limit},
                 function ( response ) {
 
                     if ( response && !response.error ) {
@@ -89,7 +92,7 @@
             var deferred = $q.defer();
 
             FB.api(
-                '/me/home',
+                '/me/home/', {since:'yesterday','limit': limit},
                 function (response) {
                     if (response && !response.error) {
 
@@ -105,7 +108,7 @@
             var deferred = $q.defer();
             console.log(uid);
             FB.api(
-                '/me/home/',
+                '/me/home/', {since:'yesterday','limit': limit},
                 function ( response ) {
 
                     if ( response && !response.error ) {
@@ -139,7 +142,7 @@
         getPosts: function() {
             var deferred = $q.defer();
             FB.api(
-                "/me/home",
+                "/me/home", {since:'yesterday','limit': limit},
                 function ( response ) {
                     if ( response && !response.error ) {
 
@@ -161,7 +164,7 @@
             var deferred = $q.defer(),
                 videos = []
             FB.api(
-                "/me/home",
+                '/me/home/', {since:'yesterday','limit': limit},
                 function ( response ) {
 
                     if ( response && !response.error ) {
