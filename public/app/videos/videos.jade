@@ -16,5 +16,5 @@ div(user-directive user="user")
 								p.pull-right {{video.updated_time}}
 								p.description {{video.message}}
 								div.well(style="margin-top:30px")
-									iframe(ng-src="{{trustSrc(video.embedLink)}}", src="", style="widht:560px;height:315px", frameborder="0", allowfullscreen, target="_top", type="application/x-shockwave-flash")
+									iframe(ng-src="{{trustSrc(page.embedLink || page.source.slice(0, page.source.indexOf('&autoplay')))}}", src="", style="widht:560px;height:315px", frameborder="0", allowfullscreen, target="_top", type="application/x-shockwave-flash")
 							.col-md-2
