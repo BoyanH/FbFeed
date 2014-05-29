@@ -8,5 +8,5 @@ var userSchema = mongoose.Schema({
             points: Number
         }]
 });
-
+console.log('tuk');
 var user = mongoose.model('User', userSchema);
