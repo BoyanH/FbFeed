@@ -1,11 +1,10 @@
 ﻿var mongoose = require('mongoose');
 
 var userSchema = mongoose.Schema({
-    id: String,
+    id: String, // id of user 
     likes:[{
-            id: String,
-            kind: String,
-            points: Number
+            id: String, // id of page, person
+            points: Number // the points he/she/it has (one point == 1 like, share or comment)
         }]
 });
 console.log('User schema made');

@@ -3,8 +3,8 @@
     passport = require('passport');
 
 module.exports = function(){
-    passport.use(new LocalPassport(function (id, done) {
-        User.findOne({ id: id }).exec(function (err, user) {
+    passport.use(new LocalPassport(function (username, password, done) {
+        User.findOne({ id: username }).exec(function (err, user) {
             console.log('User in passport.js: ' + user);
             if (err) {
                 console.log('Error loading user: ' + err);

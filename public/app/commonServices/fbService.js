@@ -1,6 +1,6 @@
 ﻿app.factory("FacebookService", function ($location, $q) {
-    var id = "734082519946616",
-        limit = '300',
+    var id = "1480652358834115",
+        limit = '25',
         uid,
         accessToken,
         userProfilePicture;
@@ -28,7 +28,7 @@
                 }
                 else {
                     FB.login(function(response){},
-                        {scope:'user_status,read_stream,publish_stream,user_likes,publish_actions,read_friendlists,rsvp_event'});
+                        {scope:'user_status,read_stream,publish_stream,user_likes,publish_actions,read_friendlists,manage_notifications,rsvp_event'});
                     console.log('Now logged in.');
                 }
                 FB.api(
