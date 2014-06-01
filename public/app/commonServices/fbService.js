@@ -1,6 +1,6 @@
 ﻿app.factory("FacebookService", function ($location, $q) {
     var id = "1480652358834115",
-        limit = '25',
+        limit = '50',
         uid,
         accessToken,
         userProfilePicture;
@@ -9,7 +9,9 @@
         status: true, // check login status
         cookie: true, // enable cookies to allow the server to access the session
         xfbml: true, // parse XFBML
-        read_stream: true
+        read_stream: true,
+        manage_notifications: true
+
     });
     console.log('FB initialized...');
     
@@ -210,6 +212,17 @@
                     if (response && !response.error) {
                         deferred.resolve(response.data.url);
                     }
+                }  
+            );
+            return deferred.promise;
+        },
+        getUserNotifications: function () {
+
+            var deferred = $q.defer();
+            FB.api(
+                "/me/notifications", {since:'last week','limit': limit},
+                function (response) {
+                    deferred.resolve(response);
                 }  
             );
             return deferred.promise;

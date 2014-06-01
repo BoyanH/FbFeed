@@ -34,5 +34,9 @@ app.config(function($routeProvider){
         .when('/videos', {
             templateUrl: '/partials/videos/videos',
             controller: 'VideosController'
+        })
+        .when('/notifications/:notificationId', {
+            templateUrl: '/partials/notifications/notification',
+            controller: 'NotificationsController'
         });
 });
