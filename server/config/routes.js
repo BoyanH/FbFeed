@@ -1,5 +1,5 @@
-﻿//var users = require('../controllers/userController.js'),
-//    auth = require('./auth.js');
+﻿var users = require('../controllers/userController.js'),
+    auth = require('./auth.js');
 
 module.exports = function (app) {
     app.get('/partials/:partialArea/:partialName', function (req, res) {
@@ -7,9 +7,9 @@ module.exports = function (app) {
                beautify: true,
         });
     });
-    //app.post('/login', users.getUserById);
-    //app.post('/api/users', users.createUser);
-    //app.put('/api/users', users.updateUser);
+    app.post('/login', auth.login);
+    app.post('/api/users', users.createUser);
+    app.put('/api/users', users.updateUser);
     app.get('*', function (req, res) {
         res.render('index');
     });

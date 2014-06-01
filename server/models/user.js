@@ -8,5 +8,23 @@ var userSchema = mongoose.Schema({
             points: Number
         }]
 });
-console.log('tuk');
-var user = mongoose.model('User', userSchema);
+console.log('User schema made');
+
+var User = mongoose.model('User', userSchema);
+
+module.exports = {
+    seedUser: function(){
+        User.find({}).exec(function(err, collection){
+            if(err){
+                console.log('Error in finding users: ' + err);
+                return;
+            }
+            if(collection.length == 0){
+                User.create({id:'514183282019706', likes : [] });
+            }
+            else{
+                console.log(collection[0]);
+            }
+        });
+    }
+}

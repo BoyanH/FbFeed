@@ -31,17 +31,18 @@
                         {scope:'user_status,read_stream,publish_stream,user_likes,publish_actions,read_friendlists,rsvp_event'});
                     console.log('Now logged in.');
                 }
-                deferred.resolve();
+                FB.api(
+                    "/me/picture",
+                    function (response) {
+                        console.log(response.data);
+                        if (response && !response.error) {
+                            userProfilePicture=response.data.url;
+                            deferred.resolve();
+                        }
+                    }  
+                );
             });
-            FB.api(
-                "/me/picture",
-                function (response) {
-                    console.log(response.data);
-                    if (response && !response.error) {
-                        userProfilePicture=response.data.url;
-                    }
-                }  
-            );
+            
 
             return deferred.promise;
         },
