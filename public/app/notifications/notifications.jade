@@ -1,0 +1,9 @@
+ul.nav.navbar-nav.navbar-right(ng-controller="NotificationsController" ng-show="user")
+	li
+		.btn-group
+			.dropdown-toggle.notification-icon(type="button", data-toggle="dropdown")
+				img.notification-bell(src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/bell.png" ng-hide="notifications.length")
+				img.notification-bell(src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Easter-Bell-icon.png" ng-show="notifications.length")
+			ul.dropdown-menu(ng-show="notifications.length")
+				li(ng-repeat="notification in notifications")
+					a(href="#/notifications/{{notification.id}}") {{notification.title}}

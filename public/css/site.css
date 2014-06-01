@@ -91,6 +91,16 @@ a.user-acc:hover {
     max-height:500px;
 }
 
+.notification-bell {
+    height: 30px;
+    width: 30px;
+}
+
+.notification-icon {
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
 @media (max-width: 1000px) {
   
     .fb-box {
