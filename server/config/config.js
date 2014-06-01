@@ -9,7 +9,7 @@ module.exports = {
     },
     production: {
         rootPath: rootPath,
-        db: 'mongodb://admin:fvbdusfbkncdalivfds@ds027688.mongolab.com:27688/listentomusic',
+        db: 'mongodb://admin:fdhsoolvdhabfsadkfds@ds033469.mongolab.com:33469/beautifulfeed',
         port: process.env.PORT || 1234
     }
 }
