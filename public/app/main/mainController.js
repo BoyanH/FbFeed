@@ -3,20 +3,20 @@ app.controller('MainController', function($scope, $rootScope, $location, Faceboo
     $scope.login = function(){
         FacebookService.login()
          .then(function (data) {
-
          	FacebookService.getAuthData()
 				.then(function (data) {
 					$rootScope.user = data;
                     var user = {};
-                    user.id = data.id;
+                    user.fbID = data.id;
+                    user.password = 'random';
                     user.likes = [];
-                    Auth.login(user).then(function(){
-                        console.log('Logged in the server');
+                    Auth.login(user).then(function(response){
                     });
 				})
 				.then(function () {
 					$location.path('/home');
-				})
+                    //FacebookService.logout();
+				});
          });
 
      }

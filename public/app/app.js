@@ -1,6 +1,8 @@
 ﻿var app = angular.module('app', ['ngResource', 'ngRoute', 'ui.bootstrap']).value('toastr', toastr);
 
-app.config(function($routeProvider){
+app.config(function($routeProvider, $httpProvider){
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
     var checkConnected = {
         connect:{

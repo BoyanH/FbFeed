@@ -1,5 +1,5 @@
 app.controller('NotificationsController', function($scope, FacebookService, $rootScope){
-    
+    var notif = [];
     FacebookService.getAuthData()
     .then(function (data) {
         $rootScope.user = data;
@@ -10,9 +10,7 @@ app.controller('NotificationsController', function($scope, FacebookService, $roo
     function getNotifications () {
 
     	FacebookService.getUserNotifications().then(function(response) {
-
-	    	$rootScope.notifications = response.data;
-	    	console.log(response.data);
+            
 	    });
     }
 

@@ -1,6 +1,6 @@
 ﻿app.factory("FacebookService", function ($location, $q) {
     var id = "1480652358834115",
-        limit = '50',
+        limit = '20',
         uid,
         accessToken,
         userProfilePicture;
@@ -48,6 +48,9 @@
 
             return deferred.promise;
         },
+        logout: function(){
+            FB.logout();
+        },
         checkStatus: function () {
            var deferred = $q.defer();
             FB.getLoginStatus(
@@ -65,7 +68,7 @@
             var deferred = $q.defer();
 
             FB.getLoginStatus(function (response) {
-
+                console.log(response);
                 uid = response.authResponse.userID;
                 accessToken =  response.authResponse.accessToken;
                 

@@ -1,9 +1,11 @@
-﻿var passport = require('passport');
+﻿var passport = require('passport'),
+    User = require('mongoose').model('User');
 
 module.exports = {
     login: function(req, res, next){
+        console.log('Request body in login server');
+        console.log(req.body);
         var auth = passport.authenticate( 'local', function ( err, user ) {
-            
             if ( err ) {
                 console.log( 'Not authen: ' + err );
                 return next( err );
@@ -16,10 +18,21 @@ module.exports = {
                 if ( err ) {
                     return next( err );
                 }
+                console.log("Yeaaaaaaaaaaah");
                 res.send( { success: true, user: user });
             });
         });
-        console.log('request user ' + req.user);
         auth( req, res, next );
+    },
+    loginHandle: function(req, res, next){
+        var auth = passport.authenticate('local', {
+            successRedirect : '/home',
+            failureRedirect : '/'
+        });
+        auth(req, res, next);
+    },
+    isAuthenticated: function(req, res, next){
+        if (req.isAuthenticated()) { return next(); }
+        res.redirect('/');
     }
 }
