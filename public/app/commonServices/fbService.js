@@ -187,7 +187,7 @@
                             if(response.data[i].application) {
 
                                     var type = response.data[i].application.name;
-                                    if(type == 'Video' || type == 'YouTube') {
+                                    if((type == 'Video' || type == 'YouTube') && (response.data[i].source || response.data[i].link)) {
 
                                         videos.push(response.data[i]);
                                     }
@@ -198,6 +198,7 @@
                                 videos.push(response.data[i]);
                             }
                         }
+                        console.log(videos);
                         deferred.resolve(videos);
                     }
                 }
@@ -240,6 +241,25 @@
                     }
                 }  
             );
+        },
+        deleteNotification: function (item) {
+
+            var deferred = $q.defer();
+
+            FB.api(
+                'https://graph.facebook.com/' + item.id, 'post',
+                { unread: 0 },
+                function(response) {
+                    if (!response || response.error) {
+                        console.error('------------------------------------------');
+                        console.error('Error occured');
+                        console.error(response.error);
+                        console.error('------------------------------------------');
+                    } else {
+                        deferred.resolve(response);
+                    }
+                });
+            return deferred.promise;
         }
     }
 })
