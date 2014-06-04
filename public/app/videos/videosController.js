@@ -14,6 +14,8 @@ app.controller('VideosController', function($scope, $sce, $rootScope, FacebookSe
         console.log(data);
 
         $scope.allVideos = [];
+        $scope.videos = data;
+        $scope.allVideos = data;
 
         for (var i = 0; i < data.length; i++) {
 
@@ -21,7 +23,7 @@ app.controller('VideosController', function($scope, $sce, $rootScope, FacebookSe
             $scope.allVideos[i].updated_time = DateService.normalizeDate(data[i].updated_time)
         }
 
-        $scope.videos = $scope.allVideos.splice(0, 10);
+        //$scope.videos = $scope.allVideos.splice(0, 10);
 
         $scope.trustSrc = function(src) {
             return $sce.trustAsResourceUrl(src);
@@ -31,7 +33,7 @@ app.controller('VideosController', function($scope, $sce, $rootScope, FacebookSe
             FacebookService.getPictureByID(data[k].from.id)
                 .then(function (url) {
 
-                    $scope.videos[k++].profileImage = url;
+                    $scope.allVideos[k++].profileImage = url;
                     if (k < data.length) {
                         setTimeout(go, 1);
                     }

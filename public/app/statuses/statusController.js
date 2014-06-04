@@ -26,6 +26,27 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
         if(data.length != 0){
             profileImageLoop();
         }
+        var p = 0;
+        function addedPhoto() {
+            FacebookService.getPictureByID($scope.allStatuses[p].object_id)
+                .then(function (url) {
+                    $scope.allStatuses[p].addedPhoto = url;
+                    while(data[p].status_type!="added_photos"){
+                        p++;
+                    }
+                    if (p < $scope.allStatuses.length) {
+                        setTimeout(addedPhoto, 1);
+                    }
+                });
+        }
+        if(data.length != 0){
+            addedPhoto();
+        }
+        for ( var t = 0; t < data.length; t++ ) {
+            if ( data[t] && data[t].type == "photo" && data[t].status_type == "tagged_in_photo") {
+                $scope.allStatuses[t].postPhoto = "https://graph.facebook.com/" + data[t].object_id + "/picture";
+            }
+        }
 
         //$scope.statuses = $scope.allStatuses.splice(0, 10);
         $scope.stillLoding = false;

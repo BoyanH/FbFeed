@@ -1,0 +1,11 @@
+.col-md-6
+    div.image-link-container
+        a(href="{{data.link}}" target="_blank")
+            img(ng-src="{{data.picture}}" src="")
+
+.col-md-6.well
+    p.description
+        | {{data.name}}
+    p 
+        a(href="http://{{data.caption}}" target="_blank") {{data.caption}}
+    p.message.break-word {{data.message}}

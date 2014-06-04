@@ -1,6 +1,6 @@
 app.controller('NotificationsController', function($scope, FacebookService, $rootScope){
 
-    var checkNotifications = setInterval(getNotifications, 30000);
+    //var checkNotifications = setInterval(getNotifications, 30000);
 
     function getNotifications () {
 

@@ -30,7 +30,7 @@
                 }
                 else {
                     FB.login(function(response){},
-                        {scope:'user_status,read_stream,publish_stream,user_likes,publish_actions,read_friendlists,manage_notifications,rsvp_event'});
+                        {scope:'user_status,user_photos,read_stream,publish_stream,user_likes,publish_actions,read_friendlists,manage_notifications,rsvp_event'});
                     console.log('Now logged in.');
                 }
                 FB.api(
