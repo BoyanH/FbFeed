@@ -131,24 +131,6 @@
         }
        $scope.items = ['item1', 'item2', 'item3'];
 
-  $scope.open = function (page) {
-
-    var modalInstance = $modal.open({
-      templateUrl: 'partials/pages/ModalContent',
-      controller: ModalInstanceCtrl,
-      resolve: {
-        url: function () {
-          return page.postPhoto;
-        }
-      }
-    });
-
-    modalInstance.result.then(function (selectedItem) {
-      $scope.selected = selectedItem;
-    }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
-    });
-  };
         setTimeout( PopupService.init, 600 );
     });
     $scope.profilePicture = FacebookService.getUserProfilePicture();
