@@ -101,6 +101,36 @@ a.user-acc:hover {
     margin-top: 10px;
 }
 
+.notif-box {
+    margin-top: 10px;
+    width: 400px;
+    height: 400px;
+    overflow-y: scroll;
+    background-color: #EEEEEE;
+}
+
+.notif-box li {
+
+    margin-bottom: 10px;
+}
+
+.notif-container {
+
+    padding: 5px;
+    height: 100px;
+    border-top: 1px solid #36A7E8;
+    border-bottom: 1px solid #36A7E8;
+    border-radius: 5px;
+}
+
+.notif-time {
+
+    color: gray;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+
 @media (max-width: 1000px) {
   
     .fb-box {
@@ -117,6 +147,31 @@ a.user-acc:hover {
     .show-section {
         margin-left: 25%;
     }
+
+    .navbar-header {
+        float: left;
+    }
+
+    .navbar-header button {
+        position: fixed;
+        top: 5px;
+        right: 5px;
+        margin: 0;
+    }
+
+    .navbar-right {
+        float: left;
+        margin-right: 5px;
+    }
+
+    .navbar-right:not(.bell) {
+        margin-left: 5px;
+    }
+
+    .bell {
+        margin-left: 5px;
+    }
+
 }
 
 @media (max-width: 500px) {

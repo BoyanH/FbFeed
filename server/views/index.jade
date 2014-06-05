@@ -10,6 +10,8 @@ block main-content
                     span.icon-bar
                     span.icon-bar
                     span.icon-bar
+            div(ng-include="'partials/user/user'")
+            div(ng-include="'partials/notifications/notifications'")
             .navbar-collapse.collapse(id="navbar-main")
                 ul.nav.navbar-nav
                     li
@@ -22,7 +24,5 @@ block main-content
                         a(href="#/statuses") statuses
                     li
                         a(href="#/pages") pages
-                div(ng-include="'partials/user/user'")
-                div(ng-include="'partials/notifications/notifications'")
     div(id="fb-root" class="fb_reset")
         div(ng-view)
