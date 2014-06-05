@@ -8,8 +8,15 @@ module.exports = {
                 console.log('User couldnt be created: ' + err);
                 return;
             }
-            console.log("New user created");
-            res.send({success: true});
+            req.logIn(user, function(err){
+                if(err){
+                    console.log('Couldnt login user in server in userController: ' + err);
+                    res.status(400);
+                    return res.send({reason: err.toString()});
+                }
+                console.log('User logged in through createUser');
+                res.send(user);
+            });
         });
     },
     getUserById: function(req, res, next){

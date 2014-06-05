@@ -1,10 +1,10 @@
 {
   "name": "FbFeed",
-  "version": "0.0.0",
-  "description": "FbFeed",
+  "version": "0.0.1",
+  "description": "",
   "main": "server.js",
   "author": {
-    "name": "Alex",
+    "name": "Alexander Y. and Boyan H.",
     "email": ""
   },
   "dependencies": {

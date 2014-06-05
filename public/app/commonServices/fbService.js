@@ -1,6 +1,6 @@
-﻿app.factory("FacebookService", function ($location, $q, $http) {
-    var id = "734082519946616",
-        limit = '50',
+﻿app.factory("FacebookService", function ($location, $q) {
+    var id = "1480652358834115",
+        limit = '20',
         uid,
         accessToken,
         userProfilePicture;
@@ -30,7 +30,7 @@
                 }
                 else {
                     FB.login(function(response){},
-                        {scope:'user_status,read_stream,publish_stream,user_likes,publish_actions,read_friendlists,rsvp_event, manage_notifications'});
+                        {scope:'user_status,user_photos,read_stream,publish_stream,user_likes,publish_actions,read_friendlists,manage_notifications,rsvp_event'});
                     console.log('Now logged in.');
                 }
                 FB.api(
@@ -47,6 +47,9 @@
             
 
             return deferred.promise;
+        },
+        logout: function(){
+            FB.logout();
         },
         checkStatus: function () {
            var deferred = $q.defer();
@@ -65,7 +68,7 @@
             var deferred = $q.defer();
 
             FB.getLoginStatus(function (response) {
-
+                console.log(response);
                 uid = response.authResponse.userID;
                 accessToken =  response.authResponse.accessToken;
                 

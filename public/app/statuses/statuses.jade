@@ -31,6 +31,8 @@ div(user-directive user="user")
                                             | {{status.name}}
                                         p 
                                             a(href="{{page.caption}}" target="_blank") {{status.caption}}
+                                .row.content(ng-show="status.type=='photo'" style="height:120px; margin-top:20px;")
+                                    div(photo-dir data="status")
                             .row
                                 .col-md-3.fb-action-row.text-center(ng-click="like(status)")
                                     img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")

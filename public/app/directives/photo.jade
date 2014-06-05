@@ -1,0 +1,9 @@
+.col-md-6
+    div.image-link-container(ng-hide="data.embedLink")
+        a
+            img.thumbnail.img-responsive(ng-src="{{data.postPhoto || data.addedPhoto}}" src="" ng-click="open(data)")
+.col-md-6.well
+    p.message.description.break-word
+        |{{data.message || data.description}}
+        br
+        | {{data.caption}}
