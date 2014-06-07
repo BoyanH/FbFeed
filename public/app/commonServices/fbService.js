@@ -1,5 +1,5 @@
 ﻿app.factory("FacebookService", function ($location, $q) {
-    var id = "1480652358834115",
+    var id = "734082519946616",
         limit = '20',
         uid,
         accessToken,
@@ -205,6 +205,22 @@
             );
             return deferred.promise;  
         },
+        getPostById: function (id) {
+            var deferred = $q.defer();
+
+            FB.api(
+                '/' + id,
+                function (response) {
+                  if (response && !response.error) {
+                    deferred.resolve(response);
+                  }
+                    else {
+                        console.error("Error querying post by id: " + response.error);
+                    }
+                }
+            );
+            return deferred.promise;
+        },
         getAppID: function(){
             return id;
         },
@@ -247,12 +263,12 @@
             var deferred = $q.defer();
 
             FB.api(
-                'https://graph.facebook.com/' + item.id, 'post',
+                'https://graph.facebook.com/' + item, 'post',
                 { unread: 0 },
                 function(response) {
                     if (!response || response.error) {
                         console.error('------------------------------------------');
-                        console.error('Error occured');
+                        console.error('Error occured while marking notification as read');
                         console.error(response.error);
                         console.error('------------------------------------------');
                     } else {

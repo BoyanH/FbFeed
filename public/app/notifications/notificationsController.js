@@ -1,10 +1,18 @@
-app.controller('NotificationsController', function($scope, FacebookService, $rootScope){
+app.controller('NotificationsController', function($scope, $location, $routeParams, $rootScope, FacebookService){
+
+    FacebookService.getAuthData()
+        .then( function ( data ) {
+            $rootScope.user = data;
+        })
+
+    //ON EVERY ROUTE OF THE SINGLE PAGE APPLICATION
+
+    var updateNotificationsInterval = setInterval(getNotifications, 2000),
+        notifications;
 
     function getNotifications () {
 
     	FacebookService.getUserNotifications().then(function(response) {
-
-            $scope.notifications = response.data;
 
             if($scope.notifications) {
 
@@ -12,6 +20,7 @@ app.controller('NotificationsController', function($scope, FacebookService, $roo
 
                     var k = 0;
                     $scope.notifications = response.data;
+                    notifications = response.data;
                     profileImageLoop();
                 }
             }
@@ -19,12 +28,13 @@ app.controller('NotificationsController', function($scope, FacebookService, $roo
 
                     var k = 0;
                     $scope.notifications = response.data;
+                    notifications = response.data;
                     profileImageLoop();
                 }
 
             function profileImageLoop() {
 
-                if ( response.data[k] ) {
+                if ( response && response.data[k] ) {
                     FacebookService.getPictureByID( response.data[k].from.id )
                         .then( function ( url ) {
                             $scope.notifications[k++].profileImage = url;
@@ -39,9 +49,26 @@ app.controller('NotificationsController', function($scope, FacebookService, $roo
 
     }
 
-    $scope.markAsRead = function (item) {
+    $scope.goToNotif = function (notifId) {
 
-        FacebookService.deleteNotification(item);
+        $location.path('/notifications/' + notifId);
+    }
+
+    //IF ROUTE IS /notifications/:notificationId AND A NOTIFICATION MUST BE VISUALISED
+
+    if($routeParams.notificationId) {
+
+        // FacebookService.deleteNotification($routeParams.notificationId); //Leave it like this for now, notifications are hard to get
+            FacebookService.getUserNotifications().then(function(response) {
+
+                $scope.crntNotif = $.grep(response.data, function(e){ return e.id == $routeParams.notificationId; });
+            });
+
+            FacebookService.getPostById($routeParams.notificationId).then(function(response) {
+
+                console.log(response);
+            });
+        
     }
     
 

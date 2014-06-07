@@ -106,7 +106,7 @@ a.user-acc:hover {
     width: 400px;
     height: 400px;
     overflow-y: scroll;
-    background-color: #EEEEEE;
+    background-color: #A9A9AA;
 }
 
 .notif-box li {
@@ -117,10 +117,18 @@ a.user-acc:hover {
 .notif-container {
 
     padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
     height: 100px;
     border-top: 1px solid #36A7E8;
     border-bottom: 1px solid #36A7E8;
     border-radius: 5px;
+    background-color:#eeeeee;
+}
+
+.notif-container:hover {
+
+    background-color: #D8D8D8;
 }
 
 .notif-time {
