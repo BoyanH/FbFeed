@@ -66,7 +66,7 @@ app.controller('NotificationsController', function($scope, $location, $routePara
 
             FacebookService.getPostById($routeParams.notificationId).then(function(response) {
 
-                console.log(response);
+                console.log(response.object);
             });
         
     }

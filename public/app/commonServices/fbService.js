@@ -10,7 +10,8 @@
         cookie: true, // enable cookies to allow the server to access the session
         xfbml: true, // parse XFBML
         read_stream: true,
-        manage_notifications: true
+        manage_notifications: true,
+        user_groups: true
 
     });
     console.log('FB initialized...');
@@ -30,7 +31,7 @@
                 }
                 else {
                     FB.login(function(response){},
-                        {scope:'user_status,user_photos,read_stream,publish_stream,user_likes,publish_actions,read_friendlists,manage_notifications,rsvp_event'});
+                        {scope:'user_status,user_photos,read_stream,publish_stream,user_likes,publish_actions,read_friendlists,manage_notifications,rsvp_event, user_groups'});
                     console.log('Now logged in.');
                 }
                 FB.api(
