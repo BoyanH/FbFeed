@@ -1,9 +1,10 @@
 ﻿app.factory("FacebookService", function ($location, $q) {
-    var id = "734082519946616",
-        limit = '20',
-        uid,
+    var id = "1480652358834115",
+        limit = '60',
+        uid, //user's id
         accessToken,
-        userProfilePicture;
+        userProfilePicture,
+        since = 'last week';
     FB.init({
         appId: id,
         status: true, // check login status
@@ -86,7 +87,7 @@
         getPages: function(){
             var deferred = $q.defer();
             FB.api(
-                '/me/home/', {since:'yesterday','limit': limit},
+                '/me/home/', {since: since,'limit': limit},
                 function ( response ) {
 
                     if ( response && !response.error ) {
@@ -107,7 +108,7 @@
             var deferred = $q.defer();
 
             FB.api(
-                '/me/home/', {since:'yesterday','limit': limit},
+                '/me/home/', {since: since,'limit': limit},
                 function (response) {
                     if (response && !response.error) {
 
@@ -123,7 +124,7 @@
             var deferred = $q.defer();
             console.log(uid);
             FB.api(
-                '/me/home/', {since:'yesterday','limit': limit},
+                '/me/home/', {since: since,'limit': limit},
                 function ( response ) {
 
                     if ( response && !response.error ) {
@@ -156,14 +157,18 @@
         getPosts: function() {
             var deferred = $q.defer();
             FB.api(
-                "/me/home", {since:'yesterday','limit': limit},
+                "/me/home", {since: since,'limit': limit},
                 function ( response ) {
                     if ( response && !response.error ) {
 
                         var posts = [];
                         for(var i = 0; i < response.data.length; i++) {
 
-                            if (response.data[i].story || response.data[i].status_type == 'shared_story') {
+                            if ((response.data[i].status_type == "mobile_status_update" && response.data[i].type!='photo')
+                                || (response.data[i].status_type == 'shared_story' &&
+                                        (response.data[i].type == 'video' || response.data[i].type=='link')
+                                    )
+                                ) {
 
                                 posts.push(response.data[i]);
                             }
@@ -178,7 +183,7 @@
             var deferred = $q.defer(),
                 videos = []
             FB.api(
-                '/me/home/', {since:'yesterday','limit': limit},
+                '/me/home/', {since: since,'limit': limit},
                 function ( response ) {
 
                     if ( response && !response.error ) {
@@ -241,7 +246,7 @@
 
             var deferred = $q.defer();
             FB.api(
-                "/me/notifications", {since:'last week','limit': limit},
+                "/me/notifications", {'since':'last week','limit': limit},
                 function (response) {
                     deferred.resolve(response);
                 }  
@@ -276,6 +281,22 @@
                         deferred.resolve(response);
                     }
                 });
+            return deferred.promise;
+        },
+        getEventById: function(id){
+            var deferred = $q.defer();
+
+            FB.api(
+                '/' + id,
+                function (response) {
+                  if (response && !response.error) {
+                    deferred.resolve(response);
+                  }
+                    else {
+                        console.error("Error querying event with id: " + response.error);
+                    }
+                }
+            );
             return deferred.promise;
         }
     }

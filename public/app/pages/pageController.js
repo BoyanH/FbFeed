@@ -1,6 +1,9 @@
-﻿app.controller( 'PagesController', function ( $scope, $modal, $log, $rootScope, $sce, FacebookService, ButtonsFacebookService, EmbedService, PopupService ) {
+﻿app.controller( 'PagesController', function ( $scope, Identity, Auth, UserResource, 
+    $modal, $log, $rootScope, $sce, FacebookService, 
+    ButtonsFacebookService, EmbedService, PopupService ) {
+
     $scope.stillLoding = true;
-    var idComment;
+    var idComment, idFrom;
 
     FacebookService.getAuthData()
         .then( function ( data ) {
@@ -61,7 +64,9 @@
 
             }
         }
-        profileImageLoop();
+        if(data.length != 0){
+            profileImageLoop();
+        }
 
         for ( var t = 0; t < data.length; t++ ) {
             if ( data[t] && data[t].type == "photo" ) {
@@ -98,12 +103,29 @@
             if ( item.shares ) {
                 item.shares.count = item.shares.count + 1;
             }
-            ButtonsFacebookService.share( item );
+            ButtonsFacebookService.share( item ).then(function(success){
+                if(success){
+                    Auth.update(Identity.currentUser, item.from.id).then(function(success){
+                        console.log('Successfully Updated User!');
+                    });
+                }
+                else{
+                    //do smth P.S. remove alerts in buttonsFacebook like/comment/share
+                }
+            });;
         }
 
         $scope.like = function ( item ) {
-
-            ButtonsFacebookService.like( item );
+            ButtonsFacebookService.like( item ).then(function(success){
+                if(success){
+                    Auth.update(Identity.currentUser, item.from.id).then(function(success){
+                        console.log('Successfully Updated User!');
+                    });
+                }
+                else{
+                    //do smth P.S. remove alerts in buttonsFacebook like/comment/share
+                }
+            });
         }
 
 
@@ -118,6 +140,7 @@
                     if ( data[i].id == page.id ) {
                         $scope.pages[i].wantToComment = true;
                         idComment = data[i].id;
+                        idFrom = page.from.id;
                     }
                 }
             }
@@ -126,7 +149,16 @@
             var itemToComment = {};
             itemToComment.id = idComment;
             itemToComment.userMessage = commentInput.message
-            ButtonsFacebookService.comment( itemToComment );
+            ButtonsFacebookService.comment( itemToComment ).then(function(success){
+                if(success){
+                    Auth.update(Identity.currentUser, idFrom).then(function(success){
+                        console.log('Successfully Updated User!');
+                    });
+                }
+                else{
+                    //do smth P.S. remove alerts in buttonsFacebook like/comment/share
+                }
+            });
             $( '.comment-input' ).val( '' );
         }
        $scope.items = ['item1', 'item2', 'item3'];

@@ -1,8 +1,8 @@
-﻿app.factory( 'ButtonsFacebookService', function () {
+﻿app.factory( 'ButtonsFacebookService', function ($q) {
     
     return {
         share: function (item) {
-
+        	var deferred = $q.defer();
         	if(item.link) {
 
         		if(item.link.substring(0, 25) == 'https://www.facebook.com/' && item.type == 'photo') {
@@ -27,36 +27,45 @@
 			  function(response) {
 			    if (response && !response.error_code) {
 			      alert('Posting completed.');
+			      deferred.resolve(true);
 			    } else {
+			      deferred.resolve(false);
 			      alert('Error while posting.');
 			    }
-			  }
-			);
+			  });
+        	return deferred.promise;
+
         },
         like: function (item) {
-
+        	var deferred = $q.defer();
         	FB.api( 'https://graph.facebook.com/' + item.id + '/likes',
         			'post', null,
 	        	function (response) {
 	        		if (response && !response.error_code) {
 				      alert('Like completed.');
+				      deferred.resolve(true);
 				    } else {
+				    	deferred.resolve(false);
 				      alert('Error while liking.');
 				    }
 	        	});
+        	return deferred.promise;
         },
         comment: function (item) {
-
+        	var deferred = $q.defer();
         	FB.api( 'https://graph.facebook.com/' + item.id + '/comments', 'post', 
         	{
         		message: item.userMessage
         	},  function (response) {
 	        		if (response && !response.error_code) {
 				      alert('You posted comment.');
+				      deferred.resolve(true);
 				    } else {
 				      alert('Error while commenting.');
+				      deferred.resolve(false);
 				    }
 	        	});
+        	return deferred.promise;
         }
     }
 });
