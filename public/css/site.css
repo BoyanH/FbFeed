@@ -1,4 +1,4 @@
-﻿h5{
+﻿h5, p{
     margin: 0;
     padding: 0;
 }
@@ -21,6 +21,10 @@ body{
 }
 .middle-page .row, .middle-page .well{
     max-width:750px;
+}
+.home-info{
+    color: #2e42a7;
+    font-size: 1.5em;
 }
 .image-link-container img{
     width: 100%;
