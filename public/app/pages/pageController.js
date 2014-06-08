@@ -64,7 +64,9 @@
 
             }
         }
-        profileImageLoop();
+        if(data.length != 0){
+            profileImageLoop();
+        }
 
         for ( var t = 0; t < data.length; t++ ) {
             if ( data[t] && data[t].type == "photo" ) {

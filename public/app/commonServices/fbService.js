@@ -163,7 +163,11 @@
                         var posts = [];
                         for(var i = 0; i < response.data.length; i++) {
 
-                            if (response.data[i].story || response.data[i].status_type == 'shared_story') {
+                            if ((response.data[i].status_type == "mobile_status_update" && response.data[i].type!='photo')
+                                || (response.data[i].status_type == 'shared_story' &&
+                                        (response.data[i].type == 'video' || response.data[i].type=='link')
+                                    )
+                                ) {
 
                                 posts.push(response.data[i]);
                             }
@@ -276,6 +280,22 @@
                         deferred.resolve(response);
                     }
                 });
+            return deferred.promise;
+        },
+        getEventById: function(id){
+            var deferred = $q.defer();
+
+            FB.api(
+                '/' + id,
+                function (response) {
+                  if (response && !response.error) {
+                    deferred.resolve(response);
+                  }
+                    else {
+                        console.error("Error querying event with id: " + response.error);
+                    }
+                }
+            );
             return deferred.promise;
         }
     }
