@@ -1,9 +1,10 @@
 ﻿app.factory("FacebookService", function ($location, $q) {
     var id = "1480652358834115",
-        limit = '20',
-        uid,
+        limit = '60',
+        uid, //user's id
         accessToken,
-        userProfilePicture;
+        userProfilePicture,
+        since = 'last week';
     FB.init({
         appId: id,
         status: true, // check login status
@@ -85,7 +86,7 @@
         getPages: function(){
             var deferred = $q.defer();
             FB.api(
-                '/me/home/', {since:'yesterday','limit': limit},
+                '/me/home/', {since: since,'limit': limit},
                 function ( response ) {
 
                     if ( response && !response.error ) {
@@ -106,7 +107,7 @@
             var deferred = $q.defer();
 
             FB.api(
-                '/me/home/', {since:'yesterday','limit': limit},
+                '/me/home/', {since: since,'limit': limit},
                 function (response) {
                     if (response && !response.error) {
 
@@ -122,7 +123,7 @@
             var deferred = $q.defer();
             console.log(uid);
             FB.api(
-                '/me/home/', {since:'yesterday','limit': limit},
+                '/me/home/', {since: since,'limit': limit},
                 function ( response ) {
 
                     if ( response && !response.error ) {
@@ -155,7 +156,7 @@
         getPosts: function() {
             var deferred = $q.defer();
             FB.api(
-                "/me/home", {since:'yesterday','limit': limit},
+                "/me/home", {since: since,'limit': limit},
                 function ( response ) {
                     if ( response && !response.error ) {
 
@@ -177,7 +178,7 @@
             var deferred = $q.defer(),
                 videos = []
             FB.api(
-                '/me/home/', {since:'yesterday','limit': limit},
+                '/me/home/', {since: since,'limit': limit},
                 function ( response ) {
 
                     if ( response && !response.error ) {
@@ -240,7 +241,7 @@
 
             var deferred = $q.defer();
             FB.api(
-                "/me/notifications", {since:'last week','limit': limit},
+                "/me/notifications", {'since':'last week','limit': limit},
                 function (response) {
                     deferred.resolve(response);
                 }  

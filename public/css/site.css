@@ -8,6 +8,13 @@ body{
     margin:0 auto;
     max-width:750px;
 }
+.middle-page-status{
+    margin: 0 auto;
+    max-width: 600px;
+}
+.middle-page-status h5, .status-description{
+    padding-left: 10px;
+}
 .middle-page .row, .middle-page .well{
     max-width:750px;
 }
