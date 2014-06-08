@@ -8,7 +8,6 @@ var userSchema = mongoose.Schema({
             points: Number // the points he/she/it has (one point == 1 like, share or comment)
         }]
 });
-console.log('User schema made');
 
 var User = mongoose.model('User', userSchema);
 

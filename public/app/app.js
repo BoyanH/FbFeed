@@ -40,5 +40,5 @@ app.config(function($routeProvider, $httpProvider){
         .when('/notifications/:notificationId', {
             templateUrl: '/partials/notifications/notification',
             controller: 'NotificationsController'
-        });
+        }).otherwise({redirectTo:'/'});
 });

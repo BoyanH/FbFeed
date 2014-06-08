@@ -1,4 +1,4 @@
-app.controller('MainController', function($scope, $rootScope, $location, FacebookService, Auth){
+app.controller('MainController', function($scope, $rootScope, $location, FacebookService, Auth, Identity){
     $scope.loggedIn = false;
     $scope.login = function(){
         FacebookService.login()
@@ -10,7 +10,8 @@ app.controller('MainController', function($scope, $rootScope, $location, Faceboo
                     user.fbID = data.id;
                     user.password = 'random';
                     user.likes = [];
-                    Auth.login(user).then(function(response){
+                    Auth.login(user).then(function(user){
+                        Identity.currentUser = user;
                     });
 				})
 				.then(function () {
