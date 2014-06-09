@@ -152,7 +152,10 @@ a.user-acc:hover {
     margin-top: 10px;
     font-style: italic;
 }
-
+.updateStatus{
+    margin-top:70px;
+    position: fixed;
+}
 
 @media (max-width: 1000px) {
   

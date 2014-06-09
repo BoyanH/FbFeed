@@ -8,6 +8,10 @@ html
         link(rel="stylesheet" href="/css/popupPic.css")
         meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
     body(ng-app="app")
-        block main-content
+        .row
+            .col-md-9
+                block main-content
+            .col-md-3
+                include rightSide
         include scripts
         include currentUser

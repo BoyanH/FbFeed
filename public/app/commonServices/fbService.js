@@ -1,4 +1,4 @@
-﻿app.factory("FacebookService", function ($location, $q) {
+﻿app.factory("FacebookService", function ($location, $q, Identity) {
     var id = "1480652358834115",
         limit = '60',
         uid, //user's id
@@ -32,7 +32,7 @@
                 }
                 else {
                     FB.login(function(response){},
-                        {scope:'user_status,user_photos,read_stream,publish_stream,user_likes,publish_actions,read_friendlists,manage_notifications,rsvp_event, user_groups'});
+                        {scope:'user_status,user_photos,read_stream,publish_stream,user_likes,publish_actions,read_friendlists,manage_notifications,rsvp_event,user_groups,user_events'});
                     console.log('Now logged in.');
                 }
                 FB.api(
@@ -297,6 +297,20 @@
                     }
                 }
             );
+            return deferred.promise;
+        },
+        postStatusToMyWall: function(messageUser){
+            var deferred = $q.defer();
+            console.log('fbID: ' + Identity.currentUser.fbID);
+            FB.api(
+                '/me/feed',
+                "post", { message: messageUser },
+                function(response){
+                    console.log(response);
+                    deferred.resolve(response);
+                }
+            );
+
             return deferred.promise;
         }
     }
