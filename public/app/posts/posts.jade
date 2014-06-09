@@ -1,44 +1,43 @@
-.container
-	.row
-		.middle-page-status
-			.well(ng-show="stillLoding").text-center
-				.progress.progress-striped.active(style="width:300px;margin:0 auto;")
-					.progress-bar(style="width: 100%")
-			div.well(data-ng-repeat="post in posts track by $index")
-				.row
-					.col-md-1
-						img(ng-src="{{post.profileImage}}" src="")
-					.col-md-10
-						h5 {{post.story || post.from.name}}
+.row
+	.middle-page-status
+		.well(ng-show="stillLoding").text-center
+			.progress.progress-striped.active(style="width:300px;margin:0 auto;")
+				.progress-bar(style="width: 100%")
+		div.well(data-ng-repeat="post in posts track by $index")
+			.row
+				.col-md-1
+					img(ng-src="{{post.profileImage}}" src="")
+				.col-md-10
+					h5 {{post.story || post.from.name}}
+					.row
+						.col-md-12
+							.row.content(ng-show="post.type=='link'", style="margin-top:20px;")
+								div(link-dir data="post")
+							.row.content(ng-show="post.embedLink || post.type=='video'", style="margin-top:5px;")
+								div(video-dir data="post" style="padding-left:10px")
+							.row.content(ng-show="post.type=='status'" style="margin-top:5px;")
+								div(status-dir data="post")
+							.col-md-3.fb-action-row.text-center(ng-click="like(post)")
+								img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")
+								span.fb-action Likes 
+									span {{post.likes.data.length || 0}}
+							.col-md-3.fb-action-row.text-center(ng-click="commentWindow(post)")
+								img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/comment.png" width="30" height="30")
+								span.fb-action Comments 
+									span {{post.comments.data.length || 0}}
+							.col-md-3.fb-action-row.text-center(ng-click="share(post)")
+								img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/share.jpg" width="30" height="30")
+								span.fb-action Shares 
+									span {{post.shares.count || 0}}
 						.row
-							.col-md-12
-								.row.content(ng-show="post.type=='link'", style="margin-top:20px;")
-									div(link-dir data="post")
-								.row.content(ng-show="post.embedLink || post.type=='video'", style="margin-top:5px;")
-									div(video-dir data="post" style="padding-left:10px")
-								.row.content(ng-show="post.type=='status'" style="margin-top:5px;")
-									div(status-dir data="post")
-								.col-md-3.fb-action-row.text-center(ng-click="like(post)")
-									img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")
-									span.fb-action Likes 
-										span {{post.likes.data.length || 0}}
-								.col-md-3.fb-action-row.text-center(ng-click="commentWindow(post)")
-									img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/comment.png" width="30" height="30")
-									span.fb-action Comments 
-										span {{post.comments.data.length || 0}}
-								.col-md-3.fb-action-row.text-center(ng-click="share(post)")
-									img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/share.jpg" width="30" height="30")
-									span.fb-action Shares 
-										span {{post.shares.count || 0}}
-							.row
-								.container.comment-section(ng-show="status.wantToComment")
-									.row
-										.col-md-1
-											img(ng-src="{{profilePicture}}" src="")
-										.col-md-8
-											form.form-horizontal(name="formComment")
-												.row
-													.col-md-10
-														input.form-control.comment-input(type="text" placeholder="Write your comment" ng-model="comment.message")
-													.col-md-2
-														button.btn.btn-primary(type="submit" ng-click="comment(comment)") Comment
+							.container.comment-section(ng-show="status.wantToComment")
+								.row
+									.col-md-1
+										img(ng-src="{{profilePicture}}" src="")
+									.col-md-8
+										form.form-horizontal(name="formComment")
+											.row
+												.col-md-10
+													input.form-control.comment-input(type="text" placeholder="Write your comment" ng-model="comment.message")
+												.col-md-2
+													button.btn.btn-primary(type="submit" ng-click="comment(comment)") Comment

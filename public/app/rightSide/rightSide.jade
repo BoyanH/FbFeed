@@ -1,0 +1,22 @@
+.updateStatus(ng-controller="RightSideController")
+	.row
+		.col-md-9
+			input.form-control(type="text" id="message" ng-model="status.message" placeholder="Your mood?")
+		.col-md-3
+			button.btn.btn-primary(type="submit" ng-click="updateStatus(status.message)") Update
+	.row(style="margin-top:10px;")
+		.col-md-4
+			label.control-label.pull-right(for="select" style="padding-top:10px;") Sort by
+		.col-md-8
+			select.form-control(id="select" ng-model="select" ng-change="change(select)")
+				option(selected="selected" value="default") default
+				option(value="points") active points
+	.row(style="margin-top:10px;")
+		.col-md-12
+			.well.well-sm
+				h5 What are the active points?
+				p(style="max-width:250px;") When you like, comment on or share a post,
+					| you gain active points for the owner's post. 
+					| We can order the newsfeed so, that the most 
+					| interesting for you news appear at the 
+					| top of the page.

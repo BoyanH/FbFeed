@@ -13,7 +13,7 @@ app.controller('NotificationsController', function($scope, $location, $routePara
     function getNotifications () {
 
     	FacebookService.getUserNotifications().then(function(response) {
-
+            if(response.data){
             if($scope.notifications) {
 
                 if($scope.notifications.forEach(function(item) { if(!item.profileImage) return true})) {
@@ -45,6 +45,7 @@ app.controller('NotificationsController', function($scope, $location, $routePara
 
                 }
             }
+        }
 	    });
 
     }
