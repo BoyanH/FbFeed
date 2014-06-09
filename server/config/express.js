@@ -2,7 +2,8 @@
     bodyParser = require( 'body-parser' ),
     cookieParser = require( 'cookie-parser' ),
     session = require( 'express-session' ),
-    passport = require('passport');
+    passport = require('passport'),
+    favicon = require('serve-favicon');
     
 var allowCrossDomain = function(req, res, next) {
     
@@ -16,5 +17,6 @@ module.exports = function ( app, config ) {
     app.use( session({secret: 'suchdogesomoe'}) );
     app.use(passport.initialize());
     app.use(passport.session());
+    app.use(favicon(__dirname + '../../../public/img/icon.jpg'));
     app.use( express.static( config.rootPath + '/public' ) );
 }
