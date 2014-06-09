@@ -1,5 +1,5 @@
 ﻿app.factory("FacebookService", function ($location, $q) {
-    var id = "1480652358834115",
+    var id = "734082519946616",
         limit = '60',
         uid, //user's id
         accessToken,
@@ -32,7 +32,7 @@
                 }
                 else {
                     FB.login(function(response){},
-                        {scope:'user_status,user_photos,read_stream,publish_stream,user_likes,publish_actions,read_friendlists,manage_notifications,rsvp_event, user_groups'});
+                        {scope:'user_status, user_photos, read_stream, publish_stream, user_likes, publish_actions, read_friendlists, manage_notifications, rsvp_event, user_groups'});
                     console.log('Now logged in.');
                 }
                 FB.api(

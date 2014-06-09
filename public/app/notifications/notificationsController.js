@@ -34,7 +34,7 @@ app.controller('NotificationsController', function($scope, $location, $routePara
 
             function profileImageLoop() {
 
-                if ( response && response.data[k] ) {
+                if ( response && response.data && response.data[k] ) {
                     FacebookService.getPictureByID( response.data[k].from.id )
                         .then( function ( url ) {
                             $scope.notifications[k++].profileImage = url;
@@ -62,11 +62,15 @@ app.controller('NotificationsController', function($scope, $location, $routePara
             FacebookService.getUserNotifications().then(function(response) {
 
                 $scope.crntNotif = $.grep(response.data, function(e){ return e.id == $routeParams.notificationId; });
+
+                if($scope.crntNotif.object) {
+                    $scope.crntNotif = $scope.crntNotif.object;
+                }
             });
 
             FacebookService.getPostById($routeParams.notificationId).then(function(response) {
 
-                console.log(response.object);
+                console.log(JSON.stringify(response));
             });
         
     }
