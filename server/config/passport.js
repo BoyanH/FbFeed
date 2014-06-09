@@ -1,7 +1,6 @@
 ﻿var passport = require('passport'),
     User = require('mongoose').model('User'),
     LocalStrategy   = require('passport-local').Strategy;
-    FacebookStrategy = require('passport-facebook').Strategy;
 
 module.exports = function(){
    passport.serializeUser(function (user, done) {
