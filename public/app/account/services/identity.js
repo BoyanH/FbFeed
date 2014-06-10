@@ -9,9 +9,6 @@ app.factory('Identity', function($window,UserResource){
         isAuthenticated: function(){
             return !!this.currentUser;
         },
-        isAuthorizedForRole: function(role){
-            return !!this.currentUser && this.currentUser.roles.indexOf(role) > -1;
-        },
         update:function(){
             if($window.bootstrappedUserObject){
                 user = new UsersResource();

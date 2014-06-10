@@ -1,6 +1,6 @@
 app.factory("FacebookService", function ($location, $q) {
-    var id = "734082519946616",
-        limit = '60',
+    var id = "1480652358834115",
+        limit = '20',
         uid, //user's id
         accessToken,
         userProfilePicture,
@@ -31,6 +31,7 @@ app.factory("FacebookService", function ($location, $q) {
                     accessToken =  response.authResponse.accessToken;
                 }
                 else {
+                    alert('dsadasdasdadsa');
                     FB.login(function(response){},
                         {scope:'user_status,user_photos,read_stream,publish_stream,user_likes,publish_actions,read_friendlists,manage_notifications,rsvp_event,user_groups,user_events'});
                     console.log('Now logged in.');
@@ -57,11 +58,15 @@ app.factory("FacebookService", function ($location, $q) {
            var deferred = $q.defer();
             FB.getLoginStatus(
                 function ( response ) {
+                    if(response.status=="connected"){
+                        uid = response.authResponse.userID;
+                        accessToken =  response.authResponse.accessToken;
 
-                    uid = response.authResponse.userID;
-                    accessToken =  response.authResponse.accessToken;
-
-                    deferred.resolve(response.status);
+                        deferred.resolve(response.status);
+                    }
+                    else{
+                        deferred.resolve(false);
+                    }
                 }
             );
             return deferred.promise;
@@ -70,16 +75,17 @@ app.factory("FacebookService", function ($location, $q) {
             var deferred = $q.defer();
 
             FB.getLoginStatus(function (response) {
-                console.log(response);
-                uid = response.authResponse.userID;
-                accessToken =  response.authResponse.accessToken;
+                if(response.status=="connected"){
+                    uid = response.authResponse.userID;
+                    accessToken =  response.authResponse.accessToken;
                 
-                FB.api('/me',
-
-                function(data){
-
-                    deferred.resolve(data);
-                })
+                    FB.api('/me',
+                    function(data){
+                        deferred.resolve(data);
+                    });
+                }else{
+                    deferred.reject();
+                }
             });
             
             return deferred.promise;

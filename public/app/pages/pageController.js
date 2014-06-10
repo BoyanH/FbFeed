@@ -10,7 +10,7 @@
             $rootScope.user = data;
         })
 
-    FacebookService.getPages().then( function ( response ) {
+    FacebookService.getPages().then( function ( data ) {
 
         var data = response.data;
 
@@ -158,11 +158,11 @@
             });
             $( '.comment-input' ).val( '' );
         }
-       $scope.items = ['item1', 'item2', 'item3'];
+        $scope.profilePicture = FacebookService.getUserProfilePicture();
 
         setTimeout( PopupService.init, 600 );
     });
-    $scope.profilePicture = FacebookService.getUserProfilePicture();
+        });
     $scope.modalShown = false;
     $scope.toggleModal = function () {
         $scope.modalShown = !$scope.modalShown;

@@ -1,4 +1,4 @@
-﻿app.factory('Auth', function($http, $q, UserResource, Identity){
+﻿app.factory('Auth', function($http, $q, UserResource, Identity, FacebookService){
     return {
         login: function (user){
             var deferred = $q.defer();
@@ -56,6 +56,18 @@
                 deferred.reject(response);
             })
             return deferred.promise;
+        },
+        isAuthenticated: function(){
+            FacebookService.checkStatus().then(function(status){
+                console.log(status);
+                if(status == 'connected'){
+                    return true;
+                }
+                else{
+                    console.log('uhuuu');
+                    return $q.reject('not-authorized');
+                }
+            });
         },
     }
 });
