@@ -7,26 +7,26 @@ app.controller('PostsController', function($scope, $rootScope, FacebookService,
 	FacebookService.getAuthData()
     .then(function (data) {
         $rootScope.user = data;
-    });
-	
-    FacebookService.getPosts().then(function(data){
-    	$scope.posts = data;
-    	console.log(data);
-        var k = 0;
-        function profileImageLoop() {
-            FacebookService.getPictureByID($scope.posts[k].from.id)
-                .then(function (url) {
-                    $scope.posts[k].profileImage = url;
-                    k++;
-                    if (k < $scope.posts.length) {
-                        setTimeout(profileImageLoop, 1);
-                    }
-                });
-        }
-        if(data.length != 0){
-            profileImageLoop();
-        }
-        $scope.stillLoding = false;
+
+        FacebookService.getPosts().then(function(data){
+            $scope.posts = data;
+            console.log(data);
+            var k = 0;
+            function profileImageLoop() {
+                FacebookService.getPictureByID($scope.posts[k].from.id)
+                    .then(function (url) {
+                        $scope.posts[k].profileImage = url;
+                        k++;
+                        if (k < $scope.posts.length) {
+                            setTimeout(profileImageLoop, 1);
+                        }
+                    });
+            }
+            if(data.length != 0){
+                profileImageLoop();
+            }
+            $scope.stillLoding = false;
+        });
     });
     $scope.like = function ( item ) {
             ButtonsFacebookService.like( item ).then(function(success){

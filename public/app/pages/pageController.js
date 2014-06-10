@@ -8,9 +8,7 @@
     FacebookService.getAuthData()
         .then( function ( data ) {
             $rootScope.user = data;
-        })
-
-    FacebookService.getPages().then( function ( data ) {
+            FacebookService.getPages().then( function ( data ) {
         $scope.pageImages = [];
         $scope.pages = data;
 
@@ -161,11 +159,11 @@
             });
             $( '.comment-input' ).val( '' );
         }
-       $scope.items = ['item1', 'item2', 'item3'];
+        $scope.profilePicture = FacebookService.getUserProfilePicture();
 
         setTimeout( PopupService.init, 600 );
     });
-    $scope.profilePicture = FacebookService.getUserProfilePicture();
+        });
     $scope.modalShown = false;
     $scope.toggleModal = function () {
         $scope.modalShown = !$scope.modalShown;

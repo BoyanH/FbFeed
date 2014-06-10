@@ -5,9 +5,7 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
     FacebookService.getAuthData()
     .then(function (data) {
         $rootScope.user = data;
-    })
-    
-    FacebookService.getStatuses().then(function(data){
+        FacebookService.getStatuses().then(function(data){
         
         console.log(data);
         $scope.allStatuses = data;
@@ -61,6 +59,8 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
                 }
             }
         }
+        $scope.profilePicture = FacebookService.getUserProfilePicture();
+    });
     });
     $scope.share = function ( item ) {
 
@@ -81,7 +81,6 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
         ButtonsFacebookService.comment(itemToComment);
         $('.comment-input').val('');
     }
-    $scope.profilePicture = FacebookService.getUserProfilePicture();
     $scope.changePage = function (page) {
 
     	//$scope.statuses = $scope.allStatuses.splice(0, page*10);

@@ -8,13 +8,12 @@
 	FacebookService.getAuthData()
 		.then(function (data) {
 			$rootScope.user = data;
-		})
+			FacebookService.getFeed()
+				.then(function (data) {
 
-	FacebookService.getFeed()
-		.then(function (data) {
-
-			$scope.feed = data;
-			console.log(data);
-		})
+					$scope.feed = data;
+					console.log(data);
+				});
+		});
 
 });

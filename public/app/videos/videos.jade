@@ -1,18 +1,43 @@
 .row(ng-controller="VideosController")
-	.middle-page
-		.well(ng-show="stillLoding")
-			.progress.progress-striped.active(style="width:300px;margin:0 auto;")
-				.progress-bar(style="width: 100%")
-		.container
-			.row
-				.well(ng-repeat="video in allVideos")
-					.row
-						.col-md-1
-							img(ng-src="{{video.profileImage}}" src="")
-						.col-md-9
-							h5 {{video.from.name}}
-							p.pull-right {{video.updated_time}}
-							p.description {{video.message}}
-							div.well(style="margin-top:30px")
-								iframe(ng-src="{{trustSrc(video.embedLink || video.source.slice(0, video.source.indexOf('&autoplay')))}}", src="", style="widht:560px;height:315px", frameborder="0", allowfullscreen, target="_top", type="application/x-shockwave-flash")
-						.col-md-2
+    .middle-page
+        .well(ng-show="stillLoding")
+            .progress.progress-striped.active(style="width:300px;margin:0 auto;")
+                .progress-bar(style="width: 100%")
+        .container
+            .row
+                .well(ng-repeat="video in allVideos")
+                    .row
+                        .col-md-1
+                            img(ng-src="{{video.profileImage}}" src="")
+                        .col-md-9
+                            h5 {{video.from.name}}
+                            p.pull-right {{video.updated_time}}
+                            p.description {{video.message}}
+                            div.well(style="margin-top:30px")
+                                iframe(ng-src="{{trustSrc(video.embedLink || video.source.slice(0, video.source.indexOf('&autoplay')))}}", src="", style="widht:560px;height:315px", frameborder="0", allowfullscreen, target="_top", type="application/x-shockwave-flash")
+                        .col-md-2.fb-box.col-sm-12.col-xs-12
+                            .well
+                                .fb-action-row.text-center(ng-click="like(video)")
+                                    img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")
+                                    span.fb-action Likes 
+                                        span {{video.likes.data.length || 0}}
+                                .fb-action-row.text-center(ng-click="commentWindow(video)")
+                                    img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/comment.png" width="30" height="30")
+                                    span.fb-action Comments 
+                                        span {{video.comments.data.length || 0}}
+                                .fb-action-row.text-center(ng-click="share(video)")
+                                    img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/share.jpg" width="30" height="30")
+                                    span.fb-action Shares 
+                                        span {{video.shares.count || 0}}
+                    .row
+                        .container.comment-section(ng-show="video.wantToComment")
+                            .row
+                                .col-md-1
+                                    img(ng-src="{{profilePicture}}" src="")
+                                .col-md-11
+                                    form.form-horizontal(name="formComment")
+                                        .row
+                                            .col-md-10
+                                                input.form-control.comment-input(type="text" placeholder="Write your comment" ng-model="comment.message")
+                                            .col-md-2
+                                                button.btn.btn-primary(type="submit" ng-click="comment(comment)") Comment
