@@ -95,6 +95,7 @@
 
         $scope.nextPage = function () {
             console.log('next page, bitte!');
+            $scope.busy = true;
             var nextPage = response.paging.next;
 
             FacebookService.getByURL(nextPage).then(function (pagingResponse) {
@@ -111,6 +112,8 @@
                 if(pagingResponse.data.length != 0){
                     profileImageLoop();
                 }
+
+                $scope.busy = false;
 
             })
         }

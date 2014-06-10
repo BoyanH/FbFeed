@@ -276,9 +276,19 @@ app.factory("FacebookService", function ($location, $q) {
             var deferred = $q.defer();
 
             FB.api(
-                URL,
+                URL, {'since':'last week', 'limit': limit},
                 function (response) {
-                    deferred.resolve(response)
+                    
+                    if ( response && !response.error ) {
+                        var pages = [];
+                        for(var i =0;i<response.data.length; i++){
+                            if(response.data[i].from.category){
+                                pages.push(response.data[i]);
+                            }
+                        }
+                        response.data = pages;
+                        deferred.resolve(response);
+                    }
                 }
             );
             return deferred.promise;
