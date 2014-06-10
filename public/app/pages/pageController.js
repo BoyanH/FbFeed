@@ -8,9 +8,9 @@
     FacebookService.getAuthData()
         .then( function ( data ) {
             $rootScope.user = data;
-        })
+        });
 
-    FacebookService.getPages().then( function ( data ) {
+    FacebookService.getPages().then( function ( response ) {
 
         var data = response.data;
 
@@ -34,15 +34,6 @@
             }
         }
 
-
-        var pages = [];
-        for ( var i = 0; i < data.length; i++ ) {
-            if ( data[i] ) {
-                pages.push( data[i] );
-            }
-        }
-        data = pages;
-        $scope.pages = data;
 
         var pages = [];
         for ( var i = 0; i < data.length; i++ ) {
@@ -101,6 +92,29 @@
                 $scope.pages[z] = EmbedService.normalizeLink( $scope.pages[z] );
             }
         }
+
+        $scope.nextPage = function () {
+            console.log('next page, bitte!');
+            var nextPage = response.paging.next;
+
+            FacebookService.getByURL(nextPage).then(function (pagingResponse) {
+
+                response.paging = pagingResponse.paging;
+                k = $scope.pages.length;
+
+                for ( var i = 0; i < pagingResponse.data.length; i++ ) {
+                    if ( pagingResponse.data[i] ) {
+                        $scope.pages.push( pagingResponse.data[i] );
+                    }
+                }
+
+                if(pagingResponse.data.length != 0){
+                    profileImageLoop();
+                }
+
+            })
+        }
+
         $scope.share = function ( item ) {
 
             if ( item.shares ) {
@@ -162,14 +176,11 @@
 
         setTimeout( PopupService.init, 600 );
     });
-        });
+    
     $scope.modalShown = false;
+    
     $scope.toggleModal = function () {
         $scope.modalShown = !$scope.modalShown;
     };
 
-    $scope.logStuff = function () {
-
-        console.log('gosho');
-    }
 });

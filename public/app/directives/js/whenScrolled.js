@@ -5,13 +5,14 @@ app.directive('whenScrolled', function($window) {
         
         angular.element($window).bind('scroll', function() {
 
-		var offSet = scrolledEl.offset(),
-			height = scrolledEl.height(),
-			scrolledPercentage = (offSet / height)*11;
-
-            if (scrolledPercentage >= 60) {
+	    var offSet = $window.pageYOffset,
+	        height = $window.innerHeight,
+	        scrolledPercentage = (offSet / height * 100);
+console.log(scrolledPercentage);
+	        if (scrolledPercentage >= attr.percent) {
 	          scope.$apply(attr.whenScrolled);
-            }
-        });
+	          console.log('jaja');
+	        }
+	    });
     };
 });

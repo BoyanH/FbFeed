@@ -1,6 +1,6 @@
 app.factory("FacebookService", function ($location, $q) {
-    var id = "1480652358834115",
-        limit = '20',
+    var id = "734082519946616",
+        limit = '60',
         uid, //user's id
         accessToken,
         userProfilePicture,
@@ -270,6 +270,18 @@ app.factory("FacebookService", function ($location, $q) {
                     }
                 }  
             );
+        },
+        getByURL: function (URL) {
+
+            var deferred = $q.defer();
+
+            FB.api(
+                URL,
+                function (response) {
+                    deferred.resolve(response)
+                }
+            );
+            return deferred.promise;
         },
         deleteNotification: function (item) {
 
