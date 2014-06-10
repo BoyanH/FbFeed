@@ -10,7 +10,10 @@
             $rootScope.user = data;
         })
 
-    FacebookService.getPages().then( function ( data ) {
+    FacebookService.getPages().then( function ( response ) {
+
+        var data = response.data;
+
         $scope.pageImages = [];
         $scope.pages = data;
 
@@ -88,7 +91,7 @@
 
                 var type = data[z].application.name;
                 if ( type == 'Video' || type == 'YouTube' ) {
-                    console.log( EmbedService.normalizeLink( data[z] ) );
+
                     $scope.pages[z] = EmbedService.normalizeLink( data[z] );
                 }
             }
@@ -128,12 +131,6 @@
             });
         }
 
-
-        $scope.showLikes = function ( item ) {
-
-            window.open( '#/statuses', 'name', 'height=255,width=250, continued from previous line toolbar=no,directories=no,status=no,menubar=no, continued from previous line scrollbars=no,resizable=no' );
-        }
-
         $scope.commentWindow = function ( page ) {
             for ( var i = 0; i < data.length; i++ ) {
                 if ( data[i] ) {
@@ -170,4 +167,9 @@
     $scope.toggleModal = function () {
         $scope.modalShown = !$scope.modalShown;
     };
+
+    $scope.logStuff = function () {
+
+        console.log('gosho');
+    }
 });

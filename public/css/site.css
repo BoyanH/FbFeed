@@ -120,7 +120,7 @@ a.user-acc:hover {
     margin-top: 10px;
     width: 400px;
     height: 400px;
-    overflow-y: scroll;
+    overflow-y: auto;
     background-color: #A9A9AA;
 }
 
@@ -156,6 +156,7 @@ a.user-acc:hover {
     margin-top:70px;
     position: fixed;
 }
+
 
 @media (max-width: 1000px) {
   

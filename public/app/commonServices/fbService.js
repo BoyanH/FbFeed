@@ -97,7 +97,8 @@ app.factory("FacebookService", function ($location, $q) {
                                 pages.push(response.data[i]);
                             }
                         }
-                        deferred.resolve(pages);
+                        response.data = pages;
+                        deferred.resolve(response);
                     }
                 }
             );
