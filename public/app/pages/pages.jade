@@ -85,4 +85,6 @@
                                                 input.form-control.comment-input(type="text" placeholder="Write your comment" ng-model="comment.message")
                                             .col-md-2
                                                 button.btn.btn-primary(type="submit" ng-click="comment(comment)") Comment
+                .busy-warning(ng-show="busy")
+                    h4 Loading more posts... Please wait!
 .md-overlay                

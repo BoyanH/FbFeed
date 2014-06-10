@@ -1,4 +1,4 @@
-.row
+.row(infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='5')
 	.middle-page-status
 		.well(ng-show="stillLoding").text-center
 			.progress.progress-striped.active(style="width:300px;margin:0 auto;")
@@ -42,3 +42,5 @@
 											input.form-control.comment-input(type="text" placeholder="Write your comment" ng-model="comment.message")
 										.col-md-2
 											button.btn.btn-primary(type="submit" ng-click="comment(comment)") Comment
+		.busy-warning(ng-show="busy")
+			h4 Loading more posts... Please wait!

@@ -5,62 +5,90 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
     FacebookService.getAuthData()
     .then(function (data) {
         $rootScope.user = data;
-        FacebookService.getStatuses().then(function(data){
+        FacebookService.getStatuses().then(function (response){
         
-        console.log(data);
-        $scope.allStatuses = data;
-        
-        var k = 0;
-        function profileImageLoop() {
-            FacebookService.getPictureByID($scope.allStatuses[k].from.id)
-                .then(function (url) {
-                    $scope.allStatuses[k].profileImage = url;
-                    k++;
-                    if (k < $scope.allStatuses.length) {
-                        setTimeout(profileImageLoop, 1);
-                    }
-                });
-        }
-        if(data.length != 0){
-            profileImageLoop();
-        }
-        var p = 0;
-        function addedPhoto() {
-            FacebookService.getPictureByID($scope.allStatuses[p].object_id)
-                .then(function (url) {
-                    $scope.allStatuses[p].addedPhoto = url;
-                    while(data[p].status_type!="added_photos"){
-                        p++;
-                    }
-                    if (p < $scope.allStatuses.length) {
-                        setTimeout(addedPhoto, 1);
-                    }
-                });
-        }
-        if(data.length != 0){
-            addedPhoto();
-        }
-        for ( var t = 0; t < data.length; t++ ) {
-            if ( data[t] && data[t].type == "photo" && data[t].status_type == "tagged_in_photo") {
-                $scope.allStatuses[t].postPhoto = "https://graph.facebook.com/" + data[t].object_id + "/picture";
+            var data = response.data,
+                k = 0;
+
+            $scope.statuses = data;
+
+            function profileImageLoop() {
+                FacebookService.getPictureByID($scope.statuses[k].from.id)
+                    .then(function (url) {
+                        $scope.statuses[k].profileImage = url;
+                        k++;
+                        if (k < $scope.statuses.length) {
+                            setTimeout(profileImageLoop, 1);
+                        }
+                    });
             }
-        }
+            if(data.length != 0){
+                profileImageLoop();
+            }
+            var p = 0;
+            function addedPhoto() {
+                FacebookService.getPictureByID($scope.statuses[p].object_id)
+                    .then(function (url) {
+                        $scope.statuses[p].addedPhoto = url;
+                        while(data[p].status_type!="added_photos"){
+                            p++;
+                        }
+                        if (p < $scope.statuses.length) {
+                            setTimeout(addedPhoto, 1);
+                        }
+                    });
+            }
+            if(data.length != 0){
+                addedPhoto();
+            }
 
-        //$scope.statuses = $scope.allStatuses.splice(0, 10);
-        $scope.stillLoding = false;
+            $scope.nextPage = function () {
 
-        $scope.commentWindow = function ( page ) {
-            for ( var i = 0; i < data.length; i++ ) {
-                if ( data[i] ) {
-                    if ( data[i].id == page.id ) {
-                        $scope.allStatuses[i].wantToComment = true;
-                        idComment = data[i].id;
+                $scope.busy = true;
+                var nextPage = response.paging.next;
+
+                FacebookService.getMorePosts(nextPage).then(function (pagingResponse) {
+
+                    response.paging = pagingResponse.paging;
+                    k = $scope.statuses.length;
+                    p = $scope.statuses.length
+
+                    for ( var i = 0; i < pagingResponse.data.length; i++ ) {
+                        if ( pagingResponse.data[i] ) {
+                            $scope.statuses.push( pagingResponse.data[i] );
+                        }
+                    }
+
+                    if(pagingResponse.data.length != 0){
+                        profileImageLoop();
+                        addedPhoto();
+                    }
+
+                    $scope.busy = false;
+
+                })
+            }
+
+            for ( var t = 0; t < data.length; t++ ) {
+                if ( data[t] && data[t].type == "photo" && data[t].status_type == "tagged_in_photo") {
+                    $scope.statuses[t].postPhoto = "https://graph.facebook.com/" + data[t].object_id + "/picture";
+                }
+            }
+
+            $scope.stillLoding = false;
+
+            $scope.commentWindow = function ( page ) {
+                for ( var i = 0; i < data.length; i++ ) {
+                    if ( data[i] ) {
+                        if ( data[i].id == page.id ) {
+                            $scope.statuses[i].wantToComment = true;
+                            idComment = data[i].id;
+                        }
                     }
                 }
             }
-        }
-        $scope.profilePicture = FacebookService.getUserProfilePicture();
-    });
+            $scope.profilePicture = FacebookService.getUserProfilePicture();
+        });
     });
     $scope.share = function ( item ) {
 
@@ -80,9 +108,5 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
         itemToComment.userMessage = commentInput.message
         ButtonsFacebookService.comment(itemToComment);
         $('.comment-input').val('');
-    }
-    $scope.changePage = function (page) {
-
-    	//$scope.statuses = $scope.allStatuses.splice(0, page*10);
     }
 });

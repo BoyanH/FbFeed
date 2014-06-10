@@ -94,11 +94,11 @@
         }
 
         $scope.nextPage = function () {
-            console.log('next page, bitte!');
+
             $scope.busy = true;
             var nextPage = response.paging.next;
 
-            FacebookService.getByURL(nextPage).then(function (pagingResponse) {
+            FacebookService.getMorePages(nextPage).then(function (pagingResponse) {
 
                 response.paging = pagingResponse.paging;
                 k = $scope.pages.length;
