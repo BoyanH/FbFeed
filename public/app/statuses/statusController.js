@@ -4,9 +4,10 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
 
     FacebookService.getAuthData()
     .then(function (data) {
+        FacebookService.getUserProfilePicture();
         $rootScope.user = data;
         FacebookService.getStatuses().then(function(data){
-        
+            $scope.profilePicture = FacebookService.getUserProfilePicture();
         console.log(data);
         $scope.allStatuses = data;
         
@@ -44,6 +45,11 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
             if ( data[t] && data[t].type == "photo" && data[t].status_type == "tagged_in_photo") {
                 $scope.allStatuses[t].postPhoto = "https://graph.facebook.com/" + data[t].object_id + "/picture";
             }
+            if(data[t].type=="photo" && data[t].story){
+                if(data[t].story.indexOf("profile picture") > 0){
+                    $scope.allStatuses[t].changedProfile = "https://graph.facebook.com/" + data[t].from.id + "/picture?type=large";
+                }
+            }
         }
 
         //$scope.statuses = $scope.allStatuses.splice(0, 10);
@@ -59,7 +65,22 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
                 }
             }
         }
-        $scope.profilePicture = FacebookService.getUserProfilePicture();
+        var t=0;
+        for(var t=0;t<data.length;t++){
+            if(data[t].story){
+                if(data[t].story.indexOf('likes a photo')>0){
+                    $scope.allStatuses[t].likedPhoto = 'https://graph.facebook.com/' + 
+                        data[t].id.slice(data[t].id.indexOf('_')+1,data[t].id.length) +
+                        '/picture';
+                }
+            }
+        }
+        for ( var t = 0; t < data.length; t++ ) {
+            if ( data[t] && data[t].type == "photo" ) {
+
+                $scope.allStatuses[t].postPhoto = "https://graph.facebook.com/" + data[t].object_id + "/picture";
+            }
+        }
     });
     });
     $scope.share = function ( item ) {

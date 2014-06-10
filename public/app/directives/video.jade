@@ -1,6 +1,6 @@
 .row
 p.description {{data.message}}
 p {{data.name}}
-iframe(ng-src="{{trustSrc(data.embedLink || data.source.slice(0, data.source.indexOf('&autoplay')))}}", src="", style="widht:560px;height:315px", frameborder="0", allowfullscreen, target="_top", type="application/x-shockwave-flash")
+iframe(ng-src="{{trustSrc(data.embedLink || data.source.slice(0, data.source.indexOf('&autoplay')))}}", src="", style="width:100%;min-height:300px;", frameborder="0", allowfullscreen, target="_top", type="application/x-shockwave-flash")
 p(style="margin-top:5px;")
 	| {{data.description}}

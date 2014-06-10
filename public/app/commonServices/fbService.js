@@ -1,9 +1,10 @@
 app.factory("FacebookService", function ($location, $q) {
-    var id = "734082519946616",
+    var id = "1480652358834115",
         limit = '60',
         uid, //user's id
         accessToken,
         userProfilePicture,
+        status,
         since = 'last week';
     FB.init({
         appId: id,
@@ -76,6 +77,7 @@ app.factory("FacebookService", function ($location, $q) {
 
             FB.getLoginStatus(function (response) {
                 if(response.status=="connected"){
+                    status = response.status; //private 
                     uid = response.authResponse.userID;
                     accessToken =  response.authResponse.accessToken;
                 
@@ -261,15 +263,19 @@ app.factory("FacebookService", function ($location, $q) {
             return deferred.promise;
         },
         getUserProfilePicture: function(){
-            return userProfilePicture || FB.api(
+            if(userProfilePicture){
+                return userProfilePicture
+            }else{
+                FB.api(
                 "/me/picture",
-                function (response) {
-                    console.log(response.data);
-                    if (response && !response.error) {
-                        userProfilePicture=response.data.url;
-                    }
-                }  
-            );
+                    function (response) {
+                        if (response && !response.error) {
+                            userProfilePicture=response.data.url;
+                            return response.data.url;
+                        }
+                    }  
+                );
+            }
         },
         getByURL: function (URL) {
 

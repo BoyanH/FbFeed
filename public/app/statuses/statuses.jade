@@ -3,57 +3,47 @@
         .well(ng-show="stillLoding").text-center
             .progress.progress-striped.active(style="width:300px;margin:0 auto;")
                 .progress-bar(style="width: 100%")
-        div.well(data-ng-repeat="status in allStatuses track by $index")
-            .row.content
+        div.well(data-ng-repeat="status in allStatuses track by $index" ng-if="!status.story || status.story.indexOf('commented') < 0")
+            .row
                 .col-md-1
                     img(ng-src="{{status.profileImage}}" src="")
                 .col-md-10
                     h5 {{status.story || status.from.name}}
-                    .row
+                    .row(style="margin-top:5px")
                         .col-md-12
                             p.pull-right {{status.updated_time | date:'h:mma MM/dd/yyyy'}}
-                            p.description.status-description {{status.message}}
-                            .well(ng-show="status.type=='video'" style="height:120px; margin-top:20px;")
-                                a(href="{{status.link}}" target="_blank")
-                                    .col-md-4
-                                        img(ng-src="{{status.picture}}" sr="")
-                                    .col-md-8
-                                        p.status-description {{status.name}}
-                                        p.status-description {{status.description}}
-                            .well.content(ng-show="status.type=='link'", style="height:140px;margin-top:20px;")
-                                .col-md-4
-                                    div
-                                        a(href="{{status.link}}" target="_blank")
-                                            img(ng-src="{{status.picture}}" src="" style="width:100px;")
-                                .col-md-8
-                                    p.description.status-description
-                                        | {{status.name}}
-                                    p 
-                                        a(href="{{page.caption}}" target="_blank") {{status.caption}}
-                            .row.content(ng-show="status.type=='photo'" style="height:120px; margin-top:20px;")
+                            .row.content(ng-show="status.type=='video'")
+                                div(video-dir data="status" style="margin-left:5px;")
+                            .row.content(ng-show="status.type=='link'")
+                                div(link-dir data="status")
+                            .row.content(ng-show="status.type=='photo'")
                                 div(photo-dir data="status")
-                        .row
-                            .col-md-3.fb-action-row.text-center(ng-click="like(status)")
-                                img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")
-                                span.fb-action Likes 
-                                    span {{status.likes.data.length || 0}}
-                            .col-md-3.fb-action-row.text-center(ng-click="commentWindow(status)")
-                                img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/comment.png" width="30" height="30")
-                                span.fb-action Comments 
-                                    span {{status.comments.data.length || 0}}
-                            .col-md-3.fb-action-row.text-center(ng-click="share(status)")
-                                img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/share.jpg" width="30" height="30")
-                                span.fb-action Shares 
-                                    span {{status.shares.count || 0}}
-                        .row
-                            .container.comment-section(ng-show="status.wantToComment")
+                            .row.content(ng-show="status.story.indexOf('likes a photo') > 0")
+                                div(photo-dir data="status")
+                            .row.content(ng-show="status.status_type=='mobile_status_update'")
+                                div(status-dir data="status")
+            .row
+                .col-md-3.fb-action-row.text-center(ng-click="like(status)")
+                    img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")
+                    span.fb-action Likes 
+                        span {{status.likes.data.length || 0}}
+                .col-md-3.fb-action-row.text-center(ng-click="commentWindow(status)")
+                    img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/comment.png" width="30" height="30")
+                    span.fb-action Comments 
+                        span {{status.comments.data.length || 0}}
+                .col-md-3.fb-action-row.text-center(ng-click="share(status)")
+                    img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/share.jpg" width="30" height="30")
+                    span.fb-action Shares 
+                        span {{status.shares.count || 0}}
+            .row
+                .comment-section(ng-show="status.wantToComment")
+                    .row
+                        .col-md-1(style="margin:auto 10px;")
+                            img(ng-src="{{profilePicture}}" src="")
+                        .col-md-8
+                            form.form-horizontal(name="formComment")
                                 .row
-                                    .col-md-1
-                                        img(ng-src="{{profilePicture}}" src="")
-                                    .col-md-8
-                                        form.form-horizontal(name="formComment")
-                                            .row
-                                                .col-md-10
-                                                    input.form-control.comment-input(type="text" placeholder="Write your comment" ng-model="comment.message")
-                                                .col-md-2
-                                                    button.btn.btn-primary(type="submit" ng-click="comment(comment)") Comment
+                                    .col-md-10
+                                        input.form-control.comment-input(type="text" placeholder="Write your comment" ng-model="comment.message")
+                                    .col-md-2
+                                        button.btn.btn-primary(type="submit" ng-click="comment(comment)") Comment
