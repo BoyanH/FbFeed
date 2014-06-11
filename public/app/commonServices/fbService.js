@@ -30,8 +30,20 @@ app.factory("FacebookService", function ($location, $q) {
                 }
                 else {
                     FB.login(function(response){status='connected';},
-                        {scope:'user_status,user_photos,read_stream,publish_stream,user_likes,publish_actions,read_friendlists,manage_notifications,rsvp_event,user_groups,user_events'});
-                    
+                        {scope:'user_status,'+
+                        'user_photos,'+
+                        'read_stream,'+
+                        'publish_stream,'+
+                        'user_likes,'+
+                        'publish_actions,'+
+                        'read_friendlists,'+
+                        'manage_notifications,'+
+                        'rsvp_event,'+
+                        'user_groups,'+
+                        'user_events,'+
+                        'friends_photos,' +
+                        'friends_likes'
+                        });
                 }
                 FB.api(
                     "/me/picture",
@@ -49,6 +61,7 @@ app.factory("FacebookService", function ($location, $q) {
             return deferred.promise;
         },
         logout: function(){
+            status = 'not-connected';
             FB.logout();
         },
         getStatusSync:function(){
@@ -277,6 +290,18 @@ app.factory("FacebookService", function ($location, $q) {
                     }  
                 );
             }
+        },
+        getMoreFeed: function(URL){
+            var deferred = $q.defer();
+
+            FB.api(URL,
+                {'since':'last month', 'limit': limit},
+                function(reponse){
+                    if(response && !response.error){
+                        deferred.resolve(response);
+                    }
+                });
+            return deferred.promise;
         },
         getMorePages: function (URL) {
 

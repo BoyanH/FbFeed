@@ -5,7 +5,7 @@
                 .progress-bar(style="width: 100%")
         .container
             .row
-                .well(ng-repeat="page in pages" ng-if="page!=undefined")
+                .well(ng-repeat="page in pages")
                     .row
                         .col-md-1
                             img(ng-src="{{page.profileImage}}" src="")
@@ -87,7 +87,7 @@
                                 .col-md-11
                                     form.form-horizontal(name="formComment")
                                         .row
-                                            .col-md-10
+                                            .col-md-9
                                                 input.form-control.comment-input(type="text" placeholder="Write your comment" ng-model="comment.message")
                                             .col-md-2
                                                 button.btn.btn-primary(type="submit" ng-click="comment(comment)") Comment
