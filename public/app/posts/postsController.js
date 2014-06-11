@@ -8,10 +8,13 @@ app.controller('PostsController', function($scope, $rootScope, FacebookService,
     .then(function (data) {
         $rootScope.user = data;
 
-        FacebookService.getPosts().then(function(data){
+        FacebookService.getPosts().then(function (response){
+
+            var k = 0,
+                data = response.data;
+
             $scope.posts = data;
-            console.log(data);
-            var k = 0;
+
             function profileImageLoop() {
                 FacebookService.getPictureByID($scope.posts[k].from.id)
                     .then(function (url) {
@@ -22,10 +25,36 @@ app.controller('PostsController', function($scope, $rootScope, FacebookService,
                         }
                     });
             }
-            if(data.length != 0){
+            if(data && data.length != 0){
                 profileImageLoop();
             }
             $scope.stillLoding = false;
+
+            $scope.nextPage = function () {
+
+                $scope.busy = true;
+                var nextPage = response.paging.next;
+
+                FacebookService.getMorePosts(nextPage).then(function (pagingResponse) {
+
+                    response.paging = pagingResponse.paging;
+                    k = $scope.posts.length;
+
+                    for ( var i = 0; i < pagingResponse.data.length; i++ ) {
+                        if ( pagingResponse.data[i] ) {
+                            $scope.posts.push( pagingResponse.data[i] );
+                        }
+                    }
+
+                    if(pagingResponse.data.length != 0){
+                        profileImageLoop();
+                    }
+
+                    $scope.busy = false;
+
+                })
+            }
+
         });
     });
     $scope.like = function ( item ) {
@@ -39,12 +68,6 @@ app.controller('PostsController', function($scope, $rootScope, FacebookService,
                     //do smth P.S. remove alerts in buttonsFacebook like/comment/share
                 }
             });
-        }
-
-
-        $scope.showLikes = function ( item ) {
-
-            window.open( '#/statuses', 'name', 'height=255,width=250, continued from previous line toolbar=no,directories=no,status=no,menubar=no, continued from previous line scrollbars=no,resizable=no' );
         }
 
         $scope.commentWindow = function ( page ) {

@@ -1,87 +1,90 @@
-﻿.middle-page
-    .well(ng-show="stillLoding").text-center
-        .progress.progress-striped.active(style="width:300px;margin:0 auto;")
-            .progress-bar(style="width: 100%")
-    .container
-        .row
-            .well(ng-repeat="page in pages" ng-if="page!=undefined")
-                .row
-                    .col-md-1
-                        img(ng-src="{{page.profileImage}}" src="")
-                    .col-md-9
-                        h5
-                            a(href="https://www.facebook.com/profile.php?id={{page.from.id}}" target="_blank") {{page.from.name}} 
-                            span(ng-show="page.type=='link'") shared link
-                            span(ng-show="page.embedLink || page.type=='video'") added video
-                            span(ng-show="page.type=='photo'") added picture
-                            span(ng-show="page.type=='status'") added status
-                        .row.content(ng-show="page.type=='link'", style="margin-top:20px;")
-                            div(link-dir data="page")
-                        .row.content(ng-show="page.type=='photo'" style="margin-top:20px;")
-                            div(photo-dir data="page")
-                        .row.content(ng-show="page.embedLink || page.type=='video'", style="margin-top:20px;")
-                            div(video-dir data="page")
-                        .row.content(ng-show="page.type=='status'")
-                            div(status-dir data="page")
-                                    
-                    .col-md-2.fb-box.col-sm-12.col-xs-12
-                        .well
-                            .fb-action-row.text-center(ng-click="like(page)")
-                                img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")
-                                span.fb-action Likes 
-                                    span {{page.likes.data.length || 0}}
-                            .fb-action-row.text-center(ng-click="commentWindow(page)")
-                                img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/comment.png" width="30" height="30")
-                                span.fb-action Comments 
-                                    span {{page.comments.data.length || 0}}
-                            .fb-action-row.text-center(ng-click="share(page)")
-                                img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/share.jpg" width="30" height="30")
-                                span.fb-action Shares 
-                                    span {{page.shares.count || 0}}
-                .row
-                    .container.show-section.text-center
-                        .col-md-12
-                            .show-button Show Comments
-                            .show-button Show Shares
-                .row
-                    .container.likes-section
-                        .col-md-12
-                            .like(ng-show="page.likes.data.length <= 4")
-                                span(ng-repeat="like in page.likes.data |limitTo: pages.likes.data.length - 2") {{like.name}}, 
-                                span(ng-show="pages.likes.data.length >= 2") {{page.likes.data[page.likes.data.length - 2].name}} and 
-                                span(ng-show="pages.likes.data.length >= 1") {{page.likes.data[page.likes.data.length - 1].name}} like this 
-                                span(ng-show="page.likes.data.length")
+﻿.row(infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='5')
+    .middle-page
+        .well(ng-show="stillLoding").text-center
+            .progress.progress-striped.active(style="width:300px;margin:0 auto;")
+                .progress-bar(style="width: 100%")
+        .container
+            .row
+                .well(ng-repeat="page in pages" ng-if="page!=undefined")
+                    .row
+                        .col-md-1
+                            img(ng-src="{{page.profileImage}}" src="")
+                        .col-md-9
+                            h5
+                                a(href="https://www.facebook.com/profile.php?id={{page.from.id}}" target="_blank") {{page.from.name}} 
+                                span(ng-show="page.type=='link'") shared link
+                                span(ng-show="page.embedLink || page.type=='video'") added video
+                                span(ng-show="page.type=='photo'") added picture
+                                span(ng-show="page.type=='status'") added status
+                            .row.content(ng-show="page.type=='link'", style="margin-top:20px;")
+                                div(link-dir data="page")
+                            .row.content(ng-show="page.type=='photo'" style="margin-top:20px;")
+                                div(photo-dir data="page")
+                            .row.content(ng-show="page.embedLink || page.type=='video'", style="margin-top:20px;")
+                                div(video-dir data="page")
+                            .row.content(ng-show="page.type=='status'" style="margin-top:10px;")
+                                div(status-dir data="page")
+                                        
+                        .col-md-2.fb-box.col-sm-12.col-xs-12
+                            .well
+                                .fb-action-row.text-center(ng-click="like(page)")
+                                    img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")
+                                    span.fb-action Likes 
+                                        span {{page.likes.data.length || 0}}
+                                .fb-action-row.text-center(ng-click="commentWindow(page)")
+                                    img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/comment.png" width="30" height="30")
+                                    span.fb-action Comments 
+                                        span {{page.comments.data.length || 0}}
+                                .fb-action-row.text-center(ng-click="share(page)")
+                                    img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/share.jpg" width="30" height="30")
+                                    span.fb-action Shares 
+                                        span {{page.shares.count || 0}}
+                    .row
+                        .container.show-section.text-center
+                            .col-md-12
+                                .show-button Show Comments
+                                .show-button Show Shares
+                    .row
+                        .container.likes-section
+                            .col-md-12
+                                .like(ng-show="page.likes.data.length <= 4")
+                                    span(ng-repeat="like in page.likes.data |limitTo: pages.likes.data.length - 2") {{like.name}}, 
+                                    span(ng-show="pages.likes.data.length >= 2") {{page.likes.data[page.likes.data.length - 2].name}} and 
+                                    span(ng-show="pages.likes.data.length >= 1") {{page.likes.data[page.likes.data.length - 1].name}} like this 
+                                    span(ng-show="page.likes.data.length")
+                                        span(ng-show="page.type=='link'") link
+                                        span(ng-show="page.embedLink || page.type=='video'") video
+                                        span(ng-show="page.type=='photo'") picture
+                                .like(ng-show="page.likes.data.length > 4")
+                                    span(ng-repeat="like in page.likes.data |limitTo: 2") {{like.name}}, 
+                                        span   {{page.likes.data[2].name}} 
+                                        | and 
+                                    span.likes-button.md-trigger.md-setperspective(data-modal="modal-{{$index}}")
+                                        | {{page.likes.data.length - 3}} others 
+                                    span like this 
                                     span(ng-show="page.type=='link'") link
                                     span(ng-show="page.embedLink || page.type=='video'") video
                                     span(ng-show="page.type=='photo'") picture
-                            .like(ng-show="page.likes.data.length > 4")
-                                span(ng-repeat="like in page.likes.data |limitTo: 2") {{like.name}}, 
-                                    span   {{page.likes.data[2].name}} 
-                                    | and 
-                                span.likes-button.md-trigger.md-setperspective(data-modal="modal-{{$index}}")
-                                    | {{page.likes.data.length - 3}} others 
-                                span like this 
-                                span(ng-show="page.type=='link'") link
-                                span(ng-show="page.embedLink || page.type=='video'") video
-                                span(ng-show="page.type=='photo'") picture
-                    .container.popup
-                        .col-md-12
-                            .md-modal.md-effect-18(id="modal-{{$index}}")
-                                .md-content
-                                    h3 Likes
-                                    .scroll
-                                        div(ng-repeat="like in page.likes.data") {{like.name}}
-                                    button.md-close Close
-                .row
-                    .container.comment-section(ng-show="page.wantToComment")
-                        .row
-                            .col-md-1
-                                img(ng-src="{{profilePicture}}" src="")
-                            .col-md-11
-                                form.form-horizontal(name="formComment")
-                                    .row
-                                        .col-md-10
-                                            input.form-control.comment-input(type="text" placeholder="Write your comment" ng-model="comment.message")
-                                        .col-md-2
-                                            button.btn.btn-primary(type="submit" ng-click="comment(comment)") Comment
+                        .container.popup
+                            .col-md-12
+                                .md-modal.md-effect-18(id="modal-{{$index}}")
+                                    .md-content
+                                        h3 Likes
+                                        .scroll
+                                            div(ng-repeat="like in page.likes.data") {{like.name}}
+                                        button.md-close Close
+                    .row
+                        .container.comment-section(ng-show="page.wantToComment")
+                            .row
+                                .col-md-1
+                                    img(ng-src="{{profilePicture}}" src="")
+                                .col-md-11
+                                    form.form-horizontal(name="formComment")
+                                        .row
+                                            .col-md-10
+                                                input.form-control.comment-input(type="text" placeholder="Write your comment" ng-model="comment.message")
+                                            .col-md-2
+                                                button.btn.btn-primary(type="submit" ng-click="comment(comment)") Comment
+                .busy-warning(ng-show="busy")
+                    h4 Loading more posts... Please wait!
 .md-overlay                

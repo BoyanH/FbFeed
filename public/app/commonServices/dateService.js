@@ -64,7 +64,6 @@ app.factory("DateService", function ($location, $q) {
 
             newDate = day + ' of ' + month + ', ' + year + '  at ' + time;
 
-            console.log(newDate);
             return newDate
         }
     }

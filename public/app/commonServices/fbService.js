@@ -157,7 +157,8 @@ app.factory("FacebookService", function ($location, $q) {
                                 }
                             }
                         }
-                        deferred.resolve(statuses);
+                        response.data = statuses;
+                        deferred.resolve(response);
                     }
                 }
             );
@@ -182,7 +183,8 @@ app.factory("FacebookService", function ($location, $q) {
                                 posts.push(response.data[i]);
                             }
                         }
-                        deferred.resolve(posts);
+                        response.data = posts;
+                        deferred.resolve(response);
                     }
                 }
             );
@@ -213,8 +215,9 @@ app.factory("FacebookService", function ($location, $q) {
                                 videos.push(response.data[i]);
                             }
                         }
-                        console.log(videos);
-                        deferred.resolve(videos);
+
+                        response.data = videos;
+                        deferred.resolve(response);
                     }
                 }
             );
@@ -277,17 +280,130 @@ app.factory("FacebookService", function ($location, $q) {
                 );
             }
         },
-        getByURL: function (URL) {
+        getMorePages: function (URL) {
 
             var deferred = $q.defer();
 
             FB.api(
-                URL,
+                URL, {'since':'last month', 'limit': limit},
                 function (response) {
-                    deferred.resolve(response)
+                    
+                    if ( response && !response.error ) {
+                        var pages = [];
+                        for(var i =0;i<response.data.length; i++){
+                            if(response.data[i].from.category){
+                                pages.push(response.data[i]);
+                            }
+                        }
+                        response.data = pages;
+                        deferred.resolve(response);
+                    }
                 }
             );
             return deferred.promise;
+        },
+        getMoreVideos: function (URL) {
+
+            var deferred = $q.defer(),
+                videos = [];
+
+            FB.api(
+                URL, {'since':'last month', 'limit': limit},
+                function (response) {
+                    
+                    if ( response && !response.error ) {
+
+                        for(var i = 0; i < response.data.length; i++) {
+
+                            if(response.data[i].application) {
+
+                                    var type = response.data[i].application.name;
+                                    if((type == 'Video' || type == 'YouTube') && (response.data[i].source || response.data[i].link)) {
+
+                                        videos.push(response.data[i]);
+                                    }
+                            }
+
+                            else if(response.data[i].type == 'video') {
+
+                                videos.push(response.data[i]);
+                            }
+                        }
+
+                        response.data = videos;
+                        deferred.resolve(response);
+                    }
+                }
+            );
+            return deferred.promise;
+
+        },
+        getMorePosts: function (URL) {
+
+            var deferred = $q.defer();
+
+            FB.api(
+                URL, {'since':'last month', 'limit': limit},
+                function (response) {
+                    
+                    if ( response && !response.error ) {
+
+                        var posts = [];
+                        for(var i = 0; i < response.data.length; i++) {
+
+                            if ((response.data[i].status_type == "mobile_status_update" && response.data[i].type!='photo')
+                                || (response.data[i].status_type == 'shared_story' &&
+                                        (response.data[i].type == 'video' || response.data[i].type=='link')
+                                    )
+                                ) {
+
+                                posts.push(response.data[i]);
+                            }
+                        }
+                        response.data = posts;
+                        deferred.resolve(response);
+                    }
+                }
+            );
+            return deferred.promise;
+
+        },
+        getMoreStatuses: function (URL) {
+
+            var deferred = $q.defer();
+
+            FB.api(
+                URL, {'since':'last month', 'limit': limit},
+                function (response) {
+                    
+                    if ( response && !response.error ) {
+
+                        var statuses = [];
+
+                        for (var i = 0; i < response.data.length; i++) {
+                            if(response.data[i].comments) {
+
+                                if (response.data[i].comments.data[0].can_remove !== undefined) {
+
+                                    if (!response.data[i].from.category) {
+                                        statuses.push(response.data[i]);
+                                    }
+                                }
+                            }
+                            else if(response.data[i].place) {
+                                
+                                if (!response.data[i].from.category) {
+                                    statuses.push(response.data[i]);
+                                }
+                            }
+                        }
+                        response.data = statuses;
+                        deferred.resolve(response);
+                    }
+                }
+            );
+            return deferred.promise;
+
         },
         deleteNotification: function (item) {
 

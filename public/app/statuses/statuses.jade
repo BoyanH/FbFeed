@@ -1,9 +1,9 @@
-.row
+.row(infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='5')
     .middle-page-status
         .well(ng-show="stillLoding").text-center
             .progress.progress-striped.active(style="width:300px;margin:0 auto;")
                 .progress-bar(style="width: 100%")
-        div.well(data-ng-repeat="status in allStatuses track by $index" ng-if="!status.story || status.story.indexOf('commented') < 0")
+        div.well(data-ng-repeat="status in statuses track by $index" ng-if="!status.story || status.story.indexOf('commented') < 0")
             .row
                 .col-md-1
                     img(ng-src="{{status.profileImage}}" src="")
@@ -37,13 +37,16 @@
                         span {{status.shares.count || 0}}
             .row
                 .comment-section(ng-show="status.wantToComment")
-                    .row
-                        .col-md-1(style="margin:auto 10px;")
-                            img(ng-src="{{profilePicture}}" src="")
-                        .col-md-8
-                            form.form-horizontal(name="formComment")
-                                .row
-                                    .col-md-10
-                                        input.form-control.comment-input(type="text" placeholder="Write your comment" ng-model="comment.message")
-                                    .col-md-2
-                                        button.btn.btn-primary(type="submit" ng-click="comment(comment)") Comment
+                    form.form-horizontal(name="formComment")
+                        .row
+                            .col-md-1
+                                img(ng-src="{{profilePicture}}" src="")
+                            .col-md-8
+                                form.form-horizontal(name="formComment")
+                                    .row
+                                        .col-md-10
+                                            input.form-control.comment-input(type="text" placeholder="Write your comment" ng-model="comment.message")
+                                        .col-md-2
+                                            button.btn.btn-primary(type="submit" ng-click="comment(comment)") Comment
+        .busy-warning(ng-show="busy")
+            h4 Loading more statuses... Please wait!
