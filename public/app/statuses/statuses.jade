@@ -40,12 +40,12 @@
                     form.form-horizontal(name="formComment")
                         .row
                             .col-md-1
-                                img(ng-src="{{profilePicture}}" src="")
+                                img(ng-src="{{profilePicture}}" src="" style="margin: 0 15px;")
                             .col-md-8
                                 form.form-horizontal(name="formComment")
                                     .row
                                         .col-md-10
-                                            input.form-control.comment-input(type="text" placeholder="Write your comment" ng-model="comment.message")
+                                            input.form-control.comment-input(type="text" placeholder="Write your comment" ng-model="comment.message" style="margin-left:20px;")
                                         .col-md-2
                                             button.btn.btn-primary(type="submit" ng-click="comment(comment)") Comment
         .busy-warning(ng-show="busy")

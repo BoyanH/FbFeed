@@ -13,9 +13,10 @@
     FacebookService.getPages().then( function ( response ) {
 
         var data = response.data;
-
-        $scope.pageImages = [];
         $scope.pages = data;
+        $scope.stillLoding = false;
+        console.log(data);
+        $scope.profilePicture = FacebookService.getUserProfilePicture();
 
         for ( var z = 0; z < $scope.pages.length; z++ ) {
 
@@ -34,63 +35,33 @@
             }
         }
 
-
-        var pages = [];
-        for ( var i = 0; i < data.length; i++ ) {
-            if ( data[i] ) {
-                pages.push( data[i] );
-            }
-        }
-        data = pages;
-        $scope.pages = data;
-
-        var k = 0;
-        function profileImageLoop() {
-
-            if ( data[k] ) {
-                FacebookService.getPictureByID( data[k].from.id )
-                    .then( function ( url ) {
-                        $scope.pages[k++].profileImage = url;
-                        if ( k < data.length ) {
-                            setTimeout( profileImageLoop, 1 );
-                        }
-                    });
-
-            }
-        }
-        if(data.length != 0){
-            profileImageLoop();
-        }
-
         for ( var t = 0; t < data.length; t++ ) {
+            //profile image
+            $scope.pages[t].profileImage = "https://graph.facebook.com/" + data[t].from.id + "/picture";
+
+            //type photo post
             if ( data[t] && data[t].type == "photo" ) {
 
                 $scope.pages[t].postPhoto = "https://graph.facebook.com/" + data[t].object_id + "/picture";
             }
-        }
+            //type video post
+            if ( data[t] && data[t].application ) {
 
-        $scope.stillLoding = false;
-        console.log( data );
-
-        $scope.trustSrc = function ( src ) {
-            return $sce.trustAsResourceUrl( src );
-        }
-
-        for ( var z = 0; z < data.length; z++ ) {
-
-            if ( data[z] && data[z].application ) {
-
-                var type = data[z].application.name;
+                var type = data[t].application.name;
                 if ( type == 'Video' || type == 'YouTube' ) {
 
-                    $scope.pages[z] = EmbedService.normalizeLink( data[z] );
+                    $scope.pages[t] = EmbedService.normalizeLink( data[t] );
                 }
             }
 
-            else if ( data[z] && $scope.pages[z].type == 'video' ) {
+            else if ( data[t] && $scope.pages[t].type == 'video' ) {
 
-                $scope.pages[z] = EmbedService.normalizeLink( $scope.pages[z] );
+                $scope.pages[t] = EmbedService.normalizeLink( $scope.pages[t] );
             }
+        }
+
+        $scope.trustSrc = function ( src ) {
+            return $sce.trustAsResourceUrl( src );
         }
 
         $scope.nextPage = function () {
@@ -104,15 +75,15 @@
                 k = $scope.pages.length;
 
                 for ( var i = 0; i < pagingResponse.data.length; i++ ) {
-                    if ( pagingResponse.data[i] ) {
+                    if (pagingResponse.data[i] ) {
                         $scope.pages.push( pagingResponse.data[i] );
                     }
                 }
 
                 if(pagingResponse.data.length != 0){
-                    for(;k<$scope.statuses.length;k++){
-                            $scope.statuses[k].profileImage = "https://graph.facebook.com/" + 
-                                $scope.statuses[k].from.id + "/picture";
+                    for(;k<$scope.pages.length;k++){
+                            $scope.pages[k].profileImage = "https://graph.facebook.com/" + 
+                                $scope.pages[k].from.id + "/picture";
                     }
                 }
 
@@ -178,7 +149,6 @@
             });
             $( '.comment-input' ).val( '' );
         }
-        $scope.profilePicture = FacebookService.getUserProfilePicture();
 
         setTimeout( PopupService.init, 600 );
     });

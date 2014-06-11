@@ -10,8 +10,8 @@ app.controller('PhotoController', function($scope, $modal, $log){
       		}
     });
 
-    modalInstance.result.then(function (selectedItem) {
-      $scope.selected = selectedItem;
+    modalInstance.result.then(function (result) {
+      //do smth with the result 
     }, function () {
       		$log.info('Modal dismissed at: ' + new Date());
     	});

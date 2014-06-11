@@ -1,7 +1,7 @@
 ﻿ul.nav.navbar-nav.navbar-right(ng-controller="UserController" ng-show="user")
 	li.user-menu
 		.btn-group
-			.dropdown-toggle(data-toggle="dropdown") {{user.first_name}} {{user.last_name}}
+			.dropdown-toggle(data-toggle="dropdown") {{user.first_name | limitTo: 1}}. {{user.last_name}}
 				span.caret
 			ul.dropdown-menu.user-dropdown
 				li(ng-click="logout()") 

@@ -56,7 +56,6 @@ app.config(function($routeProvider, $httpProvider){
 });
 app.run(function($rootScope, $location){
     $rootScope.$on('$routeChangeError', function(event, current, previous, rejection){
-        console.log('whyyyyyy' + rejection);
         if(rejection === 'not-authorized'){
             $location.path('/');
         }

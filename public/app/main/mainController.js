@@ -12,6 +12,8 @@ app.controller('MainController', function($scope, $rootScope, $location, Faceboo
                     user.likes = [];
                     Auth.login(user).then(function(user){
                         Identity.currentUser = user;
+                    }).then(function(){
+                        $location.path('/home');
                     });
 				})
 				.then(function () {
