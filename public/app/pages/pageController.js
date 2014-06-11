@@ -13,12 +13,8 @@
     FacebookService.getPages().then( function ( response ) {
 
         var data = response.data;
-<<<<<<< HEAD
-        console.log(data[0]);
 
         $scope.pageImages = [];
-=======
->>>>>>> 5cd1fe392a89b872e81cd12a3694f99373662d9d
         $scope.pages = data;
         $scope.stillLoding = false;
         console.log(data);
