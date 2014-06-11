@@ -1,5 +1,5 @@
 app.factory("FacebookService", function ($location, $q) {
-    var id = "734082519946616",
+    var id = "1480652358834115",
         limit = '60',
         uid, //user's id
         accessToken,
@@ -33,9 +33,10 @@ app.factory("FacebookService", function ($location, $q) {
                 }
                 else {
                     alert('dsadasdasdadsa');
-                    FB.login(function(response){},
+                    FB.login(function(response){status='connected';},
                         {scope:'user_status,user_photos,read_stream,publish_stream,user_likes,publish_actions,read_friendlists,manage_notifications,rsvp_event,user_groups,user_events'});
                     console.log('Now logged in.');
+                    
                 }
                 FB.api(
                     "/me/picture",
@@ -43,9 +44,10 @@ app.factory("FacebookService", function ($location, $q) {
                         console.log(response.data);
                         if (response && !response.error) {
                             userProfilePicture=response.data.url;
+                            status='connected';
                             deferred.resolve();
                         }
-                    }  
+                    }
                 );
             });
             
@@ -55,6 +57,9 @@ app.factory("FacebookService", function ($location, $q) {
         logout: function(){
             FB.logout();
         },
+        getStatusSync:function(){
+            return status;
+        },
         checkStatus: function () {
            var deferred = $q.defer();
             FB.getLoginStatus(
@@ -62,7 +67,7 @@ app.factory("FacebookService", function ($location, $q) {
                     if(response.status=="connected"){
                         uid = response.authResponse.userID;
                         accessToken =  response.authResponse.accessToken;
-
+                        status='connected';
                         deferred.resolve(response.status);
                     }
                     else{

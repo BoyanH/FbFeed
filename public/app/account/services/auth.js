@@ -58,16 +58,18 @@
             return deferred.promise;
         },
         isAuthenticated: function(){
-            FacebookService.checkStatus().then(function(status){
-                console.log(status);
-                if(status == 'connected'){
-                    return true;
-                }
-                else{
-                    console.log('uhuuu');
-                    return $q.reject('not-authorized');
-                }
-            });
+            if(FacebookService.getStatusSync() == 'connected'){
+                return true;
+            }else{
+                return $q.reject('not-authorized');
+            }
         },
+        notAuthenticated: function(){
+            if(FacebookService.getStatusSync() == 'connected'){
+                return $q.reject('authorized');
+            }else{
+                return true;
+            }
+        }
     }
 });
