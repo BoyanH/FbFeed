@@ -108,6 +108,22 @@ a.user-acc:hover {
     max-height:500px;
 }
 
+.user-menu {
+    width: 158px;
+    color: white;
+    padding: 15px;
+}
+
+.user-menu:hover {
+    background-color: #178ACC;
+}
+
+.user-dropdown {
+    background-color: #A9A9AA;
+    margin-top: 15px;
+    margin-right: -47px;
+}
+
 .notification-bell {
     height: 30px;
     width: 30px;
