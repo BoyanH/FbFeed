@@ -1,12 +1,12 @@
 .updateStatus(ng-controller="RightSideController")
 	.row
 		.col-md-9
-			input.form-control(type="text" id="message" ng-model="status.message" placeholder="Your mood?")
+			textarea.form-control(id="message" ng-model="status.message" placeholder="Your mood?")
 		.col-md-3
-			button.btn.btn-primary(type="submit" ng-click="updateStatus(status.message)") Update
+			button.btn.btn-primary.enlarge-button(type="submit" ng-click="updateStatus(status.message)") Update
 	.row(style="margin-top:10px;")
 		.col-md-4
-			label.control-label.pull-right(for="select" style="padding-top:10px;") Sort by
+			label.control-label.pull-right.sort-by-label(for="select" style="padding-top:10px;") Sort by
 		.col-md-8
 			select.form-control(id="select" ng-model="select" ng-change="change(select)")
 				option(selected="selected" value="default") default

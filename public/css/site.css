@@ -7,6 +7,7 @@
 }
 body{
     background-color:#E3F2F7;
+    overflow-x: hidden;
 }
 .middle-page{
     margin:0 auto;
@@ -25,6 +26,7 @@ body{
 .home-info{
     color: #2e42a7;
     font-size: 1.5em;
+    padding-left: 10px;
 }
 .image-link-container img{
     width: 100%;
@@ -157,8 +159,47 @@ a.user-acc:hover {
     position: fixed;
 }
 
+@media (max-width: 1280px) {
+
+    .updateStatus {
+        margin-right: 10%;
+        width: 20%;
+    }
+
+    .updateStatus textarea {
+        width: 80%;
+    }
+
+    .updateStatus .enlarge-button {
+        margin-left: -40px;
+    }
+}
 
 @media (max-width: 1000px) {
+
+    .home-photo {
+        margin-top: 10px;
+    }
+
+    .sort-by-label {
+        text-align: center;
+        margin-right: 40%;
+    }
+
+    .updateStatus {
+        position: relative;
+        margin-top: -10px;
+        margin-right: inherit;
+        width: inherit;
+    }
+
+    .updateStatus textarea {
+        width: 100%;
+    }
+
+    .updateStatus .enlarge-button {
+        margin-left: inherit;
+    }
   
     .fb-box {
 
@@ -196,7 +237,23 @@ a.user-acc:hover {
     }
 
     .bell {
-        margin-left: 5px;
+        margin-left: 2px;
+    }
+
+    .updateStatus {
+        margin-left: 10%;
+    }
+
+    .enlarge-button {
+        width: 100%;        
+    }
+
+    .home-info{
+        padding: 20px;
+    }
+
+    .login-btn {
+        margin-top: 50px;
     }
 
 }
