@@ -13,6 +13,7 @@
     FacebookService.getPages().then( function ( response ) {
 
         var data = response.data;
+        console.log(data[0]);
 
         $scope.pageImages = [];
         $scope.pages = data;
@@ -110,9 +111,9 @@
                 }
 
                 if(pagingResponse.data.length != 0){
-                    for(;k<$scope.statuses.length;k++){
-                            $scope.statuses[k].profileImage = "https://graph.facebook.com/" + 
-                                $scope.statuses[k].from.id + "/picture";
+                    for(;k<$scope.pages.length;k++){
+                            $scope.pages[k].profileImage = "https://graph.facebook.com/" + 
+                                $scope.pages[k].from.id + "/picture";
                     }
                 }
 
@@ -152,15 +153,11 @@
         }
 
         $scope.commentWindow = function ( page ) {
-            for ( var i = 0; i < data.length; i++ ) {
-                if ( data[i] ) {
-                    if ( data[i].id == page.id ) {
-                        $scope.pages[i].wantToComment = true;
-                        idComment = data[i].id;
-                        idFrom = page.from.id;
-                    }
-                }
-            }
+            
+            $scope.pages[page].wantToComment = true;
+            $scope.pages[page].showComments = true;
+            idComment = data[page].id;
+            idFrom = $scope.pages[page].from.id;
         }
         $scope.comment = function ( commentInput ) {
             var itemToComment = {};
@@ -181,6 +178,11 @@
         $scope.profilePicture = FacebookService.getUserProfilePicture();
 
         setTimeout( PopupService.init, 600 );
+
+        if (response.data.length <= 4) {
+
+            $scope.nextPage();
+        }
     });
     
     $scope.modalShown = false;
@@ -188,5 +190,12 @@
     $scope.toggleModal = function () {
         $scope.modalShown = !$scope.modalShown;
     };
+
+    $scope.showComments = function (page) {
+        console.log('showing');
+        $scope.pages[page].showComments = true;
+        $scope.pages[page].wantToComment = true;
+        console.log($scope.pages[page]);
+    }
 
 });

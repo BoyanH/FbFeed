@@ -176,6 +176,11 @@ a.user-acc:hover {
     position: fixed;
 }
 
+.comments-section {
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
 @media (max-width: 1280px) {
 
     .updateStatus {
