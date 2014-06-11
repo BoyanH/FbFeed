@@ -1,6 +1,6 @@
 ﻿app.controller('FeedController', function($scope, $rootScope, FacebookService, 
 	$modal, $log, $rootScope, $sce,EmbedService, ButtonsFacebookService){
-    
+    $scope.stillLoding = true;
     FacebookService.checkStatus()
     	.then(function (data) {
     		console.log('Login status: ' + data);
@@ -13,7 +13,9 @@
 				.then(function (response) {
 					console.log(response.data);
 
-					var data = response.data;
+					var data = response.data,
+						idComment,
+						idFrom;
         			$scope.feeds = data;
         			$scope.stillLoding = false;
         			console.log(data);
@@ -55,7 +57,7 @@
                 			}
             			}
 
-            			else if ( data[t] && $scope.pages[t].type == 'video' ) {
+            			else if ( data[t] && $scope.feeds[t].type == 'video' ) {
 
                 			$scope.feeds[t] = EmbedService.normalizeLink( $scope.feeds[t] );
             			}
@@ -90,6 +92,63 @@
                 			$scope.busy = false;
 
             			})
+        			}
+        			$scope.share = function ( item ) {
+
+            			if ( item.shares ) {
+                			item.shares.count = item.shares.count + 1;
+            			}
+            			ButtonsFacebookService.share( item ).then(function(success){
+                			if(success){
+                    			Auth.update(Identity.currentUser, item.from.id).then(function(success){
+                        			console.log('Successfully Updated User!');
+                    			});
+                			}
+                			else{
+                    			//do smth P.S. remove alerts in buttonsFacebook like/comment/share
+                			}
+            			});;
+        			}
+
+        			$scope.like = function ( item ) {
+            			ButtonsFacebookService.like( item ).then(function(success){
+                			if(success){
+                    			Auth.update(Identity.currentUser, item.from.id).then(function(success){
+                        			console.log('Successfully Updated User!');
+                    			});
+                			}
+                			else{
+                    			//do smth P.S. remove alerts in buttonsFacebook like/comment/share
+                			}
+            			});
+        			}
+
+        			$scope.commentWindow = function ( feed ) {
+            			for ( var i = 0; i < data.length; i++ ) {
+                			if ( data[i] ) {
+                    			if ( data[i].id == feed.id ) {
+                       			 	$scope.feeds[i].wantToComment = true;
+                        			idComment = data[i].id;
+                        			idFrom = feed.from.id;
+                    			}
+                			}
+            			}
+        			}
+        			$scope.comment = function ( commentInput ) {
+            			var itemToComment = {};
+            			itemToComment.id = idComment;
+            			itemToComment.userMessage = commentInput.message
+            			ButtonsFacebookService.comment( itemToComment ).then(function(success){
+                			if(success){
+                    			Auth.update(Identity.currentUser, idFrom).then(function(success){
+                        			console.log('Successfully Updated User!');
+                    			});
+                			}
+                			else{
+                    			//do smth P.S. remove alerts in buttonsFacebook like/comment/share
+                			}
+            			});
+            			$( '.comment-input' ).val( '' );
         			}
 
 				});

@@ -1,5 +1,4 @@
 app.controller('MainController', function($scope, $rootScope, $location, FacebookService, Auth, Identity){
-    $scope.loggedIn = false;
     $scope.login = function(){
         FacebookService.login()
          .then(function (data) {

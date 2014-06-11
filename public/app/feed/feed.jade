@@ -11,16 +11,16 @@
                             img(ng-src="{{feed.profileImage}}" src="")
                         .col-md-9
                             h5
-                                a(href="https://www.facebook.com/profile.php?id={{feed.from.id}}" target="_blank") {{feed.from.name}} 
-                                span(ng-show="feed.type=='link'") shared link
+                                a(href="https://www.facebook.com/profile.php?id={{feed.from.id}}" target="_blank") {{feed.story || feed.from.name}} 
+                                span(ng-show="feed.type=='link'" ng-if="!feed.story") shared link
                                 span(ng-show="feed.embedLink || page.type=='video'") added video
-                                span(ng-show="feed.type=='photo'") added picture
+                                span(ng-show="feed.type=='photo'" ng-if="!feed.story") added picture
                                 span(ng-show="feed.type=='status'") added status
                             .row.content(ng-show="feed.type=='link'", style="margin-top:20px;")
                                 div(link-dir data="feed")
                             .row.content(ng-show="feed.type=='photo'" style="margin-top:20px;")
                                 div(photo-dir data="feed")
-                            .row.content(ng-show="feed.embedLink || page.type=='video'", style="margin-top:20px;")
+                            .row.content(ng-show="feed.embedLink || feed.type=='video'", style="margin-top:20px;")
                                 div(video-dir data="feed")
                             .row.content(ng-show="feed.type=='status'" style="margin-top:10px;")
                                 div(status-dir data="feed")
