@@ -124,15 +124,10 @@
         			}
 
         			$scope.commentWindow = function ( feed ) {
-            			for ( var i = 0; i < data.length; i++ ) {
-                			if ( data[i] ) {
-                    			if ( data[i].id == feed.id ) {
-                       			 	$scope.feeds[i].wantToComment = true;
-                        			idComment = data[i].id;
-                        			idFrom = feed.from.id;
-                    			}
-                			}
-            			}
+            			$scope.feeds[feed].wantToComment = true;
+            			$scope.feeds[feed].showComments = true;
+            			idComment = data[feed].id;
+            			idFrom = $scope.pages[feed].from.id;
         			}
         			$scope.comment = function ( commentInput ) {
             			var itemToComment = {};
