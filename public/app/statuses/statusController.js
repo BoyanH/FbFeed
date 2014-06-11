@@ -74,7 +74,6 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
 
                 })
             }
-            
 
             for ( var t = 0; t < data.length; t++ ) {
                 if ( data[t] && data[t].type == "photo" && data[t].status_type == "tagged_in_photo") {
@@ -116,6 +115,11 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
             }
         }
             $scope.profilePicture = FacebookService.getUserProfilePicture();
+
+            if (response.data.length <= 4) {
+
+                $scope.nextPage();
+            }
     });
     });
     $scope.share = function ( item ) {

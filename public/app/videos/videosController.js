@@ -95,6 +95,11 @@ console.log('next');
             }
             $scope.profilePicture = FacebookService.getUserProfilePicture();
 
+            if (response.data.length <= 4) {
+
+                $scope.nextPage();
+            }
+
         });
     })
 

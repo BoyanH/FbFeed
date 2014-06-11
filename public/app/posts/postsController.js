@@ -55,6 +55,11 @@ app.controller('PostsController', function($scope, $rootScope, FacebookService,
                 })
             }
 
+            if (response.data.length <= 4) {
+
+                $scope.nextPage();
+            }
+
         });
     });
     $scope.like = function ( item ) {

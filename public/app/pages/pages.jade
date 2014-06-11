@@ -31,7 +31,7 @@
                                     img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")
                                     span.fb-action Likes 
                                         span {{page.likes.data.length || 0}}
-                                .fb-action-row.text-center(ng-click="commentWindow(page)")
+                                .fb-action-row.text-center(ng-click="commentWindow($index)")
                                     img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/comment.png" width="30" height="30")
                                     span.fb-action Comments 
                                         span {{page.comments.data.length || 0}}
@@ -42,7 +42,7 @@
                     .row
                         .container.show-section.text-center
                             .col-md-12
-                                .show-button Show Comments
+                                .show-button(ng-click="showComments($index)") Show Comments
                                 .show-button Show Shares
                     .row
                         .container.likes-section
@@ -74,6 +74,12 @@
                                             div(ng-repeat="like in page.likes.data") {{like.name}}
                                         button.md-close Close
                     .row
+                        .container.comments-section(ng-show="page.showComments")
+                                .row(ng-repeat="comment in page.comments.data")
+                                    .col-md-1
+                                        img(ng-src="{{comment.profilePicture}}" src="")
+                                    .col-md-11
+                                        .well {{comment.message}}
                         .container.comment-section(ng-show="page.wantToComment")
                             .row
                                 .col-md-1

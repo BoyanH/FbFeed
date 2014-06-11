@@ -16,7 +16,6 @@ app.factory("FacebookService", function ($location, $q) {
         user_groups: true
 
     });
-    console.log('FB initialized...');
     
     return {
         login: function () {
@@ -25,14 +24,11 @@ app.factory("FacebookService", function ($location, $q) {
             FB.getLoginStatus(function (response) {
 
                 if (response.status === 'connected') {
-                    console.log('Logged in.');
-                    console.log(response);
 
                     uid = response.authResponse.userID;
                     accessToken =  response.authResponse.accessToken;
                 }
                 else {
-                    alert('dsadasdasdadsa');
                     FB.login(function(response){status='connected';},
                         {scope:'user_status,'+
                         'user_photos,'+
@@ -48,13 +44,10 @@ app.factory("FacebookService", function ($location, $q) {
                         'friends_photos,' +
                         'friends_likes'
                         });
-                    console.log('Now logged in.');
-                    
                 }
                 FB.api(
                     "/me/picture",
                     function (response) {
-                        console.log(response.data);
                         if (response && !response.error) {
                             userProfilePicture=response.data.url;
                             status='connected';
@@ -150,7 +143,6 @@ app.factory("FacebookService", function ($location, $q) {
         },
         getStatuses: function() {
             var deferred = $q.defer();
-            console.log(uid);
             FB.api(
                 '/me/home/', {since: since,'limit': limit},
                 function ( response ) {
@@ -473,7 +465,6 @@ app.factory("FacebookService", function ($location, $q) {
         },
         postStatusToMyWall: function(messageUser){
             var deferred = $q.defer();
-            console.log('fbID: ' + Identity.currentUser.fbID);
             FB.api(
                 '/me/feed',
                 "post", { message: messageUser },
