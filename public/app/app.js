@@ -9,13 +9,19 @@ app.config(function($routeProvider, $httpProvider){
             authenticate: function(Auth){
                 return Auth.isAuthenticated();
             }
+        },
+        authenticated: {
+            authenticate: function(Auth){
+                return Auth.notAuthenticated();
+            }
         }
     }
 
     $routeProvider
         .when('/', {
             templateUrl : '/partials/main/home',
-            controller: 'MainController'
+            controller: 'MainController',
+            resolve: routerCheck.authenticated
         })
         .when('/home', {
             templateUrl: '/partials/feed/feed',
@@ -50,8 +56,12 @@ app.config(function($routeProvider, $httpProvider){
 });
 app.run(function($rootScope, $location){
     $rootScope.$on('$routeChangeError', function(event, current, previous, rejection){
+        console.log('whyyyyyy' + rejection);
         if(rejection === 'not-authorized'){
             $location.path('/');
+        }
+        if(rejection == 'authorized'){
+            $location.path('/home');
         }
     });
 });
