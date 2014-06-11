@@ -110,6 +110,7 @@ a.user-acc:hover {
 
 .user-menu {
     width: 158px;
+    margin-right: 50px;
     color: white;
     padding: 15px;
 }
@@ -182,6 +183,7 @@ a.user-acc:hover {
         width: 20%;
     }
 
+
     .updateStatus textarea {
         width: 80%;
     }
@@ -253,6 +255,7 @@ a.user-acc:hover {
     }
 
     .bell {
+        margin-top: -3px;
         margin-left: 2px;
     }
 
@@ -272,6 +275,35 @@ a.user-acc:hover {
         margin-top: 50px;
     }
 
+    .user-menu {
+        margin-right: -10px;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .user-menu {
+        width: 120px;
+        padding: 5px;
+    }
+
+    .user-menu .user-dropdown a {
+        width: 150px;
+        text-align: left;
+    }
+
+    .user-dropdown {
+        margin-left: -25px;
+    }
+
+    .user-dropdown a {
+        border-radius: 50%;
+    }
+
+    .user-menu .caret {
+        display: none;
+    }
 }
 
 @media (max-width: 500px) {
