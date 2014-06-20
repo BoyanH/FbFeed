@@ -63,4 +63,10 @@ app.run(function($rootScope, $location){
             $location.path('/home');
         }
     });
+    var history = [];
+
+    $rootScope.$on('$routeChangeSuccess', function() {
+        history.push($location.$$path);
+    });
+    $rootScope.history = history;
 });

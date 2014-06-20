@@ -1,5 +1,10 @@
-app.controller('MainController', function($scope, $rootScope, $location, FacebookService, Auth, Identity){
+app.controller('MainController', function($scope, $rootScope, $location, FacebookService, Auth, Identity, RedirectService){
+    FacebookService.checkStatus().then(function(data){
+        if(data == "connected")
+            RedirectService.redirectConnected();//redirectif the user is already connected
+    });
     $scope.login = function(){
+        
         FacebookService.login()
          .then(function (data) {
          	FacebookService.getAuthData()

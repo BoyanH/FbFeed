@@ -27,8 +27,8 @@
                                         
                         .col-md-2.fb-box.col-sm-12.col-xs-12
                             .well
-                                .fb-action-row.text-center(ng-click="like(page)")
-                                    img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")
+                                .fb-action-row.text-center(ng-click="like(page, $index)")
+                                    img(id="like-{{$index}}" ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")
                                     span.fb-action Likes 
                                         span {{page.likes.data.length || 0}}
                                 .fb-action-row.text-center(ng-click="commentWindow($index)")

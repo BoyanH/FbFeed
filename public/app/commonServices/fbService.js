@@ -1,10 +1,11 @@
 app.factory("FacebookService", function ($location, $q) {
-    var id = "1480652358834115",
+    var id = "1441792662746809",
         limit = '60',
         uid, //user's id
         accessToken,
         userProfilePicture,
         status,
+        redirect = false,
         since = 'last week';
     FB.init({
         appId: id,
@@ -60,6 +61,7 @@ app.factory("FacebookService", function ($location, $q) {
 
             return deferred.promise;
         },
+        loggedInRedirect: redirect,
         logout: function(){
             status = 'not-connected';
             FB.logout();
