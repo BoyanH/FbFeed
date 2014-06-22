@@ -14,7 +14,7 @@ app.controller('VideosController', function($scope, $sce, $rootScope, FacebookSe
             $scope.videos = data;
 
             //active Points appending loop
-            for(var h = 0, h < data.length; h++) {
+            for(var h = 0; h < data.length; h++) {
 
                 var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == data[h].from.id; });
                 if(activePoints[0]) {

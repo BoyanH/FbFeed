@@ -16,7 +16,7 @@ app.controller('PostsController', function($scope, $rootScope, FacebookService,
             $scope.posts = data;
 
             //active Points appending loop
-            for(var h = 0, h < data.length; h++) {
+            for(var h = 0; h < data.length; h++) {
 
                 var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == data[h].from.id; });
                 if(activePoints[0]) {
