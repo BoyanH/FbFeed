@@ -13,6 +13,19 @@ app.controller('VideosController', function($scope, $sce, $rootScope, FacebookSe
 
             $scope.videos = data;
 
+            //active Points appending loop
+            for(var h = 0, h < data.length; h++) {
+
+                var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == data[h].from.id; });
+                if(activePoints[0]) {
+                        $scope.videos[h].activePoints = activePoints[0].points;
+                    }
+                        else {
+                            $scope.videos[h].activePoints = 0;
+                        }
+            }
+            //End of active points loop
+
             for (var i = 0; i < data.length; i++) {
 
                 $scope.videos[i] = EmbedService.normalizeLink(data[i]);
@@ -41,7 +54,7 @@ app.controller('VideosController', function($scope, $sce, $rootScope, FacebookSe
                 }
 
             $scope.nextPage = function () {
-console.log('next');
+
                 $scope.busy = true;
                 var nextPage = response.paging.next;
 
@@ -51,6 +64,15 @@ console.log('next');
                     k = $scope.videos.length;
 
                     for ( var i = 0; i < pagingResponse.data.length; i++ ) {
+                        
+                        var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == pagingResponse.data[i].from.id; });
+                        if(activePoints[0]) {
+                            pagingResponse.data[i].activePoints = activePoints[0].points;
+                        }
+                            else {
+                                pagingResponse.data[i].activePoints = 0;
+                            }
+
                         if ( pagingResponse.data[i] ) {
                             $scope.videos.push( pagingResponse.data[i] );
                         }

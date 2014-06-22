@@ -3,7 +3,7 @@
 		.well(ng-show="stillLoding").text-center
 			.progress.progress-striped.active(style="width:300px;margin:0 auto;")
 				.progress-bar(style="width: 100%")
-		div.well(data-ng-repeat="post in posts track by $index")
+		div.well(data-ng-repeat="post in posts track by $index | orderBy:post.activePoints")
 			.row
 				.col-md-1
 					img(ng-src="{{post.profileImage}}" src="")
