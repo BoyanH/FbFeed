@@ -56,19 +56,19 @@
                    			 $scope.feeds[t] = EmbedService.normalizeLink( data[t] );
                 			}
             			}
-                        //user likes a photo
-                        /*if(data[t].story){
-                            if(data[t].story.indexOf('likes a photo')>0){
-                                $scope.feeds[t].postPhoto = 'https://graph.facebook.com/' + 
-                                    data[t].id.slice(data[t].id.indexOf('_')+1,data[t].id.length) +
-                                        '/picture';
-                            }
-                        }*/
 
             			else if ( data[t] && $scope.feeds[t].type == 'video' ) {
 
                 			$scope.feeds[t] = EmbedService.normalizeLink( $scope.feeds[t] );
             			}
+                        //user likes a photo
+                        if(data[t].story){
+                            if(data[t].story.indexOf('likes a photo')>0){
+                                $scope.feeds[t].postPhoto = 'https://graph.facebook.com/' + 
+                                    data[t].id.slice(data[t].id.indexOf('_')+1,data[t].id.length) +
+                                        '/picture';
+                            }
+                        }
         			}
         			$scope.trustSrc = function ( src ) {
             			return $sce.trustAsResourceUrl( src );

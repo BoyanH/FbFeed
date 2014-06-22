@@ -5,7 +5,7 @@
                 .progress-bar(style="width: 100%")
         .container
             .row
-                .well(ng-repeat="feed in feeds")
+                .well(ng-repeat="feed in feeds" ng-if="!feed.story || feed.story.indexOf('commented') < 0")
                     .row
                         .col-md-1
                             img(ng-src="{{feed.profileImage}}" src="")
