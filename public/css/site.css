@@ -184,7 +184,18 @@ a.user-acc:hover {
     border: 2px solid #2fa4e7;
     border-radius: 5px;
 }
+.right-side {
+    position: fixed;
+    right: 0;
+}
+
+
 @media (max-width: 1280px) {
+
+    .right-side {
+        position: relative;
+        margin-top: 100px;
+    }
 
     .updateStatus {
         margin-right: 10%;

@@ -9,9 +9,9 @@ html
         meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
     body(ng-app="app")
         .row
-            .col-md-9
-                block main-content
-            .col-md-3
+            .col-md-3.right-side
                 include rightSide
+            .col-md-9.left-side
+                block main-content
         include scripts
         include currentUser
