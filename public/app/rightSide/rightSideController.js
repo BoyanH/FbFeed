@@ -10,7 +10,17 @@ app.controller('RightSideController', function($scope, FacebookService, Identity
 			}
 		});
 	}
-	$scope.change = function(select){
-		alert(select);
-	}
+
+	//What to order by
+    $scope.change = function (select) {
+
+        if(select == 'points') {
+            $rootScope.orderBy = 'activePoints';
+        }
+            else {
+                $rootScope.orderBy = '';
+            }
+
+    }
+    //End of order by
 });

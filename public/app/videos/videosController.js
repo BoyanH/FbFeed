@@ -1,5 +1,5 @@
 app.controller('VideosController', function($scope, $sce, $rootScope, FacebookService, EmbedService, DateService,
-    ButtonsFacebookService){
+    ButtonsFacebookService, Identity){
     var idComment, idFrom;
     $scope.stillLoding = true;
 

@@ -5,7 +5,7 @@
                 .progress-bar(style="width: 100%")
         .container
             .row
-                .well(ng-repeat="video in videos | orderBy:video.activePoints")
+                .well(ng-repeat="video in videos | orderBy:orderBy")
                     .row
                         .col-md-1
                             img(ng-src="{{video.profileImage}}" src="")

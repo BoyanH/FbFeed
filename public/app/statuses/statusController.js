@@ -1,4 +1,4 @@
-app.controller('StatusController', function ($scope, $rootScope, FacebookService, ButtonsFacebookService){
+app.controller('StatusController', function ($scope, $rootScope, FacebookService, ButtonsFacebookService, Identity){
     $scope.stillLoding = true;
     var idComment;
 
