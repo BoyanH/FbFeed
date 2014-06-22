@@ -38,6 +38,16 @@
         }
 
         for ( var t = 0; t < data.length; t++ ) {
+            
+            //active Points
+            var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == data[t].from.id; });
+            if(activePoints[0]) {
+                    $scope.pages[t].activePoints = activePoints[0].points;
+                }
+                    else {
+                        $scope.pages[t].activePoints = 0;
+                    }
+
             //profile image
             $scope.pages[t].profileImage = "https://graph.facebook.com/" + data[t].from.id + "/picture";
 
@@ -77,6 +87,15 @@
                 k = $scope.pages.length;
 
                 for ( var i = 0; i < pagingResponse.data.length; i++ ) {
+                    
+                    var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == pagingResponse.data[i].from.id; });
+                    if(activePoints[0]) {
+                        pagingResponse.data[i].activePoints = activePoints[0].points;
+                    }
+                        else {
+                            pagingResponse.data[i].activePoints = 0;
+                        }
+
                     if (pagingResponse.data[i] ) {
                         $scope.pages.push( pagingResponse.data[i] );
                     }
@@ -156,6 +175,7 @@
 
             $scope.nextPage();
         }
+
     });
     
     $scope.modalShown = false;
