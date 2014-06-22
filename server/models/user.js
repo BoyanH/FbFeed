@@ -1,7 +1,7 @@
 ﻿var mongoose = require('mongoose');
 
 var userSchema = mongoose.Schema({
-    fbID: String, // id of user,
+    username: String, // fbid of user,
     password: String,
     likes:[{
             id: String, // id of page, person
@@ -17,17 +17,5 @@ module.exports = {
             console.log(collection);
         });
         //User.remove({}, function(err){if(!err)console.log('All users deleted');});
-        /*User.find({}).exec(function(err, collection){
-            if(err){
-                console.log('Error in finding users: ' + err);
-                return;
-            }
-            if(collection.length == 0){
-                User.create({id:'514183282019706', likes : [] });
-            } 
-            else{
-                console.log(collection[0]);
-            }
-        });*/
     }
 }

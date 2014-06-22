@@ -1,6 +1,6 @@
 app.factory("FacebookService", function ($location, $q) {
     var id = "1441792662746809",
-        limit = '60',
+        limit = '30',
         uid, //user's id
         accessToken,
         userProfilePicture,
@@ -14,7 +14,8 @@ app.factory("FacebookService", function ($location, $q) {
         xfbml: true, // parse XFBML
         read_stream: true,
         manage_notifications: true,
-        user_groups: true
+        user_groups: true,
+        version: 'v1.0'
 
     });
     

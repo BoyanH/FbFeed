@@ -1,4 +1,4 @@
-﻿app.controller('UserController', function($scope, FacebookService, $rootScope, $location){
+app.controller('UserController', function($scope, FacebookService, $rootScope, $location){
     FacebookService.getAuthData()
         .then(function (data) {
             $rootScope.user = data;
@@ -11,6 +11,7 @@
 
     function checkForUser () {
     	console.log('checking');
+        
     	FacebookService.getAuthData()
 	        .then(function (data) {
 	            $rootScope.user = data;

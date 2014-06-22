@@ -42,7 +42,7 @@
         			'post', null,
 	        	function (response) {
 	        		if (response && !response.error_code) {
-				      alert('Like completed.');
+				      //alert('Like completed.');
 				      deferred.resolve(true);
 				    } else {
 				    	deferred.resolve(false);

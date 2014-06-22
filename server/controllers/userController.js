@@ -2,8 +2,10 @@
 
 module.exports = {
     createUser:function(req, res, next){
-        var user = req.body;
-        User.create(user, function(err){
+        var newUser = req.body;
+        console.log("newUser==");
+        console.log(newUser);
+        User.create(newUser, function(err, user){
             if(err){
                 console.log('User couldnt be created: ' + err);
                 return;

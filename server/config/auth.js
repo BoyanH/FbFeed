@@ -18,7 +18,6 @@ module.exports = {
                 if ( err ) {
                     return next( err );
                 }
-                console.log("Yeaaaaaaaaaaah");
                 res.send( { success: true, user: user });
             });
         });

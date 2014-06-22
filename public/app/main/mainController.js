@@ -9,11 +9,12 @@ app.controller('MainController', function($scope, $rootScope, $location, Faceboo
          .then(function (data) {
          	FacebookService.getAuthData()
 				.then(function (data) {
+                    console.log(data);
 					$rootScope.user = data;
                     var user = {};
-                    user.fbID = data.id;
+                    user.username = data.id;
                     user.password = 'random';
-                    user.likes = [];
+                    //user.likes = [];
                     Auth.login(user).then(function(user){
                         Identity.currentUser = user;
                     }).then(function(){

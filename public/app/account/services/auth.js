@@ -1,10 +1,14 @@
 ﻿app.factory('Auth', function($http, $q, UserResource, Identity, FacebookService){
     return {
         login: function (user){
+            var user1 = {};
+            user1.username = user.username;
+            user1.password = user.password;
+            user1.likes = [];
             var deferred = $q.defer();
             $http({ method: 'POST', data: user, url: '/login' }).success(function (response) {
-                //console.log("reponse after post login");
-                //console.log(response);
+                console.log("reponse after post login");
+                console.log(response);
                 if (response.success) {
                     var user =  new UserResource();
                     angular.extend(user, response.user);
@@ -13,7 +17,7 @@
                     deferred.resolve(response.user);
                 }
                 else{
-                    $http({method: 'POST', data: user, url: '/api/users'}).success(function(response){
+                    $http({method: 'POST', data: user1, url: '/api/users'}).success(function(response){
                         var user =  new UserResource();
                         angular.extend(user, response.user);
                         Identity.currentUser = user;
