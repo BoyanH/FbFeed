@@ -20,7 +20,7 @@
                                 div(photo-dir data="status")
                             .row.content(ng-show="status.story.indexOf('likes a photo') > 0")
                                 div(photo-dir data="status")
-                            .row.content(ng-show="status.status_type=='mobile_status_update'")
+                            .row.content(ng-show="status.status_type=='mobile_status_update' || status.status_type=='wall_post'")
                                 div(status-dir data="status")
             .row
                 .col-md-3.fb-action-row.text-center(ng-click="like(status)")

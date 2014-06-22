@@ -37,20 +37,11 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
                 profileImageLoop();
             }
             var p = 0;
-            function addedPhoto() {
-                FacebookService.getPictureByID($scope.statuses[p].object_id)
-                    .then(function (url) {
-                        $scope.statuses[p].postPhoto = url;
-                        while(data[p].status_type!="added_photos"){
-                            p++;
-                        }
-                        if (p < $scope.statuses.length) {
-                            setTimeout(addedPhoto, 1);
-                        }
-                    });
+            for(var p=0;p<data.length;p++){
+                if ( data[t] && data[t].status_type == "added_photos" ) {
+
+                $scope.pages[t].postPhoto = "https://graph.facebook.com/v1.0/" + data[t].object_id + "/picture";
             }
-            if(data.length != 0){
-                addedPhoto();
             }
 
             $scope.nextPage = function () {
@@ -83,7 +74,7 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
                             $scope.statuses[k].profileImage = "https://graph.facebook.com/" + 
                                 $scope.statuses[k].from.id + "/picture";
                             if($scope.statuses[k].status_type=="added_photos"){
-                                $scope.statuses[k].postPhoto = "https://graph.facebook.com/" + 
+                                $scope.statuses[k].postPhoto = "https://graph.facebook.com/v1.0/" + 
                                     $scope.statuses[k].object_id + "/picture";
                             }
 

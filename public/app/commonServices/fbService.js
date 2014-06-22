@@ -1,5 +1,5 @@
 app.factory("FacebookService", function ($location, $q) {
-    var id = "734082519946616",
+    var id = "1441792662746809",
         limit = '30',
         uid, //user's id
         accessToken,
@@ -16,7 +16,6 @@ app.factory("FacebookService", function ($location, $q) {
         manage_notifications: true,
         user_groups: true,
         version: 'v1.0'
-
     });
     
     return {
