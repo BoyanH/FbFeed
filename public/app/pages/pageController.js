@@ -86,6 +86,8 @@
                     for(;k<$scope.pages.length;k++){
                             $scope.pages[k].profileImage = "https://graph.facebook.com/" + 
                                 $scope.pages[k].from.id + "/picture";
+                            if($scope.pages[k].type=="photo")
+                                $scope.pages[k].postPhoto = "https://graph.facebook.com/" + $scope.pages[k].object_id + "/picture";
                     }
                 }
 

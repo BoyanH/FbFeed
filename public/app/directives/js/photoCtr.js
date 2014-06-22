@@ -5,7 +5,7 @@ app.controller('PhotoController', function($scope, $modal, $log){
       		controller: ModalInstanceCtrl,
       		resolve: {
         		url: function () {
-          			return data.changedProfile || data.postPhoto || data.addedPhoto || data.likedPhoto;
+          			return data.postPhoto;
         		}
       		}
     });
