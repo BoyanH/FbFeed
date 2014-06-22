@@ -29,7 +29,7 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
             function addedPhoto() {
                 FacebookService.getPictureByID($scope.statuses[p].object_id)
                     .then(function (url) {
-                        $scope.statuses[p].addedPhoto = url;
+                        $scope.statuses[p].postPhoto = url;
                         while(data[p].status_type!="added_photos"){
                             p++;
                         }
@@ -63,7 +63,7 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
                             $scope.statuses[k].profileImage = "https://graph.facebook.com/" + 
                                 $scope.statuses[k].from.id + "/picture";
                             if($scope.statuses[k].status_type=="added_photos"){
-                                $scope.statuses[k].addedPhoto = "https://graph.facebook.com/" + 
+                                $scope.statuses[k].postPhoto = "https://graph.facebook.com/" + 
                                     $scope.statuses[k].object_id + "/picture";
                             }
 
@@ -81,7 +81,7 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
                 }
                 if(data[t].type=="photo" && data[t].story){
                     if(data[t].story.indexOf("profile picture") > 0){
-                        $scope.statuses[t].changedProfile = "https://graph.facebook.com/" + data[t].from.id + "/picture?type=large";
+                        $scope.statuses[t].postPhoto = "https://graph.facebook.com/" + data[t].from.id + "/picture?type=large";
                     }
                 }
             }
@@ -102,7 +102,7 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
         for(var t=0;t<data.length;t++){
             if(data[t].story){
                 if(data[t].story.indexOf('likes a photo')>0){
-                    $scope.statuses[t].likedPhoto = 'https://graph.facebook.com/' + 
+                    $scope.statuses[t].postPhoto = 'https://graph.facebook.com/' + 
                         data[t].id.slice(data[t].id.indexOf('_')+1,data[t].id.length) +
                         '/picture';
                 }
