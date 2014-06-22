@@ -16,7 +16,6 @@ app.factory("FacebookService", function ($location, $q) {
         manage_notifications: true,
         user_groups: true,
         version: 'v1.0'
-
     });
     
     return {

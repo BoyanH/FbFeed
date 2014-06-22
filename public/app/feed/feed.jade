@@ -15,9 +15,11 @@
                                 span(ng-show="feed.type=='link'" ng-if="!feed.story") shared link
                                 span(ng-show="feed.embedLink || page.type=='video'") added video
                                 span(ng-show="feed.type=='photo'" ng-if="!feed.story") added picture
-                                span(ng-show="feed.type=='status'") added status
+                                span(ng-show="feed.type=='status' && (feed.story.indexOf('likes a photo') < 0)") added status
                             .row.content(ng-show="feed.type=='link'", style="margin-top:20px;")
                                 div(link-dir data="feed")
+                            .row.content(ng-show="feed.story.indexOf('likes a photo') > 0")
+                                div(photo-dir data="feed")
                             .row.content(ng-show="feed.type=='photo'" style="margin-top:20px;")
                                 div(photo-dir data="feed")
                             .row.content(ng-show="feed.embedLink || feed.type=='video'", style="margin-top:20px;")
