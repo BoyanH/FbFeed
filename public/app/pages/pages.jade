@@ -5,7 +5,7 @@
                 .progress-bar(style="width: 100%")
         .container
             .row
-                .well(ng-repeat="page in pages | orderBy:[page.activePoints, page.created_time, page.likes.data.length]")
+                .well(ng-repeat="page in pages | orderBy:page.activePoints")
                     .row
                         .col-md-1
                             img(ng-src="{{page.profileImage}}" src="")

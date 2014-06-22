@@ -15,6 +15,18 @@ app.controller('PostsController', function($scope, $rootScope, FacebookService,
 
             $scope.posts = data;
 
+            //active Points appending loop
+            for(var h = 0; h < data.length; h++) {
+
+                var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == data[h].from.id; });
+                if(activePoints[0]) {
+                        $scope.posts[h].activePoints = activePoints[0].points;
+                    }
+                        else {
+                            $scope.posts[h].activePoints = 0;
+                        }
+            }
+
             function profileImageLoop() {
                 FacebookService.getPictureByID($scope.posts[k].from.id)
                     .then(function (url) {
@@ -41,6 +53,15 @@ app.controller('PostsController', function($scope, $rootScope, FacebookService,
                     k = $scope.posts.length;
 
                     for ( var i = 0; i < pagingResponse.data.length; i++ ) {
+                        
+                        var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == pagingResponse.data[i].from.id; });
+                        if(activePoints[0]) {
+                            pagingResponse.data[i].activePoints = activePoints[0].points;
+                        }
+                            else {
+                                pagingResponse.data[i].activePoints = 0;
+                            }
+
                         if ( pagingResponse.data[i] ) {
                             $scope.posts.push( pagingResponse.data[i] );
                         }
