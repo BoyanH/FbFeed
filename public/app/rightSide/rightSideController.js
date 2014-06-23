@@ -15,10 +15,10 @@ app.controller('RightSideController', function($scope, FacebookService, Identity
     $scope.change = function (select) {
 
         if(select == 'points') {
-            $rootScope.orderBy = 'activePoints';
+            $rootScope.orderBy = '';
         }
             else {
-                $rootScope.orderBy = '';
+                $rootScope.orderBy = 'activePoints';
             }
 
     }

@@ -9,16 +9,17 @@
  * http://www.codrops.com
  */
 
-app.factory("PopupService", function ($location, $q) {
+app.factory("PopupService", function ($q) {
 
 	return {
 
 		init: function () {
-			console.log('PopupService: init()!');
+
 			var overlay = document.querySelector( '.md-overlay' );
 
 			[].slice.call( document.querySelectorAll( '.md-trigger' ) ).forEach( function( el, i ) {
 
+				el.id = 'popup' + i;
 				var modal = document.querySelector( '#' + el.getAttribute( 'data-modal' ) ),
 					close = modal.querySelector( '.md-close' );
 
@@ -33,12 +34,12 @@ app.factory("PopupService", function ($location, $q) {
 
 				function removeModalHandler() {
 					removeModal( classie.has( el, 'md-setperspective' ) ); 
+
+					$('html, body').animate({ scrollTop: $('#popup' + (i-1)).offset().top});
 				}
 
 				el.addEventListener( 'click', function( ev ) {
-					
-					console.log('PopupService: click!');
-					
+
 					classie.add( modal, 'md-show' );
 					overlay.style.visibility = 'visible';
 					overlay.removeEventListener( 'click', removeModalHandler );
@@ -52,6 +53,7 @@ app.factory("PopupService", function ($location, $q) {
 				});
 
 				close.addEventListener( 'click', function( ev ) {
+
 					ev.stopPropagation();
 					removeModalHandler();
 				});
