@@ -13,8 +13,8 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
             console.log(data);
             //active Points appending loop
             for(var h = 0; h < data.length; h++) {
-
-                var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == data[h].from.id; });
+                if(Identity.currentUser)
+                    var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == data[h].from.id; });
                 if(activePoints[0]) {
                         $scope.statuses[h].activePoints = activePoints[0].points;
                     }
@@ -63,9 +63,16 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
                         for(;k<$scope.statuses.length;k++){
                             $scope.statuses[k].profileImage = "https://graph.facebook.com/" + 
                                 $scope.statuses[k].from.id + "/picture";
+
                             if($scope.statuses[k].status_type=="added_photos"){
                                 $scope.statuses[k].postPhoto = "https://graph.facebook.com/v1.0/" + 
                                     $scope.statuses[k].object_id + "/picture";
+                            }
+                            //comments
+                            if($scope.statuses[k].comments){
+                                for(var u=0;u<$scope.statuses[k].comments.data.length;u++){
+                                    $scope.statuses[k].comments.data[u].profilePicture = "https://graph.facebook.com/" + $scope.statuses[k].comments.data[u].from.id + "/picture";
+                                }
                             }
 
                         }

@@ -1,5 +1,5 @@
-app.factory("FacebookService", function ($location, $q) {
-    var id = "1480652358834115",
+app.factory("FacebookService", function ($location, $q, $http) {
+    var id = "1441792662746809",
         limit = '30',
         uid, //user's id
         accessToken,
@@ -65,6 +65,13 @@ app.factory("FacebookService", function ($location, $q) {
         logout: function(){
             status = 'not-connected';
             FB.logout();
+            var deferred = $q.defer();
+
+            $http({ method: 'GET', url: '/logout' }).success(function () {
+                $location.path('/');
+            }).error(function(err){
+                alert('Couldnt logou, please try again in few seconds!');
+            })
         },
         getStatusSync:function(){
             return status;

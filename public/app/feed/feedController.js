@@ -23,8 +23,8 @@
 
                     //active Points appending loop
                     for(var h = 0; h < data.length; h++) {
-
-                        var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == data[h].from.id; });
+                        if(Identity.currentUser)
+                            var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == data[h].from.id; });
                         if(activePoints[0]) {
                                 $scope.feeds[h].activePoints = activePoints[0].points;
                             }

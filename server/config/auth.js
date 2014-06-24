@@ -31,7 +31,17 @@ module.exports = {
         auth(req, res, next);
     },
     isAuthenticated: function(req, res, next){
-        if (req.isAuthenticated()) { return next(); }
-        res.redirect('/');
+        if(!req.isAuthenticated()){
+            res.status(403);
+            res.end();
+        }
+        else{
+            next();
+        }
+    },
+    logout: function(req, res, next){
+        req.logout();
+        res.status(200);
+        res.end();
     }
 }

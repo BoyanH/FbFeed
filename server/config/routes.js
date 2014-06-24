@@ -39,8 +39,9 @@ module.exports = function (app) {
         });
     });
     app.post('/login', auth.login);
+    app.get('/logout', auth.logout);
     app.post('/api/users', users.createUser);
-    app.put('/api/users', users.updateUser);
+    app.put('/api/users', auth.isAuthenticated, users.updateUser);
     app.get('*', function (req, res) {
         res.render('index');
     });
