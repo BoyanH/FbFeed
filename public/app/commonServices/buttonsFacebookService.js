@@ -26,11 +26,9 @@
 			  },
 			  function(response) {
 			    if (response && !response.error_code) {
-			      alert('Posting completed.');
 			      deferred.resolve(true);
 			    } else {
 			      deferred.resolve(false);
-			      alert('Error while posting.');
 			    }
 			  });
         	return deferred.promise;

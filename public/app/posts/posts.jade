@@ -14,33 +14,61 @@
 							.row.content(ng-show="post.type=='link'", style="margin-top:20px;")
 								div(link-dir data="post")
 							.row.content(ng-show="post.embedLink || post.type=='video'", style="margin-top:5px;")
-								div(video-dir data="post" style="padding-left:10px")
+								div(video-dir data="post" style="padding-left:20px")
 							.row.content(ng-show="post.type=='status'" style="margin-top:5px;")
 								div(status-dir data="post")
 				.row
-					.col-md-3.fb-action-row.text-center(ng-click="like(post)")
-						img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")
-						span.fb-action Likes 
-							span {{post.likes.data.length || 0}}
-					.col-md-3.fb-action-row.text-center(ng-click="commentWindow(post)")
-						img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/comment.png" width="30" height="30")
-						span.fb-action Comments 
-							span {{post.comments.data.length || 0}}
-					.col-md-3.fb-action-row.text-center(ng-click="share(post)")
-						img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/share.jpg" width="30" height="30")
-						span.fb-action Shares 
-							span {{post.shares.count || 0}}
-				.row
-					.container.comment-section(ng-show="status.wantToComment")
+					.container.likes-section
+						.col-md-12
+							.like(ng-show="post.likes.data.length <= 4")
+								span(ng-repeat="like in post.likes.data |limitTo: posts.likes.data.length - 2") {{like.name}}, 
+								span(ng-show="posts.likes.data.length >= 2") {{post.likes.data[post.likes.data.length - 2].name}} and 
+								span(ng-show="posts.likes.data.length >= 1") {{post.likes.data[post.likes.data.length - 1].name}} like this 
+								span(ng-show="post.likes.data.length")
+									span(ng-show="post.type=='link'") link
+									span(ng-show="post.embedLink || post.type=='video'") video
+									span(ng-show="post.type=='photo'") picture
+							.like(ng-show="post.likes.data.length > 4")
+								span(ng-repeat="like in post.likes.data |limitTo: 2") {{like.name}},
+									span   {{post.likes.data[2].name}} 
+									| and 
+								span.likes-button.md-trigger.md-setperspective(data-modal="modal-{{$index}}")
+									| {{post.likes.data.length - 3}} others 
+								span like this 
+								span(ng-show="post.type=='link'") link
+								span(ng-show="post.embedLink || post.type=='video'") video
+								span(ng-show="post.type=='photo'") picture
+			.row
+				.col-md-3.fb-action-row.text-center(ng-click="like(post, $index)")
+					img(id="like-{{$index}}" ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")
+					span.fb-action Likes 
+						span {{post.likes.data.length || 0}}
+				.col-md-3.fb-action-row.text-center(ng-click="commentWindow(post)")
+					img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/comment.png" width="30" height="30")
+					span.fb-action Comments 
+						span {{post.comments.data.length || 0}}
+				.col-md-3.fb-action-row.text-center(ng-click="share(post)")
+					img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/share.jpg" width="30" height="30")
+					span.fb-action Shares 
+						span {{post.shares.count || 0}}
+			.row(style="margin-top:10px;")
+				.comments-section(ng-show="post.wantToComment")
+					.row(ng-repeat="comment in post.comments.data" if="comment.message != ''" style="margin:10px 3px;")
+						.col-md-1
+							img(ng-src="{{comment.profilePicture}}" src="")
+						.col-md-11
+							h5 
+								a(href="https://www.facebook.com/profile.php?id={{comment.from.id}}" target="_blank"){{comment.from.name}}
+							p(style="margin-left:10px;") {{comment.message}}
+			.row.comment-section(ng-show="post.wantToComment")
+				.col-md-1
+					img(ng-src="{{profilePicture}}" src="")
+				.col-md-8(style="margin-left:10px;")
+					form.form-horizontal(name="formComment")
 						.row
-							.col-md-1
-								img(ng-src="{{profilePicture}}" src="")
-							.col-md-8
-								form.form-horizontal(name="formComment")
-									.row
-										.col-md-10
-											input.form-control.comment-input(type="text" placeholder="Write your comment" ng-model="comment.message")
-										.col-md-2
-											button.btn.btn-primary(type="submit" ng-click="comment(comment)") Comment
+							.col-md-10
+								input.form-control.comment-input(type="text" placeholder="Write your comment" ng-model="comment.message")
+							.col-md-2
+								button.btn.btn-primary(type="submit" ng-click="comment(comment)") Comment
 		.busy-warning(ng-show="busy")
 			h4 Loading more posts... Please wait!

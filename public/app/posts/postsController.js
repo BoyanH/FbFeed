@@ -9,6 +9,7 @@ app.controller('PostsController', function($scope, $rootScope, FacebookService,
         $rootScope.user = data;
 
         FacebookService.getPosts().then(function (response){
+            $scope.profilePicture = FacebookService.getUserProfilePicture();
 
             var k = 0,
                 data = response.data;
@@ -25,6 +26,12 @@ app.controller('PostsController', function($scope, $rootScope, FacebookService,
                         else {
                             $scope.posts[h].activePoints = 0;
                         }
+                //comments
+                if(data[h].comments){
+                    for(var k=0;k<data[h].comments.data.length;k++){
+                        data[h].comments.data[k].profilePicture = "https://graph.facebook.com/" + data[h].comments.data[k].from.id + "/picture";
+                    }
+                }
             }
 
             function profileImageLoop() {
@@ -65,6 +72,12 @@ app.controller('PostsController', function($scope, $rootScope, FacebookService,
                         if ( pagingResponse.data[i] ) {
                             $scope.posts.push( pagingResponse.data[i] );
                         }
+                        //comments
+                        if(pagingResponse.data[i].comments){
+                            for(var k=0;k<pagingResponse.data[i].comments.data.length;k++){
+                                pagingResponse.data[i].comments.data[k].profilePicture = "https://graph.facebook.com/" + pagingResponse.data[i].comments.data[k].from.id + "/picture";
+                            }
+                        }
                     }
 
                     if(pagingResponse.data.length != 0){
@@ -80,30 +93,43 @@ app.controller('PostsController', function($scope, $rootScope, FacebookService,
 
                 $scope.nextPage();
             }
+            $scope.share = function ( item ) {
 
-        });
-    });
-    $scope.like = function ( item ) {
-            ButtonsFacebookService.like( item ).then(function(success){
-                if(success){
-                    Auth.update(Identity.currentUser, item.from.id).then(function(success){
-                        console.log('Successfully Updated User!');
-                    });
+                if ( item.shares ) {
+                    item.shares.count = item.shares.count + 1;
                 }
-                else{
-                    //do smth P.S. remove alerts in buttonsFacebook like/comment/share
-                }
-            });
-        }
-
-        $scope.commentWindow = function ( page ) {
-            for ( var i = 0; i < data.length; i++ ) {
-                if ( data[i] ) {
-                    if ( data[i].id == page.id ) {
-                        $scope.pages[i].wantToComment = true;
-                        idComment = data[i].id;
-                        idFrom = page.from.id;
+                ButtonsFacebookService.share( item ).then(function(success){
+                    if(success){
+                     Auth.update(Identity.currentUser, item.from.id).then(function(success){
+                            console.log('Successfully Updated User!');
+                        });
                     }
+                    else{
+                        //do smth P.S. remove alerts in buttonsFacebook like/comment/share
+                    }
+                });;
+            }
+
+            $scope.like = function ( item, index ) {
+                ButtonsFacebookService.like( item ).then(function(success){
+                    if(success){
+                        Auth.update(Identity.currentUser, item.from.id).then(function(success){
+                            $("#like-"+index).addClass("liked");
+                        });
+                    }
+                    else{
+                        alert("Problem with likeing post!");
+                    }
+                });
+            }
+
+        $scope.commentWindow = function ( post ) {
+            for(var i=0;i<$scope.posts.length;i++){
+                if(post.id == data[i].id){
+                    $scope.posts[i].wantToComment = true;
+                    idComment=data[i].id;
+                    idFrom = data[i].from.id
+                    break;
                 }
             }
         }
@@ -123,5 +149,9 @@ app.controller('PostsController', function($scope, $rootScope, FacebookService,
             });
             $( '.comment-input' ).val( '' );
         }
+
+        });
+    });
+    
 
 });

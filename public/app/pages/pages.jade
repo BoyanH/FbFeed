@@ -74,8 +74,8 @@
                                             div(ng-repeat="like in page.likes.data") {{like.name}}
                                         button.md-close Close
                     .row(style="margin-top:10px;")
-                        .container.comments-section(ng-show="page.showComments")
-                            .row(ng-repeat="comment in page.comments.data" if="comment.message != ''" style="margin-bottom:5px;")
+                        .comments-section(ng-show="page.showComments")
+                            .row(ng-repeat="comment in page.comments.data" if="comment.message != ''" style="margin:10px 3px;")
                                 .col-md-1
                                     img(ng-src="{{comment.profilePicture}}" src="")
                                 .col-md-11

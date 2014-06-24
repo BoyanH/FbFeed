@@ -51,8 +51,8 @@
                                         | {{video.likes.data.length - 3}} others 
                                     span like this video
                     .row
-                        .container.comments-section(ng-show="video.wantToComment")
-                            .row(ng-repeat="comment in video.comments.data" if="comment.message != ''" style="margin-top:5px;")
+                        .comments-section(ng-show="video.wantToComment")
+                            .row(ng-repeat="comment in video.comments.data" if="comment.message != ''" style="margin:10px 3px;")
                                 .col-md-1
                                     img(ng-src="{{comment.profilePicture}}" src="")
                                 .col-md-11

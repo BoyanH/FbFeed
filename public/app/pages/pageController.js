@@ -114,6 +114,12 @@
                                 $scope.pages[k].from.id + "/picture";
                             if($scope.pages[k].type=="photo")
                                 $scope.pages[k].postPhoto = "https://graph.facebook.com/" + $scope.pages[k].object_id + "/picture";
+                            //comments
+                            if($scope.pages[k].comments){
+                                for(var u=0;u<$scope.pages[k].comments.data.length;u++){
+                                    $scope.pages[k].comments.data[u].profilePicture = "https://graph.facebook.com/" + $scope.pages[k].comments.data[u].from.id + "/picture";
+                                }
+                            }
                     }
                 }
 

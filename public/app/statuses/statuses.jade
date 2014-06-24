@@ -59,14 +59,14 @@
                                 span(ng-show="status.type=='status'") status
                                 span(ng-show="status.type=='photo'") picture
             .row
-                .container.comments-section(ng-show="status.wantToComment")
-                    .row(ng-repeat="comment in status.comments.data" if="comment.message != ''" style="margin-top:5px;")
+                .comments-section(ng-show="status.wantToComment")
+                    .row(ng-repeat="comment in status.comments.data" if="comment.message != ''" style="margin:10px 3px;")
                         .col-md-1
                             img(ng-src="{{comment.profilePicture}}" src="")
                         .col-md-11
                             h5
                                 a(href="https://www.facebook.com/profile.php?id={{comment.from.id}}" target="_blank"){{comment.from.name}}
-                            p {{comment.message}}
+                            p(style="margin-left:10px;") {{comment.message}}
             .row
                 .comment-section(ng-show="status.wantToComment")
                     form.form-horizontal(name="formComment")
