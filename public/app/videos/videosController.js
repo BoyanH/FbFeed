@@ -10,7 +10,7 @@ app.controller('VideosController', function($scope, $sce, $rootScope, FacebookSe
         
             var k = 0,
                 data = response.data;
-
+            console.log(data);
             $scope.videos = data;
 
             //active Points appending loop
@@ -29,7 +29,14 @@ app.controller('VideosController', function($scope, $sce, $rootScope, FacebookSe
             for (var i = 0; i < data.length; i++) {
 
                 $scope.videos[i] = EmbedService.normalizeLink(data[i]);
-                $scope.videos[i].updated_time = DateService.normalizeDate(data[i].updated_time)
+                $scope.videos[i].updated_time = DateService.normalizeDate(data[i].updated_time);
+
+                //comments
+                if(data[i].comments){
+                    for(var k=0;k<data[i].comments.data.length;k++){
+                        data[i].comments.data[k].profilePicture = "https://graph.facebook.com/" + data[i].comments.data[k].from.id + "/picture";
+                    }
+                }
             }
 
             $scope.trustSrc = function(src) {
@@ -75,6 +82,12 @@ app.controller('VideosController', function($scope, $sce, $rootScope, FacebookSe
 
                         if ( pagingResponse.data[i] ) {
                             $scope.videos.push( pagingResponse.data[i] );
+                        }
+                        if(pagingResponse.data[i].comments){
+                            for(var k=0;k<pagingResponse.data[i].comments.data.length;k++){
+                                pagingResponse.data[i].comments.data[k].profilePicture = 
+                                    "https://graph.facebook.com/" + pagingResponse.data[i].comments.data[k].from.id + "/picture";
+                            }
                         }
                     }
 
