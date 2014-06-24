@@ -156,15 +156,15 @@ app.controller('VideosController', function($scope, $sce, $rootScope, FacebookSe
             });;
         }
 
-        $scope.like = function ( item ) {
+        $scope.like = function ( item, index ) {
             ButtonsFacebookService.like( item ).then(function(success){
                 if(success){
                     Auth.update(Identity.currentUser, item.from.id).then(function(success){
-                        console.log('Successfully Updated User!');
+                        $("#like-"+index).addClass("liked");
                     });
                 }
                 else{
-                    //do smth P.S. remove alerts in buttonsFacebook like/comment/share
+                    alert("Problem with likeing post!");
                 }
             });
         }

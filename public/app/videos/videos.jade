@@ -15,8 +15,8 @@
                             div(video-dir data="video" style="padding-left:15px;")
                         .col-md-2.fb-box.col-sm-12.col-xs-12
                             .well
-                                .fb-action-row.text-center(ng-click="like(video)")
-                                    img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")
+                                .fb-action-row.text-center(ng-click="like(video, $index)")
+                                    img(id="like-{{$index}}" ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")
                                     span.fb-action Likes 
                                         span {{video.likes.data.length || 0}}
                                 .fb-action-row.text-center(ng-click="commentWindow(video)")
