@@ -75,11 +75,14 @@
                                         button.md-close Close
                     .row
                         .container.comments-section(ng-show="page.showComments")
-                                .row(ng-repeat="comment in page.comments.data")
+                                .row(ng-repeat="comment in page.comments.data" if="comment.message != ''" style="margin-bottom:5px;")
                                     .col-md-1
                                         img(ng-src="{{comment.profilePicture}}" src="")
                                     .col-md-11
-                                        .well {{comment.message}}
+                                        h5 
+                                            a(href="https://www.facebook.com/profile.php?id={{comment.from.id}}" target="_blank"){{comment.from.name}}
+                                        p {{comment.message}}
+                                        br
                         .container.comment-section(ng-show="page.wantToComment")
                             .row
                                 .col-md-1

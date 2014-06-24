@@ -70,6 +70,13 @@
 
                 $scope.pages[t] = EmbedService.normalizeLink( $scope.pages[t] );
             }
+
+            //comments
+            if(data[t].comments){
+                for(var k=0;k<data[t].comments.data.length;k++){
+                    data[t].comments.data[k].profilePicture = "https://graph.facebook.com/" + data[t].comments.data[k].from.id + "/picture";
+                }
+            }
         }
 
         $scope.trustSrc = function ( src ) {

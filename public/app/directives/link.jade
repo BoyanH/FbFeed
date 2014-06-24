@@ -1,9 +1,12 @@
 .col-md-6
+    p.description(ng-show="data.story.indexOf('event') > 0")
+        a(href="{{data.link}}" target="_blank"){{data.link}}
     div.image-link-container
         a(href="{{data.link}}" target="_blank")
             img(ng-src="{{data.picture}}" src="")
+    
 
-.col-md-6.well
+.col-md-6.well(ng-show="data.message || data.description || data.caption")
     p.description
         | {{data.name}}
     p 
