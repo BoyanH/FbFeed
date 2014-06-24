@@ -82,6 +82,12 @@
                                         '/picture';
                             }
                         }
+                        //comments
+                        if(data[t].comments){
+                            for(var k=0;k<data[t].comments.data.length;k++){
+                                data[t].comments.data[k].profilePicture = "https://graph.facebook.com/" + data[t].comments.data[k].from.id + "/picture";
+                            }
+                        }
         			}
         			$scope.trustSrc = function ( src ) {
             			return $sce.trustAsResourceUrl( src );
@@ -118,6 +124,12 @@
                                 			$scope.feeds[k].from.id + "/picture";
                                         if ( $scope.feeds[k].type == "photo" ) {
                                             $scope.feeds[k].postPhoto = "https://graph.facebook.com/" + $scope.feeds[k].object_id + "/picture";
+                                        }
+
+                                        if(data[k].comments){
+                                            for(var u=0;u<data[k].comments.data.length;u++){
+                                                data[k].comments.data[u].profilePicture = "https://graph.facebook.com/" + data[k].comments.data[u].from.id + "/picture";
+                                            }
                                         }
                     			}
                 			}
@@ -157,10 +169,14 @@
         			}
 
         			$scope.commentWindow = function ( feed ) {
-            			$scope.feeds[feed].wantToComment = true;
-            			$scope.feeds[feed].showComments = true;
-            			idComment = data[feed].id;
-            			idFrom = $scope.pages[feed].from.id;
+            			for ( var i = 0; i < data.length; i++ ) {
+                            if ( data[i] ) {
+                                if ( data[i].id == feed.id ) {
+                                    $scope.feeds[i].wantToComment = true;
+                                    idComment = data[i].id;
+                                }
+                            }
+                        }
         			}
         			$scope.comment = function ( commentInput ) {
             			var itemToComment = {};

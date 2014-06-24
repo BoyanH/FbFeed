@@ -23,7 +23,7 @@
                             .row.content(ng-show="feed.type=='photo'" style="margin-top:20px;")
                                 div(photo-dir data="feed")
                             .row.content(ng-show="feed.embedLink || feed.type=='video'", style="margin-top:20px;")
-                                div(video-dir data="feed")
+                                div(video-dir data="feed" style="margin-left:10px;")
                             .row.content(ng-show="feed.type=='status'" style="margin-top:10px;")
                                 div(status-dir data="feed")
                                         
@@ -75,6 +75,15 @@
                                         .scroll
                                             div(ng-repeat="like in feed.likes.data") {{like.name}}
                                         button.md-close Close
+                    .row(style="margin-top:10px;")
+                        .comments-section(ng-show="feed.wantToComment")
+                            .row(ng-repeat="comment in feed.comments.data" if="comment.message != ''" style="margin:10px 3px;")
+                                .col-md-1
+                                    img(ng-src="{{comment.profilePicture}}" src="")
+                                .col-md-11
+                                    h5 
+                                        a(href="https://www.facebook.com/profile.php?id={{comment.from.id}}" target="_blank"){{comment.from.name}}
+                                    p {{comment.message}}
                     .row
                         .container.comment-section(ng-show="feed.wantToComment")
                             .row
