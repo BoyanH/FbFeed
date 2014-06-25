@@ -43,7 +43,6 @@
                         .container.show-section.text-center
                             .col-md-12
                                 .show-button(ng-click="showComments($index)") Show Comments
-                                .show-button Show Shares
                     .row
                         .container.likes-section
                             .col-md-12
@@ -56,7 +55,7 @@
                                         span(ng-show="page.embedLink || page.type=='video'") video
                                         span(ng-show="page.type=='photo'") picture
                                 .like(ng-show="page.likes.data.length > 4")
-                                    span(ng-repeat="like in page.likes.data |limitTo: 2") {{like.name}}, 
+                                    span(ng-repeat="like in page.likes.data |limitTo: 2") {{like.name}},
                                         span   {{page.likes.data[2].name}} 
                                         | and 
                                     span.likes-button.md-trigger.md-setperspective(data-modal="modal-{{$index}}")
@@ -73,13 +72,15 @@
                                         .scroll
                                             div(ng-repeat="like in page.likes.data") {{like.name}}
                                         button.md-close Close
-                    .row
-                        .container.comments-section(ng-show="page.showComments")
-                                .row(ng-repeat="comment in page.comments.data")
-                                    .col-md-1
-                                        img(ng-src="{{comment.profilePicture}}" src="")
-                                    .col-md-11
-                                        .well {{comment.message}}
+                    .row(style="margin-top:10px;")
+                        .comments-section(ng-show="page.showComments")
+                            .row(ng-repeat="comment in page.comments.data" if="comment.message != ''" style="margin:10px 3px;")
+                                .col-md-1
+                                    img(ng-src="{{comment.profilePicture}}" src="")
+                                .col-md-11
+                                    h5 
+                                        a(href="https://www.facebook.com/profile.php?id={{comment.from.id}}" target="_blank"){{comment.from.name}}
+                                    p {{comment.message}}
                         .container.comment-section(ng-show="page.wantToComment")
                             .row
                                 .col-md-1

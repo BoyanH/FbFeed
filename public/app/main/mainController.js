@@ -1,8 +1,11 @@
 app.controller('MainController', function($scope, $rootScope, $location, FacebookService, Auth, Identity, RedirectService){
-    FacebookService.checkStatus().then(function(data){
-        if(data == "connected")
-            RedirectService.redirectConnected();//redirectif the user is already connected
-    });
+    var idInterval = setInterval(function(){FacebookService.checkStatus().then(function(data){
+        if(data == "connected"){
+            console.log('connnnnnnnnnnnnnnected');
+            clearInterval(idInterval);
+            RedirectService.redirectConnected();//redirectif the user is connected
+        }
+    })}, 50);
     $scope.login = function(){
         
         FacebookService.login()

@@ -10,13 +10,13 @@ app.controller('VideosController', function($scope, $sce, $rootScope, FacebookSe
         
             var k = 0,
                 data = response.data;
-
+            console.log(data);
             $scope.videos = data;
 
             //active Points appending loop
             for(var h = 0; h < data.length; h++) {
-
-                var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == data[h].from.id; });
+                if(Identity.currentUser)
+                    var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == data[h].from.id; });
                 if(activePoints[0]) {
                         $scope.videos[h].activePoints = activePoints[0].points;
                     }
@@ -29,29 +29,20 @@ app.controller('VideosController', function($scope, $sce, $rootScope, FacebookSe
             for (var i = 0; i < data.length; i++) {
 
                 $scope.videos[i] = EmbedService.normalizeLink(data[i]);
-                $scope.videos[i].updated_time = DateService.normalizeDate(data[i].updated_time)
+                $scope.videos[i].updated_time = DateService.normalizeDate(data[i].updated_time);
+
+                //comments
+                if(data[i].comments){
+                    for(var k=0;k<data[i].comments.data.length;k++){
+                        data[i].comments.data[k].profilePicture = "https://graph.facebook.com/" + data[i].comments.data[k].from.id + "/picture";
+                    }
+                }
+                $scope.videos[i].profileImage = "https://graph.facebook.com/" + data[i].from.id + "/picture";
             }
 
             $scope.trustSrc = function(src) {
                 return $sce.trustAsResourceUrl(src);
             }
-
-            function profileImageLoop() {
-                FacebookService.getPictureByID(data[k].from.id)
-                    .then(function (url) {
-
-                        $scope.videos[k++].profileImage = url;
-                        if (k < data.length) {
-                            setTimeout(profileImageLoop, 1);
-                        }
-                    })
-            }
-            if (data.length) {
-                profileImageLoop();
-            }
-                else {
-                    $scope.stillLoding = false;
-                }
 
             $scope.nextPage = function () {
 
@@ -76,10 +67,14 @@ app.controller('VideosController', function($scope, $sce, $rootScope, FacebookSe
                         if ( pagingResponse.data[i] ) {
                             $scope.videos.push( pagingResponse.data[i] );
                         }
-                    }
+                        if(pagingResponse.data[i].comments){
+                            for(var k=0;k<pagingResponse.data[i].comments.data.length;k++){
+                                pagingResponse.data[i].comments.data[k].profilePicture = 
+                                    "https://graph.facebook.com/" + pagingResponse.data[i].comments.data[k].from.id + "/picture";
+                            }
+                        }
 
-                    if(pagingResponse.data.length != 0){
-                        profileImageLoop();
+                        pagingResponse.data[i].profileImage = "https://graph.facebook.com/" + pagingResponse.data[i].from.id + "/picture";
                     }
 
                     $scope.busy = false;
@@ -143,15 +138,15 @@ app.controller('VideosController', function($scope, $sce, $rootScope, FacebookSe
             });;
         }
 
-        $scope.like = function ( item ) {
+        $scope.like = function ( item, index ) {
             ButtonsFacebookService.like( item ).then(function(success){
                 if(success){
                     Auth.update(Identity.currentUser, item.from.id).then(function(success){
-                        console.log('Successfully Updated User!');
+                        $("#like-"+index).addClass("liked");
                     });
                 }
                 else{
-                    //do smth P.S. remove alerts in buttonsFacebook like/comment/share
+                    alert("Problem with likeing post!");
                 }
             });
         }

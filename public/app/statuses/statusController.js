@@ -1,4 +1,4 @@
-app.controller('StatusController', function ($scope, $rootScope, FacebookService, ButtonsFacebookService, Identity){
+app.controller('StatusController', function ($scope, $rootScope, FacebookService, ButtonsFacebookService, Identity, Auth){
     $scope.stillLoding = true;
     var idComment;
 
@@ -10,11 +10,11 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
             var k = 0;
             var data = response.data
             $scope.statuses = data;
-
+            console.log(data);
             //active Points appending loop
             for(var h = 0; h < data.length; h++) {
-
-                var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == data[h].from.id; });
+                if(Identity.currentUser)
+                    var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == data[h].from.id; });
                 if(activePoints[0]) {
                         $scope.statuses[h].activePoints = activePoints[0].points;
                     }
@@ -22,26 +22,17 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
                             $scope.statuses[h].activePoints = 0;
                         }
             }
-
-            function profileImageLoop() {
-                FacebookService.getPictureByID($scope.statuses[k].from.id)
-                    .then(function (url) {
-                        $scope.statuses[k].profileImage = url;
-                        k++;
-                        if (k < $scope.statuses.length) {
-                            setTimeout(profileImageLoop, 1);
-                        }
-                    });
-            }
-            if(data.length != 0){
-                profileImageLoop();
-            }
-            var p = 0;
             for(var p=0;p<data.length;p++){
-                if ( data[t] && data[t].status_type == "added_photos" ) {
+                //profile image
+                $scope.statuses[p].profileImage = "https://graph.facebook.com/" + data[p].from.id + "/picture";
+                
 
-                $scope.pages[t].postPhoto = "https://graph.facebook.com/v1.0/" + data[t].object_id + "/picture";
-            }
+                //comments
+                if(data[p].comments){
+                    for(var k=0;k<data[p].comments.data.length;k++){
+                        data[p].comments.data[k].profilePicture = "https://graph.facebook.com/" + data[p].comments.data[k].from.id + "/picture";
+                    }
+                }
             }
 
             $scope.nextPage = function () {
@@ -73,9 +64,19 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
                         for(;k<$scope.statuses.length;k++){
                             $scope.statuses[k].profileImage = "https://graph.facebook.com/" + 
                                 $scope.statuses[k].from.id + "/picture";
+
                             if($scope.statuses[k].status_type=="added_photos"){
                                 $scope.statuses[k].postPhoto = "https://graph.facebook.com/v1.0/" + 
                                     $scope.statuses[k].object_id + "/picture";
+                                if(data[k].story && data[k].story.indexOf('profile picture') > 0){
+                                    $scope.statuses[k].postPhoto = "https://graph.facebook.com/" + data[k].from.id + "/picture?width=9999&height=9999";
+                                }
+                            }
+                            //comments
+                            if($scope.statuses[k].comments){
+                                for(var u=0;u<$scope.statuses[k].comments.data.length;u++){
+                                    $scope.statuses[k].comments.data[u].profilePicture = "https://graph.facebook.com/" + $scope.statuses[k].comments.data[u].from.id + "/picture";
+                                }
                             }
 
                         }
@@ -124,6 +125,9 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
 
                 $scope.statuses[t].postPhoto = "https://graph.facebook.com/" + data[t].object_id + "/picture";
             }
+            if(data[t].story && data[t].story.indexOf('profile picture') > 0){
+                $scope.statuses[t].postPhoto = "https://graph.facebook.com/" + data[t].from.id + "/picture?width=9999&height=9999";
+            }
         }
             $scope.profilePicture = FacebookService.getUserProfilePicture();
 
@@ -141,9 +145,18 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
         ButtonsFacebookService.share( item );
     }
 
-    $scope.like = function ( item ) {
+    $scope.like = function ( item, index ) {
 
-        ButtonsFacebookService.like( item );
+        ButtonsFacebookService.like( item ).then(function(success){
+                if(success){
+                    Auth.update(Identity.currentUser, item.from.id).then(function(success){
+                        $("#like-"+index).addClass("liked");
+                    });
+                }
+                else{
+                    alert("Problem with likeing post!");
+                }
+            });
     }
     $scope.comment = function(commentInput){
         var itemToComment = {};

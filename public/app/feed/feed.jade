@@ -5,7 +5,7 @@
                 .progress-bar(style="width: 100%")
         .container
             .row
-                .well(ng-repeat="feed in feeds | orderBy:orderBy" ng-if="!feed.story || feed.story.indexOf('commented') < 0")
+                .well(ng-repeat="feed in feeds | orderBy:orderBy" ng-if="(!feed.story || feed.story.indexOf('commented') < 0) &&  feed.story.indexOf('like a photo') < 0")
                     .row
                         .col-md-1
                             img(ng-src="{{feed.profileImage}}" src="")
@@ -16,14 +16,14 @@
                                 span(ng-show="feed.embedLink || page.type=='video'") added video
                                 span(ng-show="feed.type=='photo'" ng-if="!feed.story") added picture
                                 span(ng-show="feed.type=='status' && (feed.story.indexOf('likes a photo') < 0)") added status
-                            .row.content(ng-show="feed.type=='link'", style="margin-top:20px;")
+                            .row.content(ng-show="feed.type=='link' && feed.message != ''", style="margin-top:20px;")
                                 div(link-dir data="feed")
                             .row.content(ng-show="feed.story.indexOf('likes a photo') > 0")
                                 div(photo-dir data="feed")
                             .row.content(ng-show="feed.type=='photo'" style="margin-top:20px;")
                                 div(photo-dir data="feed")
                             .row.content(ng-show="feed.embedLink || feed.type=='video'", style="margin-top:20px;")
-                                div(video-dir data="feed")
+                                div(video-dir data="feed" style="margin-left:10px;")
                             .row.content(ng-show="feed.type=='status'" style="margin-top:10px;")
                                 div(status-dir data="feed")
                                         
@@ -31,7 +31,7 @@
                             .well
                                 .fb-action-row.text-center(ng-click="like(feed)")
                                     img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Add-Facebook-Like-Button-in-Magento.jpg" width="30" height="30")
-                                    span.fb-action Likes 
+                                    span.fb-action Likes
                                         span {{feed.likes.data.length || 0}}
                                 .fb-action-row.text-center(ng-click="commentWindow(feed)")
                                     img(ng-src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/comment.png" width="30" height="30")
@@ -44,8 +44,7 @@
                     .row
                         .container.show-section.text-center
                             .col-md-12
-                                .show-button Show Comments
-                                .show-button Show Shares
+                                .show-button(ng-click="feed.wantToComment=true") Show Comments
                     .row
                         .container.likes-section
                             .col-md-12
@@ -75,6 +74,15 @@
                                         .scroll
                                             div(ng-repeat="like in feed.likes.data") {{like.name}}
                                         button.md-close Close
+                    .row(style="margin-top:10px;")
+                        .comments-section(ng-show="feed.wantToComment")
+                            .row(ng-repeat="comment in feed.comments.data" if="comment.message != ''" style="margin:10px 3px;")
+                                .col-md-1
+                                    img(ng-src="{{comment.profilePicture}}" src="")
+                                .col-md-11
+                                    h5
+                                        a(href="https://www.facebook.com/profile.php?id={{comment.from.id}}" target="_blank"){{comment.from.name}}
+                                    p {{comment.message}}
                     .row
                         .container.comment-section(ng-show="feed.wantToComment")
                             .row

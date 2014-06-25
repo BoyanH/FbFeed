@@ -70,6 +70,13 @@
 
                 $scope.pages[t] = EmbedService.normalizeLink( $scope.pages[t] );
             }
+
+            //comments
+            if(data[t].comments){
+                for(var k=0;k<data[t].comments.data.length;k++){
+                    data[t].comments.data[k].profilePicture = "https://graph.facebook.com/" + data[t].comments.data[k].from.id + "/picture";
+                }
+            }
         }
 
         $scope.trustSrc = function ( src ) {
@@ -87,8 +94,8 @@
                 k = $scope.pages.length;
 
                 for ( var i = 0; i < pagingResponse.data.length; i++ ) {
-                    
-                    var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == pagingResponse.data[i].from.id; });
+                    if(Identity.currentUser)
+                        var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == pagingResponse.data[i].from.id; });
                     if(activePoints[0]) {
                         pagingResponse.data[i].activePoints = activePoints[0].points;
                     }
@@ -107,6 +114,12 @@
                                 $scope.pages[k].from.id + "/picture";
                             if($scope.pages[k].type=="photo")
                                 $scope.pages[k].postPhoto = "https://graph.facebook.com/" + $scope.pages[k].object_id + "/picture";
+                            //comments
+                            if($scope.pages[k].comments){
+                                for(var u=0;u<$scope.pages[k].comments.data.length;u++){
+                                    $scope.pages[k].comments.data[u].profilePicture = "https://graph.facebook.com/" + $scope.pages[k].comments.data[u].from.id + "/picture";
+                                }
+                            }
                     }
                 }
 
