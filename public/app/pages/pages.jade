@@ -47,13 +47,13 @@
                         .container.likes-section
                             .col-md-12
                                 .like(ng-show="page.likes.data.length <= 4")
-                                    span(ng-repeat="like in page.likes.data |limitTo: pages.likes.data.length - 2") {{like.name}}, 
-                                    span(ng-show="pages.likes.data.length >= 2") {{page.likes.data[page.likes.data.length - 2].name}} and 
-                                    span(ng-show="pages.likes.data.length >= 1") {{page.likes.data[page.likes.data.length - 1].name}} like this 
+                                    span(ng-repeat="like in page.likes.data |limitTo: pages.likes.data.length - 2") {{like.name}} 
+                                    span(ng-show="pages.likes.data.length >= 2") , {{page.likes.data[page.likes.data.length - 2].name}} 
+                                    span(ng-show="pages.likes.data.length >= 1") and {{page.likes.data[page.likes.data.length - 1].name}}
                                     span(ng-show="page.likes.data.length")
-                                        span(ng-show="page.type=='link'") link
-                                        span(ng-show="page.embedLink || page.type=='video'") video
-                                        span(ng-show="page.type=='photo'") picture
+                                        span(ng-show="page.type=='link'") like this link
+                                        span(ng-show="page.embedLink || page.type=='video'") like this video
+                                        span(ng-show="page.type=='photo'") like this picture
                                 .like(ng-show="page.likes.data.length > 4")
                                     span(ng-repeat="like in page.likes.data |limitTo: 2") {{like.name}},
                                         span   {{page.likes.data[2].name}} 
@@ -64,6 +64,7 @@
                                     span(ng-show="page.type=='link'") link
                                     span(ng-show="page.embedLink || page.type=='video'") video
                                     span(ng-show="page.type=='photo'") picture
+                                    span(ng-show="page.type=='status'") like this status
                         .container.popup
                             .col-md-12
                                 .md-modal.md-effect-18(id="modal-{{$index}}")
