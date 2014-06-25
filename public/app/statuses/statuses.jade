@@ -39,14 +39,14 @@
                 .container.likes-section
                     .col-md-12
                         .like(ng-show="status.likes.data.length <= 4")
-                            span(ng-repeat="like in status.likes.data |limitTo: pages.likes.data.length - 2") {{like.name}}, 
-                            span(ng-show="statuses.likes.data.length >= 2") {{status.likes.data[status.likes.data.length - 2].name}} and 
-                            span(ng-show="statuses.likes.data.length >= 1") {{status.likes.data[status.likes.data.length - 1].name}} like this 
+                            span(ng-repeat="like in status.likes.data |limitTo: pages.likes.data.length - 2") {{like.name}}
+                            span(ng-show="statuses.likes.data.length >= 2") , {{status.likes.data[status.likes.data.length - 2].name}}
+                            span(ng-show="statuses.likes.data.length >= 1") and {{status.likes.data[status.likes.data.length - 1].name}}
                             span(ng-show="status.likes.data.length")
-                                span(ng-show="status.type=='link'") link
-                                span(ng-show="status.type=='status'") status
-                                span(ng-show="status.embedLink || video.type=='status'") video
-                                span(ng-show="status.type=='photo'") picture
+                                span(ng-show="status.type=='link'") like this link
+                                span(ng-show="status.type=='status'") like this status
+                                span(ng-show="status.embedLink || video.type=='status'") like this video
+                                span(ng-show="status.type=='photo'") like this picture
                         .like(ng-show="status.likes.data.length > 4")
                             span(ng-repeat="like in status.likes.data |limitTo: 2") {{like.name}}, 
                                 span   {{status.likes.data[2].name}} 

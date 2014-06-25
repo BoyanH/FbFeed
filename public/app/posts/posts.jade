@@ -21,13 +21,13 @@
 					.likes-section(style="padding:20px;")
 						.col-md-12
 							.like(ng-show="post.likes.data.length <= 4")
-								span(ng-repeat="like in post.likes.data |limitTo: posts.likes.data.length - 2") {{like.name}}, 
-								span(ng-show="posts.likes.data.length >= 2") {{post.likes.data[post.likes.data.length - 2].name}} and 
-								span(ng-show="posts.likes.data.length >= 1") {{post.likes.data[post.likes.data.length - 1].name}} like this 
+								span(ng-repeat="like in post.likes.data |limitTo: posts.likes.data.length - 2") {{like.name}}
+								span(ng-show="posts.likes.data.length >= 2") , {{post.likes.data[post.likes.data.length - 2].name}}
+								span(ng-show="posts.likes.data.length >= 1") and {{post.likes.data[post.likes.data.length - 1].name}}
 								span(ng-show="post.likes.data.length")
-									span(ng-show="post.type=='link'") link
-									span(ng-show="post.embedLink || post.type=='video'") video
-									span(ng-show="post.type=='photo'") picture
+									span(ng-show="post.type=='link'") like this link
+									span(ng-show="post.embedLink || post.type=='video'") like this video
+									span(ng-show="post.type=='photo'") like this picture
 							.like(ng-show="post.likes.data.length > 4")
 								span(ng-repeat="like in post.likes.data |limitTo: 2") {{like.name}},
 									span   {{post.likes.data[2].name}} 

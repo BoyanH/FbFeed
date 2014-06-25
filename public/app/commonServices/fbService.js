@@ -1,6 +1,6 @@
 app.factory("FacebookService", function ($location, $q) {
 
-    var id = "1441792662746809",
+    var id = "1480652358834115",
         limit = '50',
         uid, //user's id
         accessToken,
@@ -304,13 +304,14 @@ app.factory("FacebookService", function ($location, $q) {
         getMoreFeed: function(URL){
             var deferred = $q.defer();
 
-            FB.api(URL,
-                {'since':'last month', 'limit': limit},
-                function(reponse){
+            FB.api(
+                URL, {'since':'last month', 'limit': limit},
+                function (response){
                     if(response && !response.error){
                         deferred.resolve(response);
                     }
-                });
+                }
+            );
             return deferred.promise;
         },
         getMorePages: function (URL) {

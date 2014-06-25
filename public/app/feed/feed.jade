@@ -49,13 +49,13 @@
                         .container.likes-section
                             .col-md-12
                                 .like(ng-show="feed.likes.data.length <= 4")
-                                    span(ng-repeat="like in feed.likes.data |limitTo: feeds.likes.data.length - 2") {{like.name}}, 
-                                    span(ng-show="feeds.likes.data.length >= 2") {{feed.likes.data[feed.likes.data.length - 2].name}} and 
-                                    span(ng-show="feeds.likes.data.length >= 1") {{feed.likes.data[feed.likes.data.length - 1].name}} like this 
+                                    span(ng-repeat="like in feed.likes.data |limitTo: feeds.likes.data.length - 2") {{like.name}}
+                                    span(ng-show="feeds.likes.data.length >= 2") , {{feed.likes.data[feed.likes.data.length - 2].name}}
+                                    span(ng-show="feeds.likes.data.length >= 1") and {{feed.likes.data[feed.likes.data.length - 1].name}}
                                     span(ng-show="feeds.likes.data.length")
-                                        span(ng-show="feed.type=='link'") link
-                                        span(ng-show="feed.embedLink || feed.type=='video'") video
-                                        span(ng-show="feed.type=='photo'") picture
+                                        span(ng-show="feed.type=='link'") like this link
+                                        span(ng-show="feed.embedLink || feed.type=='video'") like this video
+                                        span(ng-show="feed.type=='photo'") like this picture
                                 .like(ng-show="page.likes.data.length > 4")
                                     span(ng-repeat="like in feed.likes.data |limitTo: 2") {{like.name}}, 
                                         span   {{feed.likes.data[2].name}} 
