@@ -316,7 +316,7 @@ app.factory("FacebookService", function ($location, $q) {
         getMorePages: function (URL) {
 
             var deferred = $q.defer();
-
+            console.log("URL: " + URL);
             FB.api(
                 URL, {'since':'last month', 'limit': limit},
                 function (response) {
