@@ -1,5 +1,5 @@
 ﻿app.controller('FeedController', function($scope, $rootScope, FacebookService, 
-	$modal, $log, $rootScope, $sce,EmbedService, ButtonsFacebookService, Identity){
+	$modal, $log, $rootScope, $sce,EmbedService, ButtonsFacebookService, Identity, Auth){
     $scope.stillLoding = true;
     FacebookService.checkStatus()
     	.then(function (data) {
