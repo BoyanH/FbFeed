@@ -18,7 +18,7 @@
 							.row.content(ng-show="post.type=='status'" style="margin-top:5px;")
 								div(status-dir data="post")
 				.row
-					.container.likes-section
+					.likes-section(style="padding:20px;")
 						.col-md-12
 							.like(ng-show="post.likes.data.length <= 4")
 								span(ng-repeat="like in post.likes.data |limitTo: posts.likes.data.length - 2") {{like.name}}, 

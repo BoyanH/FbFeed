@@ -3,7 +3,7 @@
         .well(ng-show="stillLoding").text-center
             .progress.progress-striped.active(style="width:300px;margin:0 auto;")
                 .progress-bar(style="width: 100%")
-        div.well(data-ng-repeat="status in statuses track by $index | orderBy:orderBy" ng-if="!status.story || status.story.indexOf('commented') < 0")
+        div.well(data-ng-repeat="status in statuses track by $index | orderBy:orderBy" ng-if="(!status.story || status.story.indexOf('commented') < 0) && status.story.indexOf('like a photo') < 0")
             .row
                 .col-md-1
                     img(ng-src="{{status.profileImage}}" src="")

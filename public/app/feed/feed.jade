@@ -5,7 +5,7 @@
                 .progress-bar(style="width: 100%")
         .container
             .row
-                .well(ng-repeat="feed in feeds | orderBy:orderBy" ng-if="!feed.story || feed.story.indexOf('commented') < 0")
+                .well(ng-repeat="feed in feeds | orderBy:orderBy" ng-if="(!feed.story || feed.story.indexOf('commented') < 0) &&  feed.story.indexOf('like a photo') < 0")
                     .row
                         .col-md-1
                             img(ng-src="{{feed.profileImage}}" src="")
@@ -16,7 +16,7 @@
                                 span(ng-show="feed.embedLink || page.type=='video'") added video
                                 span(ng-show="feed.type=='photo'" ng-if="!feed.story") added picture
                                 span(ng-show="feed.type=='status' && (feed.story.indexOf('likes a photo') < 0)") added status
-                            .row.content(ng-show="feed.type=='link'", style="margin-top:20px;")
+                            .row.content(ng-show="feed.type=='link' && feed.message != ''", style="margin-top:20px;")
                                 div(link-dir data="feed")
                             .row.content(ng-show="feed.story.indexOf('likes a photo') > 0")
                                 div(photo-dir data="feed")
@@ -44,8 +44,7 @@
                     .row
                         .container.show-section.text-center
                             .col-md-12
-                                .show-button Show Comments
-                                .show-button Show Shares
+                                .show-button(ng-click="feed.wantToComment=true") Show Comments
                     .row
                         .container.likes-section
                             .col-md-12
@@ -81,7 +80,7 @@
                                 .col-md-1
                                     img(ng-src="{{comment.profilePicture}}" src="")
                                 .col-md-11
-                                    h5 
+                                    h5
                                         a(href="https://www.facebook.com/profile.php?id={{comment.from.id}}" target="_blank"){{comment.from.name}}
                                     p {{comment.message}}
                     .row

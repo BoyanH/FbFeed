@@ -25,6 +25,7 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
             for(var p=0;p<data.length;p++){
                 //profile image
                 $scope.statuses[p].profileImage = "https://graph.facebook.com/" + data[p].from.id + "/picture";
+                
 
                 //comments
                 if(data[p].comments){
@@ -67,6 +68,9 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
                             if($scope.statuses[k].status_type=="added_photos"){
                                 $scope.statuses[k].postPhoto = "https://graph.facebook.com/v1.0/" + 
                                     $scope.statuses[k].object_id + "/picture";
+                                if(data[k].story && data[k].story.indexOf('profile picture') > 0){
+                                    $scope.statuses[k].postPhoto = "https://graph.facebook.com/" + data[k].from.id + "/picture?width=9999&height=9999";
+                                }
                             }
                             //comments
                             if($scope.statuses[k].comments){
@@ -120,6 +124,9 @@ app.controller('StatusController', function ($scope, $rootScope, FacebookService
             if ( data[t] && data[t].type == "photo" ) {
 
                 $scope.statuses[t].postPhoto = "https://graph.facebook.com/" + data[t].object_id + "/picture";
+            }
+            if(data[t].story && data[t].story.indexOf('profile picture') > 0){
+                $scope.statuses[t].postPhoto = "https://graph.facebook.com/" + data[t].from.id + "/picture?width=9999&height=9999";
             }
         }
             $scope.profilePicture = FacebookService.getUserProfilePicture();

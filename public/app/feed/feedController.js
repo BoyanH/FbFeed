@@ -59,6 +59,9 @@
             			if ( data[t] && data[t].type == "photo" ) {
 
                 			$scope.feeds[t].postPhoto = "https://graph.facebook.com/" + data[t].object_id + "/picture";
+                            if(data[t].story && data[t].story.indexOf('profile picture') > 0){
+                                $scope.feeds[t].postPhoto = "https://graph.facebook.com/" + data[t].from.id + "/picture?width=9999&height=9999";
+                            }
             			}
             			//type video post
             			if ( data[t] && data[t].application ) {

@@ -37,28 +37,12 @@ app.controller('VideosController', function($scope, $sce, $rootScope, FacebookSe
                         data[i].comments.data[k].profilePicture = "https://graph.facebook.com/" + data[i].comments.data[k].from.id + "/picture";
                     }
                 }
+                $scope.videos[i].profileImage = "https://graph.facebook.com/" + data[i].from.id + "/picture";
             }
 
             $scope.trustSrc = function(src) {
                 return $sce.trustAsResourceUrl(src);
             }
-
-            function profileImageLoop() {
-                FacebookService.getPictureByID(data[k].from.id)
-                    .then(function (url) {
-
-                        $scope.videos[k++].profileImage = url;
-                        if (k < data.length) {
-                            setTimeout(profileImageLoop, 1);
-                        }
-                    })
-            }
-            if (data.length) {
-                profileImageLoop();
-            }
-                else {
-                    $scope.stillLoding = false;
-                }
 
             $scope.nextPage = function () {
 
@@ -89,10 +73,8 @@ app.controller('VideosController', function($scope, $sce, $rootScope, FacebookSe
                                     "https://graph.facebook.com/" + pagingResponse.data[i].comments.data[k].from.id + "/picture";
                             }
                         }
-                    }
 
-                    if(pagingResponse.data.length != 0){
-                        profileImageLoop();
+                        pagingResponse.data[i].profileImage = "https://graph.facebook.com/" + pagingResponse.data[i].from.id + "/picture";
                     }
 
                     $scope.busy = false;

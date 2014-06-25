@@ -32,20 +32,7 @@ app.controller('PostsController', function($scope, $rootScope, FacebookService,
                         data[h].comments.data[k].profilePicture = "https://graph.facebook.com/" + data[h].comments.data[k].from.id + "/picture";
                     }
                 }
-            }
-
-            function profileImageLoop() {
-                FacebookService.getPictureByID($scope.posts[k].from.id)
-                    .then(function (url) {
-                        $scope.posts[k].profileImage = url;
-                        k++;
-                        if (k < $scope.posts.length) {
-                            setTimeout(profileImageLoop, 1);
-                        }
-                    });
-            }
-            if(data && data.length != 0){
-                profileImageLoop();
+                data[h].profileImage = "https://graph.facebook.com/" + data[h].from.id + '/picture';
             }
             $scope.stillLoding = false;
 
@@ -60,6 +47,7 @@ app.controller('PostsController', function($scope, $rootScope, FacebookService,
                     k = $scope.posts.length;
 
                     for ( var i = 0; i < pagingResponse.data.length; i++ ) {
+                        pagingResponse.data[i].profileImage = "https://graph.facebook.com/" + pagingResponse.data[i].from.id + '/picture';
                         if(Identity.currentUser)
                             var activePoints = $.grep(Identity.currentUser.likes, function(e){ return e.id == pagingResponse.data[i].from.id; });
                         if(activePoints[0]) {
@@ -78,10 +66,6 @@ app.controller('PostsController', function($scope, $rootScope, FacebookService,
                                 pagingResponse.data[i].comments.data[k].profilePicture = "https://graph.facebook.com/" + pagingResponse.data[i].comments.data[k].from.id + "/picture";
                             }
                         }
-                    }
-
-                    if(pagingResponse.data.length != 0){
-                        profileImageLoop();
                     }
 
                     $scope.busy = false;
