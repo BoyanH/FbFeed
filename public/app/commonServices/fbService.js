@@ -1,7 +1,7 @@
 app.factory("FacebookService", function ($location, $q) {
 
-    var id = "1480652358834115",
-        limit = '30',
+    var id = "1441792662746809",
+        limit = '50',
         uid, //user's id
         accessToken,
         userProfilePicture,

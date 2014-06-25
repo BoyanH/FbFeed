@@ -6,9 +6,10 @@ ul.nav.navbar-nav.navbar-right.bell(ng-controller="NotificationsController" ng-s
 				img.notification-bell(src="https://googledrive.com/host/0B_EenlQcPPQvd0ZhX053UTFpX00/Easter-Bell-icon.png" ng-show="notifications.length")
 			ul.notif-box.dropdown-menu(ng-show="notifications.length")
 				li(ng-repeat="notification in notifications")
-					.notif-container(ng-click='goToNotif(notification.id)')
+					.notif-container
 						.notif-img.col-md-2
 							img(ng-src="{{notification.profileImage}}")
 						.notif-content.col-md-9
-							div {{notification.title}}
+							div
+								a(href="{{notification.link}}" target="_blank") {{notification.title}}
 							div.notif-time {{notification.created_time | date:'h:mma MM/dd/yyyy'}}

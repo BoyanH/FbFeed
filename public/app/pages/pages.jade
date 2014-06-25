@@ -21,7 +21,7 @@
                             .row.content(ng-show="page.type=='photo'" style="margin-top:20px;")
                                 div(photo-dir data="page")
                             .row.content(ng-show="page.embedLink || page.type=='video'", style="margin-top:20px;")
-                                div(video-dir data="page")
+                                div(video-dir data="page" style="margin-left:10px;")
                             .row.content(ng-show="page.type=='status'" style="margin-top:10px;")
                                 div(status-dir data="page")
                                         
