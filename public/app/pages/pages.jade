@@ -80,7 +80,7 @@
                                     img(ng-src="{{comment.profilePicture}}" src="")
                                 .col-md-11
                                     h5 
-                                        a(href="https://www.facebook.com/profile.php?id={{comment.from.id}}" target="_blank"){{comment.from.name}}
+                                        a(href="https://www.facebook.com/profile.php?id={{comment.from.id}}" target="_blank") {{comment.from.name}}
                                     p {{comment.message}}
                         .container.comment-section(ng-show="page.wantToComment")
                             .row
