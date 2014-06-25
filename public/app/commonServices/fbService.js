@@ -304,13 +304,14 @@ app.factory("FacebookService", function ($location, $q) {
         getMoreFeed: function(URL){
             var deferred = $q.defer();
 
-            FB.api(URL,
-                {'since':'last month', 'limit': limit},
-                function(reponse){
+            FB.api(
+                URL, {'since':'last month', 'limit': limit},
+                function (response){
                     if(response && !response.error){
                         deferred.resolve(response);
                     }
-                });
+                }
+            );
             return deferred.promise;
         },
         getMorePages: function (URL) {
