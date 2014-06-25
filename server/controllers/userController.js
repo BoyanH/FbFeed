@@ -37,7 +37,7 @@ module.exports = {
         var updatedUser = req.body;
         User.update({_id: req.body._id}, updatedUser, function(err){
             if(err){
-                console.log('Couldnt update user!');
+                console.log('Couldnt update user!' + err);
                 return;
             }
             res.end();
