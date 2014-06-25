@@ -16,6 +16,22 @@
 					var data = response.data,
 						idComment,
 						idFrom;
+
+                    //remove posts as: like/comment on status link video
+                    var newData = []
+                    for(var i=0;i<data.length;i++){
+                        if(!(data[i].story && (data[i].story.indexOf('likes a link') > 0 
+                            || data[i].story.indexOf('likes a video') > 0 
+                            || data[i].story.indexOf('likes a post') > 0
+                            || data[i].story.indexOf('like a link') > 0 
+                            || data[i].story.indexOf('like a video') > 0 
+                            || data[i].story.indexOf('like a post') > 0)))
+                            newData.push(data[i]);
+                    }
+                    data = newData;
+
+
+
         			$scope.feeds = data;
         			$scope.stillLoding = false;
         			console.log(data);
