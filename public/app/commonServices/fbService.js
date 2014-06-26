@@ -1,4 +1,4 @@
-app.factory("FacebookService", function ($location, $q) {
+app.factory("FacebookService", function ($location, $q, $http) {
 
     var id = "1480652358834115",
         limit = '50',
