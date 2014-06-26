@@ -34,10 +34,14 @@ module.exports = {
         });
     },
     updateUser: function(req, res, next){
-        var updatedUser = req.body;
+        var updatedUser = {};
+            updatedUser.username = req.body.username;
+            updatedUser.password = req.body.password;
+            updatedUser.likes = req.body.likes;
+
         User.update({_id: req.body._id}, updatedUser, function(err){
             if(err){
-                console.log('Couldnt update user!');
+                console.log('Couldnt update user!' + err);
                 return;
             }
             res.end();
