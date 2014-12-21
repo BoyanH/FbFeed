@@ -11,7 +11,7 @@
                             img(ng-src="{{page.profileImage}}" src="")
                         .col-md-9
                             h5
-                                a(href="https://www.facebook.com/profile.php?id={{page.from.id}}" target="_blank") {{page.from.name}} 
+                                a(href="https://www.facebook.com/{{page.from.id}}" target="_blank") {{page.from.name}} 
                                 span(ng-show="page.type=='link'") shared link
                                 span(ng-show="page.embedLink || page.type=='video'") added video
                                 span(ng-show="page.type=='photo'") added picture

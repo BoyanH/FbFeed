@@ -65,7 +65,7 @@
                             img(ng-src="{{comment.profilePicture}}" src="")
                         .col-md-11
                             h5
-                                a(href="https://www.facebook.com/profile.php?id={{comment.from.id}}" target="_blank"){{comment.from.name}}
+                                a(href="https://www.facebook.com/{{comment.from.id}}" target="_blank"){{comment.from.name}}
                             p(style="margin-left:10px;") {{comment.message}}
             .row
                 .comment-section(ng-show="status.wantToComment")
